@@ -40,6 +40,20 @@ public class ScarcityItems {
     public static final RegistryObject<Item> CHERRY_SEED = registerWithTab("cherry_seed",
             () -> new SecondaryBlockItem(Blocks.CHERRY_SAPLING, new Item.Properties()));
 
+    public static final RegistryObject<Item> BAMBOO_SEEDS = registerWithTab("bamboo_seeds",
+            () -> new SecondaryBlockItem(Blocks.BAMBOO, new Item.Properties()));
+
+    public static final RegistryObject<Item> CACTUS_SEEDS = registerWithTab("cactus_seeds",
+            () -> new SecondaryBlockItem(Blocks.CACTUS, new Item.Properties()));
+    public static final RegistryObject<Item> SUGAR_CANE_SEEDS = registerWithTab("sugar_cane_seeds",
+            () -> new SecondaryBlockItem(Blocks.SUGAR_CANE, new Item.Properties()));
+    public static final RegistryObject<Item> SWEET_BERRY_SEEDS = registerWithTab("sweet_berry_seeds",
+            () -> new SecondaryBlockItem(Blocks.SWEET_BERRY_BUSH, new Item.Properties()));
+
+    public static final RegistryObject<Item> POTATO_SEEDS = registerWithTab("potato_seeds",
+            () -> new SecondaryBlockItem(Blocks.POTATOES, new Item.Properties()));
+    public static final RegistryObject<Item> CARROT_SEEDS = registerWithTab("carrot_seeds",
+            () -> new SecondaryBlockItem(Blocks.CARROTS, new Item.Properties()));
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
