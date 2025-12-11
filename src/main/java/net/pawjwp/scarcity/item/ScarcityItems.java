@@ -23,65 +23,57 @@ public class ScarcityItems {
         CREATIVE_TAB_ITEMS.add(item);
         return item;
     }
+    public static RegistryObject<Item> registerSeed(String name, ResourceLocation blockID) {
+        RegistryObject<Item> item = ITEMS.register(name, () -> {
+            var block = ForgeRegistries.BLOCKS.getValue(blockID);
 
-    /*public static RegistryObject<Item> modConditionalRegisterWithTab(String name, Supplier<Item> supplier, String modID) {
-        if (ModList.get().isLoaded(modID)) {
-            registerWithTab(name, supplier);
-        }
-        return null;
-    }*/
+            if (block == null || block == Blocks.AIR) {
+                return new Item(new Item.Properties());
+            }
 
-    public static RegistryObject<Item> blockConditionalRegisterWithTab(String name, Supplier<Item> supplier, ResourceLocation blockID) {
-        if (ForgeRegistries.BLOCKS.containsKey(blockID)) {
-            registerWithTab(name, supplier);
-        }
-        return null;
+            return new SecondaryBlockItem(block, new Item.Properties());
+        });
+
+        CREATIVE_TAB_ITEMS.add(item);
+        return item;
     }
 
 
     // Item registry
-    public static final RegistryObject<Item> OAK_SEED = registerWithTab("oak_seed",
-            () -> new SecondaryBlockItem(Blocks.OAK_SAPLING, new Item.Properties()));
-    public static final RegistryObject<Item> SPRUCE_SEED = registerWithTab("spruce_seed",
-            () -> new SecondaryBlockItem(Blocks.SPRUCE_SAPLING, new Item.Properties()));
-    public static final RegistryObject<Item> BIRCH_SEED = registerWithTab("birch_seed",
-            () -> new SecondaryBlockItem(Blocks.BIRCH_SAPLING, new Item.Properties()));
-    public static final RegistryObject<Item> JUNGLE_SEED = registerWithTab("jungle_seed",
-            () -> new SecondaryBlockItem(Blocks.JUNGLE_SAPLING, new Item.Properties()));
-    public static final RegistryObject<Item> ACACIA_SEED = registerWithTab("acacia_seed",
-            () -> new SecondaryBlockItem(Blocks.ACACIA_SAPLING, new Item.Properties()));
-    public static final RegistryObject<Item> DARK_OAK_SEED = registerWithTab("dark_oak_seed",
-            () -> new SecondaryBlockItem(Blocks.DARK_OAK_SAPLING, new Item.Properties()));
-    public static final RegistryObject<Item> CHERRY_SEED = registerWithTab("cherry_seed",
-            () -> new SecondaryBlockItem(Blocks.CHERRY_SAPLING, new Item.Properties()));
+    public static final RegistryObject<Item> OAK_SEED = registerSeed("oak_seed",
+            ForgeRegistries.BLOCKS.getKey(Blocks.OAK_SAPLING));
+    public static final RegistryObject<Item> SPRUCE_SEED = registerSeed("spruce_seed",
+            ForgeRegistries.BLOCKS.getKey(Blocks.SPRUCE_SAPLING));
+    public static final RegistryObject<Item> BIRCH_SEED = registerSeed("birch_seed",
+            ForgeRegistries.BLOCKS.getKey(Blocks.BIRCH_SAPLING));
+    public static final RegistryObject<Item> JUNGLE_SEED = registerSeed("jungle_seed",
+            ForgeRegistries.BLOCKS.getKey(Blocks.JUNGLE_SAPLING));
+    public static final RegistryObject<Item> ACACIA_SEED = registerSeed("acacia_seed",
+            ForgeRegistries.BLOCKS.getKey(Blocks.ACACIA_SAPLING));
+    public static final RegistryObject<Item> DARK_OAK_SEED = registerSeed("dark_oak_seed",
+            ForgeRegistries.BLOCKS.getKey(Blocks.DARK_OAK_SAPLING));
+    public static final RegistryObject<Item> CHERRY_SEED = registerSeed("cherry_seed",
+            ForgeRegistries.BLOCKS.getKey(Blocks.CHERRY_SAPLING));
 
-    public static final RegistryObject<Item> BAMBOO_SEEDS = registerWithTab("bamboo_seeds",
-            () -> new SecondaryBlockItem(Blocks.BAMBOO, new Item.Properties()));
+    public static final RegistryObject<Item> BAMBOO_SEEDS = registerSeed("bamboo_seeds",
+            ForgeRegistries.BLOCKS.getKey(Blocks.BAMBOO));
 
-    public static final RegistryObject<Item> CACTUS_SEEDS = registerWithTab("cactus_seeds",
-            () -> new SecondaryBlockItem(Blocks.CACTUS, new Item.Properties()));
-    public static final RegistryObject<Item> SUGAR_CANE_SEEDS = registerWithTab("sugar_cane_seeds",
-            () -> new SecondaryBlockItem(Blocks.SUGAR_CANE, new Item.Properties()));
-    public static final RegistryObject<Item> SWEET_BERRY_SEEDS = registerWithTab("sweet_berry_seeds",
-            () -> new SecondaryBlockItem(Blocks.SWEET_BERRY_BUSH, new Item.Properties()));
+    public static final RegistryObject<Item> CACTUS_SEEDS = registerSeed("cactus_seeds",
+            ForgeRegistries.BLOCKS.getKey(Blocks.CACTUS));
+    public static final RegistryObject<Item> SUGAR_CANE_SEEDS = registerSeed("sugar_cane_seeds",
+            ForgeRegistries.BLOCKS.getKey(Blocks.SUGAR_CANE));
+    public static final RegistryObject<Item> SWEET_BERRY_SEEDS = registerSeed("sweet_berry_seeds",
+            ForgeRegistries.BLOCKS.getKey(Blocks.SWEET_BERRY_BUSH));
 
-    public static final RegistryObject<Item> POTATO_SEEDS = registerWithTab("potato_seeds",
-            () -> new SecondaryBlockItem(Blocks.POTATOES, new Item.Properties()));
-    public static final RegistryObject<Item> CARROT_SEEDS = registerWithTab("carrot_seeds",
-            () -> new SecondaryBlockItem(Blocks.CARROTS, new Item.Properties()));
+    public static final RegistryObject<Item> POTATO_SEEDS = registerSeed("potato_seeds",
+            ForgeRegistries.BLOCKS.getKey(Blocks.POTATOES));
+    public static final RegistryObject<Item> CARROT_SEEDS = registerSeed("carrot_seeds",
+            ForgeRegistries.BLOCKS.getKey(Blocks.CARROTS));
 
-    public static final RegistryObject<Item> RUBBERWOOD_SEED = blockConditionalRegisterWithTab("rubberwood_seed",
-            () -> new SecondaryBlockItem(
-                    ForgeRegistries.BLOCKS.getValue(ResourceLocation.fromNamespaceAndPath("thermal", "rubberwood_sapling")), new Item.Properties()
-            ),
-            ResourceLocation.fromNamespaceAndPath("thermal", "rubberwood_sapling")
-    );
-    public static final RegistryObject<Item> ONION_SEEDS = blockConditionalRegisterWithTab("onion_seeds",
-            () -> new SecondaryBlockItem(
-                    ForgeRegistries.BLOCKS.getValue(ResourceLocation.fromNamespaceAndPath("farmersdelight", "onions")), new Item.Properties()
-            ),
-            ResourceLocation.fromNamespaceAndPath("farmersdelight", "onions")
-    );
+    public static final RegistryObject<Item> RUBBERWOOD_SEED = registerSeed("rubberwood_seed",
+            ResourceLocation.parse("thermal:rubberwood_sapling"));
+    public static final RegistryObject<Item> ONION_SEEDS = registerSeed("onion_seeds",
+            ResourceLocation.parse("farmersdelight:onions"));
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
