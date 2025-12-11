@@ -1,9 +1,10 @@
 package net.pawjwp.scarcity.item;
 
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -22,6 +23,13 @@ public class ScarcityItems {
         RegistryObject<Item> item = ITEMS.register(name, supplier);
         CREATIVE_TAB_ITEMS.add(item);
         return item;
+    }
+
+    public static RegistryObject<Item> modConditionalRegisterWithTab(String name, Supplier<Item> supplier, String modID) {
+        if (ModList.get().isLoaded(modID)) {
+            registerWithTab(name, supplier);
+        }
+        return null;
     }
 
     // Item registry
@@ -54,6 +62,13 @@ public class ScarcityItems {
             () -> new SecondaryBlockItem(Blocks.POTATOES, new Item.Properties()));
     public static final RegistryObject<Item> CARROT_SEEDS = registerWithTab("carrot_seeds",
             () -> new SecondaryBlockItem(Blocks.CARROTS, new Item.Properties()));
+
+    public static final RegistryObject<Item> ONION_SEEDS = modConditionalRegisterWithTab("onion_seeds",
+            () -> new SecondaryBlockItem(
+                    ForgeRegistries.BLOCKS.getValue(ResourceLocation.fromNamespaceAndPath("farmersdelight", "onions")), new Item.Properties()
+            ),
+            "farmersdelight"
+    );
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
