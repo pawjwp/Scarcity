@@ -3,7 +3,9 @@
   "minVersion": "0.8",
   "package": "net.pawjwp.scarcity.mixin",
   "refmap": "mixins.scarcity.refmap.json",
-  "mixins": [],
+  "mixins": [
+    "BottleItemMixin"
+  ],
   "client": [],
   "server": [],
   "verbose": true
