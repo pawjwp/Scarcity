@@ -32,7 +32,7 @@ public class ScarcityItemModels extends ItemModelProvider {
         // items.remove(ScarcityItems.EXAMPLE_ITEM.get());
 
         // Blocks whose items look alike
-        takeAll(items, i -> i instanceof BlockItem).forEach(item -> blockBasedModel(item, ""));
+        // takeAll(items, i -> i instanceof BlockItem).forEach(item -> blockBasedModel(item, ""));
 
         // Remaining items
         items.forEach(item -> itemGeneratedModel(item, resourceItem(itemName(item))));

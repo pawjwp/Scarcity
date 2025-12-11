@@ -1,6 +1,8 @@
 package net.pawjwp.scarcity.item;
 
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -17,26 +19,27 @@ public class ScarcityItems {
             DeferredRegister.create(ForgeRegistries.ITEMS, Scarcity.MOD_ID);
 
     public static RegistryObject<Item> registerWithTab(String name, Supplier<Item> supplier) {
-        RegistryObject<Item> block = ITEMS.register(name, supplier);
-        CREATIVE_TAB_ITEMS.add(block);
-        return block;
+        RegistryObject<Item> item = ITEMS.register(name, supplier);
+        CREATIVE_TAB_ITEMS.add(item);
+        return item;
     }
 
     // Item registry
     public static final RegistryObject<Item> OAK_SEED = registerWithTab("oak_seed",
-            () -> new Item(new Item.Properties()));
+            () -> new SecondaryBlockItem(Blocks.OAK_SAPLING, new Item.Properties()));
     public static final RegistryObject<Item> SPRUCE_SEED = registerWithTab("spruce_seed",
-            () -> new Item(new Item.Properties()));
+            () -> new SecondaryBlockItem(Blocks.SPRUCE_SAPLING, new Item.Properties()));
     public static final RegistryObject<Item> BIRCH_SEED = registerWithTab("birch_seed",
-            () -> new Item(new Item.Properties()));
+            () -> new SecondaryBlockItem(Blocks.BIRCH_SAPLING, new Item.Properties()));
     public static final RegistryObject<Item> JUNGLE_SEED = registerWithTab("jungle_seed",
-            () -> new Item(new Item.Properties()));
+            () -> new SecondaryBlockItem(Blocks.JUNGLE_SAPLING, new Item.Properties()));
     public static final RegistryObject<Item> ACACIA_SEED = registerWithTab("acacia_seed",
-            () -> new Item(new Item.Properties()));
+            () -> new SecondaryBlockItem(Blocks.ACACIA_SAPLING, new Item.Properties()));
     public static final RegistryObject<Item> DARK_OAK_SEED = registerWithTab("dark_oak_seed",
-            () -> new Item(new Item.Properties()));
+            () -> new SecondaryBlockItem(Blocks.DARK_OAK_SAPLING, new Item.Properties()));
     public static final RegistryObject<Item> CHERRY_SEED = registerWithTab("cherry_seed",
-            () -> new Item(new Item.Properties()));
+            () -> new SecondaryBlockItem(Blocks.CHERRY_SAPLING, new Item.Properties()));
+
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
