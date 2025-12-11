@@ -4,7 +4,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.ModList;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -25,12 +24,20 @@ public class ScarcityItems {
         return item;
     }
 
-    public static RegistryObject<Item> modConditionalRegisterWithTab(String name, Supplier<Item> supplier, String modID) {
+    /*public static RegistryObject<Item> modConditionalRegisterWithTab(String name, Supplier<Item> supplier, String modID) {
         if (ModList.get().isLoaded(modID)) {
             registerWithTab(name, supplier);
         }
         return null;
+    }*/
+
+    public static RegistryObject<Item> blockConditionalRegisterWithTab(String name, Supplier<Item> supplier, ResourceLocation blockID) {
+        if (ForgeRegistries.BLOCKS.containsKey(blockID)) {
+            registerWithTab(name, supplier);
+        }
+        return null;
     }
+
 
     // Item registry
     public static final RegistryObject<Item> OAK_SEED = registerWithTab("oak_seed",
@@ -63,11 +70,17 @@ public class ScarcityItems {
     public static final RegistryObject<Item> CARROT_SEEDS = registerWithTab("carrot_seeds",
             () -> new SecondaryBlockItem(Blocks.CARROTS, new Item.Properties()));
 
-    public static final RegistryObject<Item> ONION_SEEDS = modConditionalRegisterWithTab("onion_seeds",
+    public static final RegistryObject<Item> RUBBERWOOD_SEED = blockConditionalRegisterWithTab("rubberwood_seed",
+            () -> new SecondaryBlockItem(
+                    ForgeRegistries.BLOCKS.getValue(ResourceLocation.fromNamespaceAndPath("thermal", "rubberwood_sapling")), new Item.Properties()
+            ),
+            ResourceLocation.fromNamespaceAndPath("thermal", "rubberwood_sapling")
+    );
+    public static final RegistryObject<Item> ONION_SEEDS = blockConditionalRegisterWithTab("onion_seeds",
             () -> new SecondaryBlockItem(
                     ForgeRegistries.BLOCKS.getValue(ResourceLocation.fromNamespaceAndPath("farmersdelight", "onions")), new Item.Properties()
             ),
-            "farmersdelight"
+            ResourceLocation.fromNamespaceAndPath("farmersdelight", "onions")
     );
 
     public static void register(IEventBus eventBus) {
