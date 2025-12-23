@@ -5,7 +5,8 @@
   "refmap": "mixins.scarcity.refmap.json",
   "mixins": [
     "BottleItemMixin",
-    "FallingBlockEntityMixin"
+    "FallingBlockEntityMixin",
+    "PlayerMixin"
   ],
   "client": [],
   "server": [],
