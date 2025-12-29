@@ -15,23 +15,21 @@ public class PlayerMixin {
     private static float EXHAUSTION_JUMP_SPRINTING = 0.2F; // vanilla: 0.2
     private static float EXHAUSTION_JUMP_WALKING = 0.05F; // vanilla: 0.05
 
-    // Attacking
+    // Combat
     private static float EXHAUSTION_ATTACK_HIT = 0.1F; // vanilla: 0.1
-
     // Movement (per cm)
     private static float EXHAUSTION_SWIM_ONE_CM              = 0.0001F; // vanilla: 0.0001
-    private static float EXHAUSTION_WALK_UNDERWATER_ONE_CM   = 0.0001F; // vanilla: 0.0001
-    private static float EXHAUSTION_WALK_ON_WATER_ONE_CM     = 0.0001F; // vanilla: 0.0001
-    private static float EXHAUSTION_CLIMB_ONE_CM             = 0.0F; // vanilla: 0.0
-    private static float EXHAUSTION_SPRINT_ONE_CM            = 0.001F; // vanilla: 0.001
-    private static float EXHAUSTION_WALK_ONE_CM              = 0.0F; // vanilla: 0.0
-    private static float EXHAUSTION_CROUCH_ONE_CM            = 0.0F; // vanilla: 0.0
-    private static float EXHAUSTION_AVIATE_ONE_CM            = 0.0F; // vanilla: 0.0
-    private static float EXHAUSTION_FLY_ONE_CM               = 0.0F; // vanilla: 0.0
-
-    // Damage multiplier
     private static float EXHAUSTION_DAMAGE_MULTIPLIER = 1.0F; // vanilla: 1.0
 
+    // Movement (per block)
+    private static float EXHAUSTION_SWIM_ONE_BLOCK              = 0.01F; // vanilla: 0.01
+    private static float EXHAUSTION_WALK_UNDERWATER_ONE_BLOCK   = 0.01F; // vanilla: 0.01
+    private static float EXHAUSTION_WALK_ON_WATER_ONE_BLOCK     = 0.01F; // vanilla: 0.01
+    private static float EXHAUSTION_CLIMB_ONE_BLOCK             = 0.0F; // vanilla: 0.0
+    private static float EXHAUSTION_SPRINT_ONE_BLOCK            = 0.1F; // vanilla: 0.1
+    private static float EXHAUSTION_WALK_ONE_BLOCK              = 0.0F; // vanilla: 0.0
+    private static float EXHAUSTION_CROUCH_ONE_BLOCK            = 0.0F; // vanilla: 0.0
+    private static float EXHAUSTION_AVIATE_ONE_BLOCK            = 0.0F; // vanilla: 0.0
 
     @ModifyArg(
             method = "jumpFromGround()V",
