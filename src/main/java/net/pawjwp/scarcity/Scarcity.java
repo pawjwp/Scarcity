@@ -10,9 +10,11 @@ import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.pawjwp.scarcity.config.ScarcityConfig;
 import net.pawjwp.scarcity.item.ScarcityCreativeTabs;
 import net.pawjwp.scarcity.item.ScarcityItems;
 import org.slf4j.Logger;
@@ -42,6 +44,11 @@ public class Scarcity
 
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
+
+        // Register config
+        context.registerConfig(ModConfig.Type.COMMON, ScarcityConfig.COMMON_SPEC);
+        modEventBus.addListener(ScarcityConfig::onLoad);
+        modEventBus.addListener(ScarcityConfig::onReload);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event)
