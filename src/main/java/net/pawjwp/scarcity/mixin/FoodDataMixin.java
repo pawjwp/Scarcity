@@ -2,6 +2,7 @@ package net.pawjwp.scarcity.mixin;
 
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodData;
+import net.pawjwp.scarcity.config.ScarcityConfig;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -15,31 +16,13 @@ import org.spongepowered.asm.mixin.injection.Constant;
 @Mixin(FoodData.class)
 public abstract class FoodDataMixin {
 
-    // Fast Regeneration
-    private static int FAST_REGEN_FOOD_THRESHOLD = 20; // default: 20
-    private static int FAST_REGEN_INTERVAL_TICKS = 10; // default: 10
-    private static float FAST_REGEN_SATURATION_CAP = 6.0F; // default: 6.0
-    private static float FAST_REGEN_EXHAUSTION_MULT = 1.0F; // default: 1.0
-
-    // Slow Regeneration
-    private static int SLOW_REGEN_FOOD_THRESHOLD = 18; // default: 18, Combat tests: 7
-    private static int SLOW_REGEN_INTERVAL_TICKS = 80; // default: 80
-    private static float SLOW_REGEN_HEAL_AMOUNT = 1.0F; // default: 1.0
-    private static float SLOW_REGEN_EXHAUSTION = 6.0F; // default: 6.0
-
-    // Other
-    private static float EXHAUSTION_STEP = 4.0F; // default: 4.0
-    private static float PASSIVE_EXHAUSTION_PER_TICK = 0.0F; // default: 0.0
-
-
-
     @Shadow public abstract void addExhaustion(float exhaustion);
 
     // Other
     @Inject(method = "tick", at = @At("HEAD"))
     private void scarcity$passiveExhaustion(Player player, CallbackInfo ci) {
-        if (!player.level().isClientSide && PASSIVE_EXHAUSTION_PER_TICK != 0.0F) {
-            this.addExhaustion(PASSIVE_EXHAUSTION_PER_TICK);
+        if (!player.level().isClientSide && ScarcityConfig.passiveExhaustionPerTick != 0.0F) {
+            this.addExhaustion(ScarcityConfig.passiveExhaustionPerTick);
         }
     }
 
@@ -52,7 +35,7 @@ public abstract class FoodDataMixin {
             )
     )
     private float scarcity$exhaustionStep(float original) {
-        return EXHAUSTION_STEP;
+        return ScarcityConfig.exhaustionStep;
     }
 
 
@@ -67,7 +50,7 @@ public abstract class FoodDataMixin {
             )
     )
     private int scarcity$fastRegenFoodThreshold(int original) {
-        return FAST_REGEN_FOOD_THRESHOLD;
+        return ScarcityConfig.fastRegenFoodThreshold;
     }
 
     @ModifyConstant(
@@ -79,7 +62,7 @@ public abstract class FoodDataMixin {
             )
     )
     private int scarcity$fastRegenInterval(int original) {
-        return FAST_REGEN_INTERVAL_TICKS;
+        return ScarcityConfig.fastRegenIntervalTicks;
     }
 
     @ModifyConstant(
@@ -91,7 +74,7 @@ public abstract class FoodDataMixin {
             )
     )
     private float scarcity$fastRegenSaturationCap(float original) {
-        return FAST_REGEN_SATURATION_CAP;
+        return ScarcityConfig.fastRegenSaturationCap;
     }
 
     @ModifyArg(
@@ -100,7 +83,7 @@ public abstract class FoodDataMixin {
             index = 0
     )
     private float scarcity$fastRegenExhaustionMult(float original) {
-        return original * FAST_REGEN_EXHAUSTION_MULT;
+        return original * ScarcityConfig.fastRegenExhaustionMultiplier;
     }
 
 
@@ -112,7 +95,7 @@ public abstract class FoodDataMixin {
             require = 0
     )
     private int scarcity$slowRegenFoodThreshold(int original) {
-        return SLOW_REGEN_FOOD_THRESHOLD;
+        return ScarcityConfig.slowRegenFoodThreshold;
     }
 
     @ModifyConstant(
@@ -124,7 +107,7 @@ public abstract class FoodDataMixin {
             )
     )
     private int scarcity$slowRegenInterval(int original) {
-        return SLOW_REGEN_INTERVAL_TICKS;
+        return ScarcityConfig.slowRegenIntervalTicks;
     }
 
     @ModifyConstant(
@@ -136,7 +119,7 @@ public abstract class FoodDataMixin {
             )
     )
     private float scarcity$slowRegenHealAmount(float original) {
-        return SLOW_REGEN_HEAL_AMOUNT;
+        return ScarcityConfig.slowRegenHealAmount;
     }
 
     @ModifyArg(
@@ -145,6 +128,6 @@ public abstract class FoodDataMixin {
             index = 0
     )
     private float scarcity$slowRegenExhaustion(float original) {
-        return SLOW_REGEN_EXHAUSTION;
+        return ScarcityConfig.slowRegenExhaustion;
     }
 }
