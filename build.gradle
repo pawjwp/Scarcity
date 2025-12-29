@@ -168,6 +168,12 @@ repositories {
             includeGroup "maven.modrinth"
         }
     }
+    maven {
+        url = "https://www.cursemaven.com"
+        content {
+            includeGroup "curse.maven"
+        }
+    }
 }
 
 dependencies {
@@ -187,6 +193,7 @@ dependencies {
     runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
     runtimeOnly fg.deobf("maven.modrinth:jade:${jade_version}")
     runtimeOnly fg.deobf("maven.modrinth:appleskin:${appleskin_version}")
+    runtimeOnly fg.deobf("curse.maven:configured-457570:${configured_version}")
 
     runtimeOnly fg.deobf("maven.modrinth:farmers-delight:${fd_version}")
     runtimeOnly fg.deobf("maven.modrinth:thirst-was-taken:${twt_version}")
