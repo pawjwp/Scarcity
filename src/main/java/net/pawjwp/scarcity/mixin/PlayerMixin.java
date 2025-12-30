@@ -3,6 +3,7 @@ package net.pawjwp.scarcity.mixin;
 import net.minecraft.stats.Stats;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.entity.player.Player;
+import net.pawjwp.scarcity.config.ScarcityConfig;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.injection.At;
@@ -11,26 +12,6 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 @Mixin(Player.class)
 public class PlayerMixin {
 
-    // Jumping
-    private static float EXHAUSTION_JUMP_SPRINTING = 0.2F; // vanilla: 0.2
-    private static float EXHAUSTION_JUMP_WALKING = 0.05F; // vanilla: 0.05
-
-    // Combat
-    private static float EXHAUSTION_ATTACK_HIT = 0.1F; // vanilla: 0.1
-    // Movement (per cm)
-    private static float EXHAUSTION_SWIM_ONE_CM              = 0.0001F; // vanilla: 0.0001
-    private static float EXHAUSTION_DAMAGE_MULTIPLIER = 1.0F; // vanilla: 1.0
-
-    // Movement (per block)
-    private static float EXHAUSTION_SWIM_ONE_BLOCK              = 0.01F; // vanilla: 0.01
-    private static float EXHAUSTION_WALK_UNDERWATER_ONE_BLOCK   = 0.01F; // vanilla: 0.01
-    private static float EXHAUSTION_WALK_ON_WATER_ONE_BLOCK     = 0.01F; // vanilla: 0.01
-    private static float EXHAUSTION_CLIMB_ONE_BLOCK             = 0.0F; // vanilla: 0.0
-    private static float EXHAUSTION_SPRINT_ONE_BLOCK            = 0.1F; // vanilla: 0.1
-    private static float EXHAUSTION_WALK_ONE_BLOCK              = 0.0F; // vanilla: 0.0
-    private static float EXHAUSTION_CROUCH_ONE_BLOCK            = 0.0F; // vanilla: 0.0
-    private static float EXHAUSTION_AVIATE_ONE_BLOCK            = 0.0F; // vanilla: 0.0
-
     @ModifyArg(
             method = "jumpFromGround()V",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;causeFoodExhaustion(F)V"),
@@ -38,7 +19,7 @@ public class PlayerMixin {
     )
     private float scarcity$jumpExhaustion(float vanilla) {
         Player self = (Player)(Object)this;
-        return self.isSprinting() ? EXHAUSTION_JUMP_SPRINTING : EXHAUSTION_JUMP_WALKING;
+        return self.isSprinting() ? ScarcityConfig.exhaustionJumpSprinting : ScarcityConfig.exhaustionJumpWalking;
     }
 
     @ModifyArg(
@@ -48,7 +29,7 @@ public class PlayerMixin {
             require = 0
     )
     private float scarcity$attackExhaustion(float vanilla) {
-        return EXHAUSTION_ATTACK_HIT;
+        return ScarcityConfig.exhaustionAttackHit;
     }
 
     @ModifyArg(
@@ -58,7 +39,7 @@ public class PlayerMixin {
             require = 0
     )
     private float scarcity$damageExhaustion(float vanilla) {
-        return vanilla * EXHAUSTION_DAMAGE_MULTIPLIER;
+        return vanilla * ScarcityConfig.exhaustionDamageMultiplier;
     }
 
     /**
@@ -74,49 +55,49 @@ public class PlayerMixin {
                 int i = Math.round((float) Math.sqrt(pDistanceX * pDistanceX + pDistanceY * pDistanceY + pDistanceZ * pDistanceZ) * 100.0F);
                 if (i > 0) {
                     self.awardStat(Stats.SWIM_ONE_CM, i);
-                    self.causeFoodExhaustion(EXHAUSTION_SWIM_ONE_CM * (float) i);
+                    self.causeFoodExhaustion(ScarcityConfig.exhaustionSwimOneBlock * (float) i * 0.01F);
                 }
             } else if (self.isEyeInFluid(FluidTags.WATER)) {
                 int j = Math.round((float) Math.sqrt(pDistanceX * pDistanceX + pDistanceY * pDistanceY + pDistanceZ * pDistanceZ) * 100.0F);
                 if (j > 0) {
                     self.awardStat(Stats.WALK_UNDER_WATER_ONE_CM, j);
-                    self.causeFoodExhaustion(EXHAUSTION_WALK_UNDERWATER_ONE_CM * (float) j);
+                    self.causeFoodExhaustion(ScarcityConfig.exhaustionWalkUnderwaterOneBlock * (float) j * 0.01F);
                 }
             } else if (self.isInWater()) {
                 int k = Math.round((float) Math.sqrt(pDistanceX * pDistanceX + pDistanceZ * pDistanceZ) * 100.0F);
                 if (k > 0) {
                     self.awardStat(Stats.WALK_ON_WATER_ONE_CM, k);
-                    self.causeFoodExhaustion(EXHAUSTION_WALK_ON_WATER_ONE_CM * (float) k);
+                    self.causeFoodExhaustion(ScarcityConfig.exhaustionWalkOnWaterOneBlock * (float) k * 0.01F);
                 }
             } else if (self.onClimbable()) {
                 int cm = (int) Math.round(pDistanceY * 100.0D);
                 if (pDistanceY > 0.0D) {
                     self.awardStat(Stats.CLIMB_ONE_CM, cm);
-                    self.causeFoodExhaustion(EXHAUSTION_CLIMB_ONE_CM * (float) cm);
+                    self.causeFoodExhaustion(ScarcityConfig.exhaustionClimbOneBlock * (float) cm * 0.01F);
                 }
             } else if (self.onGround()) {
                 int l = Math.round((float) Math.sqrt(pDistanceX * pDistanceX + pDistanceZ * pDistanceZ) * 100.0F);
                 if (l > 0) {
                     if (self.isSprinting()) {
                         self.awardStat(Stats.SPRINT_ONE_CM, l);
-                        self.causeFoodExhaustion(EXHAUSTION_SPRINT_ONE_CM * (float) l);
+                        self.causeFoodExhaustion(ScarcityConfig.exhaustionSprintOneBlock * (float) l * 0.01F);
                     } else if (self.isCrouching()) {
                         self.awardStat(Stats.CROUCH_ONE_CM, l);
-                        self.causeFoodExhaustion(EXHAUSTION_CROUCH_ONE_CM * (float) l);
+                        self.causeFoodExhaustion(ScarcityConfig.exhaustionCrouchOneBlock * (float) l * 0.01F);
                     } else {
                         self.awardStat(Stats.WALK_ONE_CM, l);
-                        self.causeFoodExhaustion(EXHAUSTION_WALK_ONE_CM * (float) l);
+                        self.causeFoodExhaustion(ScarcityConfig.exhaustionWalkOneBlock * (float) l * 0.01F);
                     }
                 }
             } else if (self.isFallFlying()) {
                 int i1 = Math.round((float) Math.sqrt(pDistanceX * pDistanceX + pDistanceY * pDistanceY + pDistanceZ * pDistanceZ) * 100.0F);
                 self.awardStat(Stats.AVIATE_ONE_CM, i1);
-                self.causeFoodExhaustion(EXHAUSTION_AVIATE_ONE_CM * (float) i1);
+                self.causeFoodExhaustion(ScarcityConfig.exhaustionAviateOneBlock * (float) i1 * 0.01F);
             } else {
                 int j1 = Math.round((float) Math.sqrt(pDistanceX * pDistanceX + pDistanceZ * pDistanceZ) * 100.0F);
                 if (j1 > 25) {
                     self.awardStat(Stats.FLY_ONE_CM, j1);
-                    self.causeFoodExhaustion(EXHAUSTION_FLY_ONE_CM * (float) j1);
+                    self.causeFoodExhaustion(ScarcityConfig.exhaustionFlyOneBlock * (float) j1 * 0.01F);
                 }
             }
 
