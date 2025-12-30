@@ -52,6 +52,10 @@ public class ScarcityConfig {
     public static float exhaustionAviateOneBlock;
     public static float exhaustionFlyOneBlock;
 
+    // misc tweaks
+    public static boolean enableBottlePickupAdjustments;
+    public static boolean enableFallingBlockBreakingAdjustments;
+
     public static void onLoad(final ModConfigEvent.Loading event) {
         if (event.getConfig().getSpec() == COMMON_SPEC) {
             bakeConfig();
@@ -99,6 +103,10 @@ public class ScarcityConfig {
         exhaustionCrouchOneBlock = COMMON.crouchOneBlock.get().floatValue();
         exhaustionAviateOneBlock = COMMON.aviateOneBlock.get().floatValue();
         exhaustionFlyOneBlock = COMMON.flyOneBlock.get().floatValue();
+
+        // misc tweaks
+        enableBottlePickupAdjustments = COMMON.enableBottlePickupAdjustments.get();
+        enableFallingBlockBreakingAdjustments = COMMON.enableFallingBlockBreakingAdjustments.get();
     }
 
     public static class CommonConfig {
@@ -136,6 +144,10 @@ public class ScarcityConfig {
         public final ForgeConfigSpec.DoubleValue crouchOneBlock;
         public final ForgeConfigSpec.DoubleValue aviateOneBlock;
         public final ForgeConfigSpec.DoubleValue flyOneBlock;
+
+        // misc tweaks;
+        public final ForgeConfigSpec.BooleanValue enableBottlePickupAdjustments;
+        public final ForgeConfigSpec.BooleanValue enableFallingBlockBreakingAdjustments;
 
         public CommonConfig(ForgeConfigSpec.Builder builder) {
             builder.push("food");
@@ -257,6 +269,18 @@ public class ScarcityConfig {
 
             builder.pop(); // exhaustion
             builder.pop(); // food
+
+            builder.push("misc");
+
+            enableBottlePickupAdjustments = builder
+                    .comment("Enable water bottle pickup adjustments, requiring 4 bottles to fill, and replacing the water source block")
+                    .define("enable_bottle_pickup_adjustments", false);
+
+            enableFallingBlockBreakingAdjustments = builder
+                    .comment("Enable falling block adjustments, giving falling blocks a chance to break the partial blocks they land on")
+                    .define("enable_falling_block_breaking_adjustments", true);
+
+            builder.pop(); // misc
         }
     }
 }

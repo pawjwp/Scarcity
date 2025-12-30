@@ -16,6 +16,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 
+import net.pawjwp.scarcity.config.ScarcityConfig;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -57,6 +58,10 @@ public abstract class BottleItemMixin extends Item {
             BlockHitResult hitResult,
             BlockPos blockPos
     ) {
+        if (!ScarcityConfig.enableBottlePickupAdjustments) {
+            return;
+        }
+
         if (itemstack.getCount() < 4) {
             cir.setReturnValue(InteractionResultHolder.pass(itemstack));
             cir.cancel();
