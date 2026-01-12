@@ -22,7 +22,7 @@ public class FallingBlockEntityMixin {
         if (hardness < 0) return; // negative hardness is unbreakable
 
         // blocks with a hardness of 0 always break, high hardness blocks rarely break
-        double breakChance = (1.0 / (1.0 + Math.pow(hardness * 2, 1.5)));
+        double breakChance = (1.0 / (1.0 + hardness));
 
         if (level.random.nextDouble() <= breakChance) {
             level.destroyBlock(pos, true);
