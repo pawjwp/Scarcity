@@ -68,11 +68,6 @@ public abstract class BottleItemMixin extends Item {
             return;
         }
 
-        if (!level.isClientSide) {
-            level.setBlock(blockPos, Blocks.AIR.defaultBlockState(), 11);
-            level.gameEvent(player, GameEvent.FLUID_PICKUP, blockPos);
-        }
-
         // Turn 4 empty bottles into water bottles
         ItemStack currentStack = itemstack;
 
@@ -82,6 +77,11 @@ public abstract class BottleItemMixin extends Item {
                     Potions.WATER
             );
             currentStack = this.turnBottleIntoItem(currentStack, player, waterPotion);
+        }
+
+        if (!level.isClientSide) {
+            level.setBlock(blockPos, Blocks.AIR.defaultBlockState(), 11);
+            level.gameEvent(player, GameEvent.FLUID_PICKUP, blockPos);
         }
 
         // Return the new stack
