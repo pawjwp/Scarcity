@@ -55,6 +55,7 @@ public class ScarcityConfig {
     // misc tweaks
     public static boolean enableBottlePickupAdjustments;
     public static boolean enableFallingBlockBreakingAdjustments;
+    public static boolean enableZombieVillagerCuring;
 
     public static void onLoad(final ModConfigEvent.Loading event) {
         if (event.getConfig().getSpec() == COMMON_SPEC) {
@@ -107,6 +108,7 @@ public class ScarcityConfig {
         // misc tweaks
         enableBottlePickupAdjustments = COMMON.enableBottlePickupAdjustments.get();
         enableFallingBlockBreakingAdjustments = COMMON.enableFallingBlockBreakingAdjustments.get();
+        enableZombieVillagerCuring = COMMON.enableZombieVillagerCuring.get();
     }
 
     public static class CommonConfig {
@@ -148,6 +150,7 @@ public class ScarcityConfig {
         // misc tweaks;
         public final ForgeConfigSpec.BooleanValue enableBottlePickupAdjustments;
         public final ForgeConfigSpec.BooleanValue enableFallingBlockBreakingAdjustments;
+        public final ForgeConfigSpec.BooleanValue enableZombieVillagerCuring;
 
         public CommonConfig(ForgeConfigSpec.Builder builder) {
             builder.push("food");
@@ -279,6 +282,10 @@ public class ScarcityConfig {
             enableFallingBlockBreakingAdjustments = builder
                     .comment("Enable falling block adjustments, giving falling blocks a chance to break the partial blocks they land on")
                     .define("enable_falling_block_breaking_adjustments", true);
+
+            enableZombieVillagerCuring = builder
+                    .comment("Enable zombie villager conversion, disable to prevent zombie villagers from being cured")
+                    .define("enable_zombie_villager_curing", true);
 
             builder.pop(); // misc
         }
