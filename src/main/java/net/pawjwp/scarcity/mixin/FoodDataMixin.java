@@ -21,7 +21,14 @@ public abstract class FoodDataMixin {
 
     // Other
 
-    @Inject(method = "tick", at = @At("HEAD"))
+    // Passive exhaustion
+    @Inject(
+            method = "tick",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/world/level/GameRules;getBoolean(Lnet/minecraft/world/level/GameRules$Key;)Z"
+            )
+    )
     private void scarcity$passiveExhaustion(Player player, CallbackInfo ci) {
         if (!player.level().isClientSide && ScarcityConfig.passiveExhaustionPerTick != 0.0F) {
             this.addExhaustion(ScarcityConfig.passiveExhaustionPerTick);
@@ -93,11 +100,7 @@ public abstract class FoodDataMixin {
 
     @ModifyArg(
             method = "tick",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/food/FoodData;addExhaustion(F)V"),
-            slice = @Slice(
-                    from = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;isHurt()Z", ordinal = 0),
-                    to = @At(value = "INVOKE", target = "Lnet/minecraft/world/food/FoodData;addExhaustion(F)V", ordinal = 0)
-            ),
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/food/FoodData;addExhaustion(F)V", ordinal = 0),
             index = 0
     )
     private float scarcity$fastRegenExhaustionMult(float original) {
@@ -112,8 +115,7 @@ public abstract class FoodDataMixin {
             at = @At(
                     value = "CONSTANT",
                     args = "intValue=18"
-            ),
-            require = 0
+            )
     )
     private int scarcity$slowRegenFoodThreshold(int original) {
         return ScarcityConfig.slowRegenFoodThreshold;
@@ -151,11 +153,7 @@ public abstract class FoodDataMixin {
 
     @ModifyArg(
             method = "tick",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/food/FoodData;addExhaustion(F)V"),
-            slice = @Slice(
-                    from = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;isHurt()Z", ordinal = 1),
-                    to = @At(value = "INVOKE", target = "Lnet/minecraft/world/food/FoodData;addExhaustion(F)V", ordinal = 1)
-            ),
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/food/FoodData;addExhaustion(F)V", ordinal = 1),
             index = 0
     )
     private float scarcity$slowRegenExhaustion(float original) {
