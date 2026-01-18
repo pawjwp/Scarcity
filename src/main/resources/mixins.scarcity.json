@@ -12,5 +12,8 @@
   ],
   "client": [],
   "server": [],
-  "verbose": true
+  "verbose": true,
+  "mixinextras": {
+    "minVersion": "0.5.3"
+  }
 }
