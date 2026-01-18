@@ -21,6 +21,13 @@ public abstract class FoodDataMixin {
 
     // Other
 
+    @Inject(method = "addExhaustion", at = @At("TAIL"))
+    private void scarcity$clampExhaustionFloor(float exhaustion, CallbackInfo ci) {
+        if (this.exhaustionLevel < 0.0F) {
+            this.exhaustionLevel = 0.0F;
+        }
+    }
+
     // Passive exhaustion
     @Inject(
             method = "tick",
