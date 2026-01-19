@@ -1,8 +1,6 @@
 package net.pawjwp.scarcity.mixin;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodData;
 import net.pawjwp.scarcity.config.ScarcityConfig;
@@ -111,19 +109,6 @@ public abstract class FoodDataMixin {
         return ScarcityConfig.fastRegenSaturationCap;
     }
 
-    @WrapOperation(
-            method = "tick",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lnet/minecraft/world/food/FoodData;addExhaustion(F)V",
-                    ordinal = 0
-            )
-    )
-    private void scarcity$fastRegenExhaustion(FoodData instance, float exhaustion, Operation<Void> original) {
-        float modifiedExhaustion = exhaustion * ScarcityConfig.fastRegenExhaustionMultiplier;
-        original.call(instance, modifiedExhaustion);
-    }
-
 
     // Slow regen
 
@@ -166,17 +151,5 @@ public abstract class FoodDataMixin {
     )
     private float scarcity$slowRegenHealAmount(float original) {
         return ScarcityConfig.slowRegenHealAmount;
-    }
-
-    @WrapOperation(
-            method = "tick",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lnet/minecraft/world/food/FoodData;addExhaustion(F)V",
-                    ordinal = 1
-            )
-    )
-    private void scarcity$slowRegenExhaustion(FoodData instance, float exhaustion, Operation<Void> original) {
-        original.call(instance, ScarcityConfig.slowRegenExhaustion);
     }
 }
