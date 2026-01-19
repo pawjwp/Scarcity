@@ -3,6 +3,7 @@ package net.pawjwp.scarcity.mixin;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodData;
+import net.pawjwp.scarcity.Scarcity;
 import net.pawjwp.scarcity.config.ScarcityConfig;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -45,6 +46,41 @@ public abstract class FoodDataMixin {
         if (ScarcityConfig.negativeExhaustionThreshold > -40.0F
                 && this.exhaustionLevel < ScarcityConfig.negativeExhaustionThreshold) {
             this.exhaustionLevel = ScarcityConfig.negativeExhaustionThreshold;
+        }
+
+        // Clamp Thirst exhaustion if Thirst is loaded
+        if (scarcity$isThirstLoaded()) {
+            scarcity$clampThirstExhaustion(player);
+        }
+    }
+
+    @Unique
+    private void scarcity$clampThirstExhaustion(Player player) {
+        try {
+            // Get ModCapabilities class and PLAYER_THIRST field
+            Class<?> modCapabilitiesClass = Class.forName("dev.ghen.thirst.foundation.common.capability.ModCapabilities");
+            Object playerThirstCap = modCapabilitiesClass.getField("PLAYER_THIRST").get(null);
+
+            // Get thirst capability
+            net.minecraftforge.common.util.LazyOptional<?> lazyOptional = player.getCapability((net.minecraftforge.common.capabilities.Capability<?>) playerThirstCap);
+
+            lazyOptional.ifPresent(thirst -> {
+                try {
+                    // Get exhaustion
+                    java.lang.reflect.Method getExhaustion = thirst.getClass().getMethod("getExhaustion");
+                    float thirstExhaustion = (float) getExhaustion.invoke(thirst);
+
+                    if (ScarcityConfig.negativeExhaustionThreshold > -40.0F
+                            && thirstExhaustion < ScarcityConfig.negativeExhaustionThreshold) {
+                        java.lang.reflect.Method setExhaustion = thirst.getClass().getMethod("setExhaustion", float.class);
+                        setExhaustion.invoke(thirst, ScarcityConfig.negativeExhaustionThreshold);
+                    }
+                } catch (Exception e) {
+                    Scarcity.LOGGER.warn("Scarcity failed to clamp Thirst exhaustion", e);
+                }
+            });
+        } catch (Exception e) {
+            Scarcity.LOGGER.warn("Scarcity failed to access Thirst capability", e);
         }
     }
 
