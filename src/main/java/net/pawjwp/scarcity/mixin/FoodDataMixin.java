@@ -6,6 +6,7 @@ import net.minecraft.world.food.FoodData;
 import net.pawjwp.scarcity.config.ScarcityConfig;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Slice;
@@ -22,8 +23,25 @@ public abstract class FoodDataMixin {
 
     // Clamp values
 
+    @Unique
+    private static Boolean scarcity$thirstLoaded = null;
+
+    @Unique
+    private static boolean scarcity$isThirstLoaded() {
+        if (scarcity$thirstLoaded == null) {
+            try {
+                Class.forName("dev.ghen.thirst.foundation.common.capability.ModCapabilities");
+                scarcity$thirstLoaded = true;
+            } catch (ClassNotFoundException e) {
+                scarcity$thirstLoaded = false;
+            }
+        }
+        return scarcity$thirstLoaded;
+    }
+
     @Inject(method = "tick", at = @At("HEAD"))
     private void scarcity$clampExhaustionFloor(Player player, CallbackInfo ci) {
+        // Clamp vanilla exhaustion
         if (ScarcityConfig.negativeExhaustionThreshold > -40.0F
                 && this.exhaustionLevel < ScarcityConfig.negativeExhaustionThreshold) {
             this.exhaustionLevel = ScarcityConfig.negativeExhaustionThreshold;
