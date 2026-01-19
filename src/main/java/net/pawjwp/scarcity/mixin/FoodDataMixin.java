@@ -1,6 +1,8 @@
 package net.pawjwp.scarcity.mixin;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodData;
 import net.pawjwp.scarcity.config.ScarcityConfig;
@@ -8,25 +10,28 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(FoodData.class)
+@Mixin(value = FoodData.class, priority = 900)
 public abstract class FoodDataMixin {
 
-    @Shadow public abstract void addExhaustion(float exhaustion);
+    @Shadow
+    public abstract void addExhaustion(float exhaustion);
 
-    @Shadow private float exhaustionLevel;
+    @Shadow
+    private float exhaustionLevel;
 
-    // Other
+    // Clamp values
 
-    @Inject(method = "addExhaustion", at = @At("TAIL"))
-    private void scarcity$clampExhaustionFloor(float exhaustion, CallbackInfo ci) {
-        if (this.exhaustionLevel < 0.0F) {
+    @Inject(method = "tick", at = @At("HEAD"))
+    private void scarcity$clampExhaustionFloor(Player player, CallbackInfo ci) {
+        if (this.exhaustionLevel < -2.0F) {
             this.exhaustionLevel = 0.0F;
         }
     }
+
+    // Other
 
     // Passive exhaustion
     @Inject(
@@ -42,6 +47,7 @@ public abstract class FoodDataMixin {
         }
     }
 
+    // Exhaustion step
     @ModifyExpressionValue(
             method = "tick",
             at = @At(
@@ -105,13 +111,17 @@ public abstract class FoodDataMixin {
         return ScarcityConfig.fastRegenSaturationCap;
     }
 
-    @ModifyArg(
+    @WrapOperation(
             method = "tick",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/food/FoodData;addExhaustion(F)V", ordinal = 0),
-            index = 0
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/world/food/FoodData;addExhaustion(F)V",
+                    ordinal = 0
+            )
     )
-    private float scarcity$fastRegenExhaustionMult(float original) {
-        return original * ScarcityConfig.fastRegenExhaustionMultiplier;
+    private void scarcity$fastRegenExhaustion(FoodData instance, float exhaustion, Operation<Void> original) {
+        float modifiedExhaustion = exhaustion * ScarcityConfig.fastRegenExhaustionMultiplier;
+        original.call(instance, modifiedExhaustion);
     }
 
 
@@ -158,12 +168,15 @@ public abstract class FoodDataMixin {
         return ScarcityConfig.slowRegenHealAmount;
     }
 
-    @ModifyArg(
+    @WrapOperation(
             method = "tick",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/food/FoodData;addExhaustion(F)V", ordinal = 1),
-            index = 0
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/world/food/FoodData;addExhaustion(F)V",
+                    ordinal = 1
+            )
     )
-    private float scarcity$slowRegenExhaustion(float original) {
-        return ScarcityConfig.slowRegenExhaustion;
+    private void scarcity$slowRegenExhaustion(FoodData instance, float exhaustion, Operation<Void> original) {
+        original.call(instance, ScarcityConfig.slowRegenExhaustion);
     }
 }
