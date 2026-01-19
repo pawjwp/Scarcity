@@ -24,8 +24,9 @@ public abstract class FoodDataMixin {
 
     @Inject(method = "tick", at = @At("HEAD"))
     private void scarcity$clampExhaustionFloor(Player player, CallbackInfo ci) {
-        if (this.exhaustionLevel < -2.0F) {
-            this.exhaustionLevel = 0.0F;
+        if (ScarcityConfig.negativeExhaustionThreshold > -40.0F
+                && this.exhaustionLevel < ScarcityConfig.negativeExhaustionThreshold) {
+            this.exhaustionLevel = ScarcityConfig.negativeExhaustionThreshold;
         }
     }
 

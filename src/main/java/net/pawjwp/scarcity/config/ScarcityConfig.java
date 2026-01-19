@@ -32,6 +32,7 @@ public class ScarcityConfig {
     // exhaustion
     public static float exhaustionStep;
     public static float passiveExhaustionPerTick;
+    public static float negativeExhaustionThreshold;
 
     // exhaustion – jump
     public static float exhaustionJumpSprinting;
@@ -85,6 +86,7 @@ public class ScarcityConfig {
         // exhaustion
         exhaustionStep = COMMON.exhaustionStep.get().floatValue();
         passiveExhaustionPerTick = COMMON.passiveExhaustionPerTick.get().floatValue();
+        negativeExhaustionThreshold = COMMON.negativeExhaustionThreshold.get().floatValue();
 
         // exhaustion – jump
         exhaustionJumpSprinting = COMMON.jumpSprinting.get().floatValue();
@@ -127,6 +129,7 @@ public class ScarcityConfig {
         // exhaustion
         public final ForgeConfigSpec.DoubleValue exhaustionStep;
         public final ForgeConfigSpec.DoubleValue passiveExhaustionPerTick;
+        public final ForgeConfigSpec.DoubleValue negativeExhaustionThreshold;
 
         // exhaustion – jump
         public final ForgeConfigSpec.DoubleValue jumpSprinting;
@@ -269,6 +272,11 @@ public class ScarcityConfig {
             passiveExhaustionPerTick = builder
                     .comment("Exhaustion added every tick regardless of player actions.")
                     .defineInRange("passive_per_tick", 0.0, 0.0, 40.0);
+
+            negativeExhaustionThreshold = builder
+                    .comment("Threshold for which exhaustion can be negative. If set to a value above -40, the exhaustion floor becomes that value.")
+                    .comment("Useful if something has unintentionally caused negative exhaustion and you want it set to reasonable values")
+                    .defineInRange("negative_exhaustion_threshold", -40.0, -40.0, 0.0);
 
             builder.pop(); // exhaustion
             builder.pop(); // food
