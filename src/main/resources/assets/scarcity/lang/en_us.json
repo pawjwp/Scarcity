@@ -14,10 +14,15 @@
   "item.scarcity.cactus_seeds": "Cactus Seeds",
   "item.scarcity.sugar_cane_seeds": "Sugar Cane Seeds",
   "item.scarcity.sweet_berry_seeds": "Sweet Berry Seeds",
-  
+
   "item.scarcity.potato_seeds": "Potato Seeds",
   "item.scarcity.carrot_seeds": "Carrot Seeds",
 
   "item.scarcity.rubberwood_seed": "Rubberwood Seed",
-  "item.scarcity.onion_seeds": "Onion Seeds"
+  "item.scarcity.onion_seeds": "Onion Seeds",
+
+
+  "attribute.scarcity.regen_speed": "Regen Speed",
+  "attribute.scarcity.fast_regen_speed": "Slow Regen Speed",
+  "attribute.scarcity.slow_regen_speed": "Normal Regen Speed"
 }

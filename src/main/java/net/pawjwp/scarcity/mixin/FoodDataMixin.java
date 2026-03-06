@@ -1,9 +1,11 @@
 package net.pawjwp.scarcity.mixin;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodData;
 import net.pawjwp.scarcity.Scarcity;
+import net.pawjwp.scarcity.attribute.ScarcityAttributes;
 import net.pawjwp.scarcity.config.ScarcityConfig;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -145,8 +147,11 @@ public abstract class FoodDataMixin {
                     to = @At(value = "INVOKE", target = "Lnet/minecraft/world/food/FoodData;addExhaustion(F)V", ordinal = 0)
             )
     )
-    private int scarcity$fastRegenInterval(int original) {
-        return ScarcityConfig.fastRegenIntervalTicks;
+    private int scarcity$fastRegenInterval(int original, @Local(argsOnly = true) Player player) {
+        double speed = player.getAttributeValue(ScarcityAttributes.FAST_REGEN_SPEED.get())
+                * player.getAttributeValue(ScarcityAttributes.REGEN_SPEED.get());
+        if (speed <= 0.0) return Integer.MAX_VALUE;
+        return Math.max(1, (int)(ScarcityConfig.fastRegenIntervalTicks / speed));
     }
 
     @ModifyExpressionValue(
@@ -189,8 +194,11 @@ public abstract class FoodDataMixin {
                     to = @At(value = "INVOKE", target = "Lnet/minecraft/world/food/FoodData;addExhaustion(F)V", ordinal = 1)
             )
     )
-    private int scarcity$slowRegenInterval(int original) {
-        return ScarcityConfig.slowRegenIntervalTicks;
+    private int scarcity$slowRegenInterval(int original, @Local(argsOnly = true) Player player) {
+        double speed = player.getAttributeValue(ScarcityAttributes.SLOW_REGEN_SPEED.get())
+                * player.getAttributeValue(ScarcityAttributes.REGEN_SPEED.get());
+        if (speed <= 0.0) return Integer.MAX_VALUE;
+        return Math.max(1, (int)(ScarcityConfig.slowRegenIntervalTicks / speed));
     }
 
     @ModifyExpressionValue(

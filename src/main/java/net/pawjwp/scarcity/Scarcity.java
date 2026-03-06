@@ -12,6 +12,7 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.pawjwp.scarcity.attribute.ScarcityAttributes;
 import net.pawjwp.scarcity.config.ScarcityConfig;
 import net.pawjwp.scarcity.item.ScarcityCreativeTabs;
 import net.pawjwp.scarcity.item.ScarcityItems;
@@ -30,6 +31,9 @@ public class Scarcity
     public Scarcity(FMLJavaModLoadingContext context)
     {
         IEventBus modEventBus = context.getModEventBus();
+
+        ScarcityAttributes.register(modEventBus);
+        modEventBus.addListener(ScarcityAttributes::onEntityAttributeModification);
 
         ScarcityCreativeTabs.register(modEventBus);
         ScarcityItems.register(modEventBus);
