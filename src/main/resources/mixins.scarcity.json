@@ -7,6 +7,7 @@
     "BottleItemMixin",
     "FallingBlockEntityMixin",
     "FoodDataMixin",
+    "ItemHelperMixin",
     "PlayerMixin",
     "WaterPurityMixin",
     "ZombieVillagerMixin"
