@@ -12,7 +12,8 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.BucketPickup;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 
@@ -80,7 +81,10 @@ public abstract class BottleItemMixin extends Item {
         }
 
         if (!level.isClientSide) {
-            level.setBlock(blockPos, Blocks.AIR.defaultBlockState(), 11);
+            BlockState blockState = level.getBlockState(blockPos);
+            if (blockState.getBlock() instanceof BucketPickup bucketPickup) {
+                bucketPickup.pickupBlock(level, blockPos, blockState);
+            }
             level.gameEvent(player, GameEvent.FLUID_PICKUP, blockPos);
         }
 
