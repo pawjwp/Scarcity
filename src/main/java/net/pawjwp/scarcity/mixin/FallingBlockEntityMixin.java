@@ -18,6 +18,9 @@ public class FallingBlockEntityMixin {
         Level level = ((FallingBlockEntity)(Object)this).level();
         if (level.isClientSide || !ScarcityConfig.enableFallingBlockBreakingAdjustments) return;
 
+        // if the falling block has a hardness under 0.25, allow it to break normally
+        if (((FallingBlockEntity)(Object)this).getBlockState().getDestroySpeed(level, pos) < 0.25f) return;
+
         double hardness = level.getBlockState(pos).getDestroySpeed(level, pos);
         if (hardness < 0) return; // negative hardness is unbreakable
 
