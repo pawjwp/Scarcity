@@ -8,7 +8,10 @@
     "FallingBlockEntityMixin",
     "FoodDataMixin",
     "ItemHelperMixin",
+    "KelpBlockMixin",
     "PlayerMixin",
+    "RiceBlockMixin",
+    "SeagrassBlockMixin",
     "WaterPurityMixin",
     "ZombieVillagerMixin"
   ],

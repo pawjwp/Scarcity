@@ -55,6 +55,7 @@ public class ScarcityConfig {
     public static boolean enableBottlePickupAdjustments;
     public static boolean enableFallingBlockBreakingAdjustments;
     public static boolean enableZombieVillagerCuring;
+    public static boolean enableWaterPlantSourcePrevention;
 
     public static void onLoad(final ModConfigEvent.Loading event) {
         if (event.getConfig().getSpec() == COMMON_SPEC) {
@@ -107,6 +108,7 @@ public class ScarcityConfig {
         enableBottlePickupAdjustments = COMMON.enableBottlePickupAdjustments.get();
         enableFallingBlockBreakingAdjustments = COMMON.enableFallingBlockBreakingAdjustments.get();
         enableZombieVillagerCuring = COMMON.enableZombieVillagerCuring.get();
+        enableWaterPlantSourcePrevention = COMMON.enableWaterPlantSourcePrevention.get();
     }
 
     public static class CommonConfig {
@@ -148,6 +150,7 @@ public class ScarcityConfig {
         public final ForgeConfigSpec.BooleanValue enableBottlePickupAdjustments;
         public final ForgeConfigSpec.BooleanValue enableFallingBlockBreakingAdjustments;
         public final ForgeConfigSpec.BooleanValue enableZombieVillagerCuring;
+        public final ForgeConfigSpec.BooleanValue enableWaterPlantSourcePrevention;
 
         public CommonConfig(ForgeConfigSpec.Builder builder) {
             builder.push("food");
@@ -280,6 +283,10 @@ public class ScarcityConfig {
             enableZombieVillagerCuring = builder
                     .comment("Enable zombie villager conversion, disable to prevent zombie villagers from being cured")
                     .define("enable_zombie_villager_curing", true);
+
+            enableWaterPlantSourcePrevention = builder
+                    .comment("Prevent water plants (kelp, seagrass, Farmer's Delight rice) from being placed or growing in flowing water")
+                    .define("enable_water_plant_source_prevention", false);
 
             builder.pop(); // misc
         }
