@@ -7,7 +7,7 @@
     "BottleItemMixin",
     "FallingBlockEntityMixin",
     "FoodDataMixin",
-    "ItemHelperMixin",
+    "compat.ItemHelperMixin",
     "KelpBlockMixin",
     "PlayerMixin",
     "RiceBlockMixin",

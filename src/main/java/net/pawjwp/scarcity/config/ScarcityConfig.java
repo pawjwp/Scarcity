@@ -57,6 +57,9 @@ public class ScarcityConfig {
     public static boolean enableZombieVillagerCuring;
     public static boolean enableWaterPlantSourcePrevention;
 
+    // thermal patches
+    public static boolean enableThermalPatches;
+
     public static void onLoad(final ModConfigEvent.Loading event) {
         if (event.getConfig().getSpec() == COMMON_SPEC) {
             bakeConfig();
@@ -109,6 +112,9 @@ public class ScarcityConfig {
         enableFallingBlockBreakingAdjustments = COMMON.enableFallingBlockBreakingAdjustments.get();
         enableZombieVillagerCuring = COMMON.enableZombieVillagerCuring.get();
         enableWaterPlantSourcePrevention = COMMON.enableWaterPlantSourcePrevention.get();
+
+        // thermal patches
+        enableThermalPatches = COMMON.enableThermalPatches.get();
     }
 
     public static class CommonConfig {
@@ -151,6 +157,7 @@ public class ScarcityConfig {
         public final ForgeConfigSpec.BooleanValue enableFallingBlockBreakingAdjustments;
         public final ForgeConfigSpec.BooleanValue enableZombieVillagerCuring;
         public final ForgeConfigSpec.BooleanValue enableWaterPlantSourcePrevention;
+        public final ForgeConfigSpec.BooleanValue enableThermalPatches;
 
         public CommonConfig(ForgeConfigSpec.Builder builder) {
             builder.push("food");
@@ -289,6 +296,16 @@ public class ScarcityConfig {
                     .define("enable_water_plant_source_prevention", false);
 
             builder.pop(); // misc
+
+            builder.push("compat");
+
+            enableThermalPatches = builder
+                    .comment("Enable Thermal series compat patches")
+                    .comment("- Fix Thermal machines not recognizing mod-modified stack sizes")
+                    .comment("- Disable crafting remainders in machines")
+                    .define("enable_thermal_patches", false);
+
+            builder.pop(); // compat
         }
     }
 }
