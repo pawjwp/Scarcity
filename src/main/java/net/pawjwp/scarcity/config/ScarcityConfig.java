@@ -292,7 +292,9 @@ public class ScarcityConfig {
                     .define("enable_zombie_villager_curing", true);
 
             enableWaterPlantSourcePrevention = builder
-                    .comment("Prevent water plants (kelp, seagrass, Farmer's Delight rice) from being placed or growing in flowing water")
+                    .comment("Prevent flowing water from becoming a source via block placement.")
+                    .comment("- Water plants (kelp, seagrass, Farmer's Delight rice) cannot be placed or grown in flowing water")
+                    .comment("- Waterloggable blocks (ladders, fences, signs, stairs, slabs, etc.) placed in flowing water are not waterlogged")
                     .define("enable_water_plant_source_prevention", false);
 
             builder.pop(); // misc

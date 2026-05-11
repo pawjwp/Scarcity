@@ -4,6 +4,7 @@
   "package": "net.pawjwp.scarcity.mixin",
   "refmap": "mixins.scarcity.refmap.json",
   "mixins": [
+    "BlockItemMixin",
     "BottleItemMixin",
     "FallingBlockEntityMixin",
     "FoodDataMixin",
