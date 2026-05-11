@@ -69,9 +69,21 @@ public abstract class BottleItemMixin extends Item {
             return;
         }
 
-        // Turn 4 empty bottles into water bottles
-        ItemStack currentStack = itemstack;
+        BlockState blockState = level.getBlockState(blockPos);
+        if (!(blockState.getBlock() instanceof BucketPickup bucketPickup)) {
+            cir.setReturnValue(InteractionResultHolder.fail(itemstack));
+            cir.cancel();
+            return;
+        }
 
+        ItemStack picked = bucketPickup.pickupBlock(level, blockPos, blockState);
+        if (picked.isEmpty()) {
+            cir.setReturnValue(InteractionResultHolder.fail(itemstack));
+            cir.cancel();
+            return;
+        }
+
+        ItemStack currentStack = itemstack;
         for (int i = 0; i < 4; i++) {
             ItemStack waterPotion = PotionUtils.setPotion(
                     new ItemStack(Items.POTION),
@@ -80,15 +92,8 @@ public abstract class BottleItemMixin extends Item {
             currentStack = this.turnBottleIntoItem(currentStack, player, waterPotion);
         }
 
-        if (!level.isClientSide) {
-            BlockState blockState = level.getBlockState(blockPos);
-            if (blockState.getBlock() instanceof BucketPickup bucketPickup) {
-                bucketPickup.pickupBlock(level, blockPos, blockState);
-            }
-            level.gameEvent(player, GameEvent.FLUID_PICKUP, blockPos);
-        }
+        level.gameEvent(player, GameEvent.FLUID_PICKUP, blockPos);
 
-        // Return the new stack
         cir.setReturnValue(InteractionResultHolder.sidedSuccess(currentStack, level.isClientSide()));
         cir.cancel();
     }
