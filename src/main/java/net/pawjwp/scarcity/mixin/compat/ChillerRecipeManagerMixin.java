@@ -23,7 +23,7 @@ public class ChillerRecipeManagerMixin {
             ),
             require = 0
     )
-    private static int scarcity$ignoreFluidNBT(FluidStack stack) {
+    private int scarcity$ignoreFluidNBT(FluidStack stack) {
         if (ScarcityConfig.enableThermalPatches) {
             return stack.getFluid().hashCode();
         }
