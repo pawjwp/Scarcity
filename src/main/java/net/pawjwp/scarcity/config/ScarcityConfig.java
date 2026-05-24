@@ -60,6 +60,9 @@ public class ScarcityConfig {
     // thermal patches
     public static boolean enableThermalPatches;
 
+    // obscure api patches
+    public static boolean hideObscureAPIMenuButton;
+
     public static void onLoad(final ModConfigEvent.Loading event) {
         if (event.getConfig().getSpec() == COMMON_SPEC) {
             bakeConfig();
@@ -115,6 +118,9 @@ public class ScarcityConfig {
 
         // thermal patches
         enableThermalPatches = COMMON.enableThermalPatches.get();
+
+        // obscure api patches
+        hideObscureAPIMenuButton = COMMON.hideObscureAPIMenuButton.get();
     }
 
     public static class CommonConfig {
@@ -158,6 +164,7 @@ public class ScarcityConfig {
         public final ForgeConfigSpec.BooleanValue enableZombieVillagerCuring;
         public final ForgeConfigSpec.BooleanValue enableWaterPlantSourcePrevention;
         public final ForgeConfigSpec.BooleanValue enableThermalPatches;
+        public final ForgeConfigSpec.BooleanValue hideObscureAPIMenuButton;
 
         public CommonConfig(ForgeConfigSpec.Builder builder) {
             builder.push("food");
@@ -307,6 +314,11 @@ public class ScarcityConfig {
                     .comment("- Disable crafting remainders in machines")
                     .comment("- Make Chiller, Refinery, and single-fluid Dynamos ignore fluid NBT for recipe/fuel matching")
                     .define("enable_thermal_patches", false);
+
+            hideObscureAPIMenuButton = builder
+                    .comment("Hide the Obscure API title-screen button.")
+                    .comment("The button is added by Obscure API and cannot normally be hidden, only repositioned.")
+                    .define("hide_obscure_api_menu_button", false);
 
             builder.pop(); // compat
         }

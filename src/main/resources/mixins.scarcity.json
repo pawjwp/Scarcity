@@ -19,7 +19,9 @@
     "WaterPurityMixin",
     "ZombieVillagerMixin"
   ],
-  "client": [],
+  "client": [
+    "compat.TitleScreenMixin"
+  ],
   "server": [],
   "verbose": true,
   "mixinextras": {
