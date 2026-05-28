@@ -12,12 +12,14 @@
     "compat.ItemHelperMixin",
     "compat.RefineryRecipeManagerMixin",
     "compat.SingleFluidFuelManagerMixin",
+    "compat.SpecialZombifiedPiglinEntityMixin",
     "KelpBlockMixin",
     "PlayerMixin",
     "RiceBlockMixin",
     "SeagrassBlockMixin",
     "WaterPurityMixin",
-    "ZombieVillagerMixin"
+    "ZombieVillagerMixin",
+    "ZombifiedPiglinMixin"
   ],
   "client": [
     "compat.TitleScreenMixin"

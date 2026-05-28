@@ -1,8 +1,14 @@
 package net.pawjwp.scarcity.config;
 
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
 import org.apache.commons.lang3.tuple.Pair;
+
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 // reference: https://cadiboo.github.io/tutorials/1.15.2/forge/3.3-config/
 
@@ -55,6 +61,7 @@ public class ScarcityConfig {
     public static boolean enableBottlePickupAdjustments;
     public static boolean enableFallingBlockBreakingAdjustments;
     public static boolean enableZombieVillagerCuring;
+    public static Set<ResourceLocation> zombifiedPiglinBurnBiomes = Set.of();
     public static boolean enableWaterPlantSourcePrevention;
 
     // thermal patches
@@ -73,6 +80,13 @@ public class ScarcityConfig {
         if (event.getConfig().getSpec() == COMMON_SPEC) {
             bakeConfig();
         }
+    }
+
+    private static Set<ResourceLocation> parseBiomeIds(List<? extends String> raw) {
+        return raw.stream()
+                .map(ResourceLocation::tryParse)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toUnmodifiableSet());
     }
 
     public static void bakeConfig() {
@@ -114,6 +128,7 @@ public class ScarcityConfig {
         enableBottlePickupAdjustments = COMMON.enableBottlePickupAdjustments.get();
         enableFallingBlockBreakingAdjustments = COMMON.enableFallingBlockBreakingAdjustments.get();
         enableZombieVillagerCuring = COMMON.enableZombieVillagerCuring.get();
+        zombifiedPiglinBurnBiomes = parseBiomeIds(COMMON.zombifiedPiglinBurnBiomes.get());
         enableWaterPlantSourcePrevention = COMMON.enableWaterPlantSourcePrevention.get();
 
         // thermal patches
@@ -162,6 +177,7 @@ public class ScarcityConfig {
         public final ForgeConfigSpec.BooleanValue enableBottlePickupAdjustments;
         public final ForgeConfigSpec.BooleanValue enableFallingBlockBreakingAdjustments;
         public final ForgeConfigSpec.BooleanValue enableZombieVillagerCuring;
+        public final ForgeConfigSpec.ConfigValue<List<? extends String>> zombifiedPiglinBurnBiomes;
         public final ForgeConfigSpec.BooleanValue enableWaterPlantSourcePrevention;
         public final ForgeConfigSpec.BooleanValue enableThermalPatches;
         public final ForgeConfigSpec.BooleanValue hideObscureAPIMenuButton;
@@ -297,6 +313,16 @@ public class ScarcityConfig {
             enableZombieVillagerCuring = builder
                     .comment("Enable zombie villager conversion, disable to prevent zombie villagers from being cured")
                     .define("enable_zombie_villager_curing", true);
+
+            zombifiedPiglinBurnBiomes = builder
+                    .comment("Biomes in which zombified piglins lose fire immunity and burn in the daylight.")
+                    .comment("Example: \"minecraft:desert\", \"minecraft:badlands\"")
+                    .comment("Applies to base zombified piglins, direct derivatives, and Special Mobs variants.")
+                    .defineListAllowEmpty(
+                            List.of("zombified_piglin_burn_biomes"),
+                            List::of,
+                            obj -> obj instanceof String s && ResourceLocation.tryParse(s) != null
+                    );
 
             enableWaterPlantSourcePrevention = builder
                     .comment("Prevent flowing water from becoming a source via block placement.")
