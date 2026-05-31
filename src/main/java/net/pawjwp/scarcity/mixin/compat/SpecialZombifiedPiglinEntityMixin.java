@@ -2,7 +2,7 @@ package net.pawjwp.scarcity.mixin.compat;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.minecraft.world.entity.Entity;
-import net.pawjwp.scarcity.ZombifiedPiglinBurning;
+import net.pawjwp.scarcity.BurnRule;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.At;
@@ -23,10 +23,11 @@ public abstract class SpecialZombifiedPiglinEntityMixin {
             require = 0
     )
     private boolean scarcity$overrideImmuneToFire(boolean original) {
-        if (ZombifiedPiglinBurning.isInBurnBiome((Entity) (Object) this)) {
-            return false;
-        }
-        return original;
+        return switch (BurnRule.currentOutcome((Entity) (Object) this)) {
+            case BURN -> false;
+            case NO_BURN -> true;
+            case NO_RULE -> original;
+        };
     }
 
     @ModifyExpressionValue(
@@ -39,9 +40,10 @@ public abstract class SpecialZombifiedPiglinEntityMixin {
             require = 0
     )
     private boolean scarcity$overrideImmuneToBurning(boolean original) {
-        if (ZombifiedPiglinBurning.isInBurnBiome((Entity) (Object) this)) {
-            return false;
-        }
-        return original;
+        return switch (BurnRule.currentOutcome((Entity) (Object) this)) {
+            case BURN -> false;
+            case NO_BURN -> true;
+            case NO_RULE -> original;
+        };
     }
 }

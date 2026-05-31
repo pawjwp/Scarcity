@@ -1,13 +1,12 @@
 package net.pawjwp.scarcity.config;
 
-import net.minecraft.resources.ResourceLocation;
+import com.electronwill.nightconfig.core.UnmodifiableConfig;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
+import net.pawjwp.scarcity.BurnRule;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.List;
-import java.util.Objects;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 // reference: https://cadiboo.github.io/tutorials/1.15.2/forge/3.3-config/
@@ -61,7 +60,7 @@ public class ScarcityConfig {
     public static boolean enableBottlePickupAdjustments;
     public static boolean enableFallingBlockBreakingAdjustments;
     public static boolean enableZombieVillagerCuring;
-    public static Set<ResourceLocation> zombifiedPiglinBurnBiomes = Set.of();
+    public static List<BurnRule> zombifiedPiglinBurnRules = List.of();
     public static boolean enableWaterPlantSourcePrevention;
 
     // thermal patches
@@ -82,11 +81,8 @@ public class ScarcityConfig {
         }
     }
 
-    private static Set<ResourceLocation> parseBiomeIds(List<? extends String> raw) {
-        return raw.stream()
-                .map(ResourceLocation::tryParse)
-                .filter(Objects::nonNull)
-                .collect(Collectors.toUnmodifiableSet());
+    private static List<BurnRule> parseBurnRules(List<? extends UnmodifiableConfig> raw) {
+        return raw.stream().map(BurnRule::fromConfig).collect(Collectors.toUnmodifiableList());
     }
 
     public static void bakeConfig() {
@@ -128,7 +124,7 @@ public class ScarcityConfig {
         enableBottlePickupAdjustments = COMMON.enableBottlePickupAdjustments.get();
         enableFallingBlockBreakingAdjustments = COMMON.enableFallingBlockBreakingAdjustments.get();
         enableZombieVillagerCuring = COMMON.enableZombieVillagerCuring.get();
-        zombifiedPiglinBurnBiomes = parseBiomeIds(COMMON.zombifiedPiglinBurnBiomes.get());
+        zombifiedPiglinBurnRules = parseBurnRules(COMMON.zombifiedPiglinBurnRules.get());
         enableWaterPlantSourcePrevention = COMMON.enableWaterPlantSourcePrevention.get();
 
         // thermal patches
@@ -177,7 +173,7 @@ public class ScarcityConfig {
         public final ForgeConfigSpec.BooleanValue enableBottlePickupAdjustments;
         public final ForgeConfigSpec.BooleanValue enableFallingBlockBreakingAdjustments;
         public final ForgeConfigSpec.BooleanValue enableZombieVillagerCuring;
-        public final ForgeConfigSpec.ConfigValue<List<? extends String>> zombifiedPiglinBurnBiomes;
+        public final ForgeConfigSpec.ConfigValue<List<? extends UnmodifiableConfig>> zombifiedPiglinBurnRules;
         public final ForgeConfigSpec.BooleanValue enableWaterPlantSourcePrevention;
         public final ForgeConfigSpec.BooleanValue enableThermalPatches;
         public final ForgeConfigSpec.BooleanValue hideObscureAPIMenuButton;
@@ -314,14 +310,25 @@ public class ScarcityConfig {
                     .comment("Enable zombie villager conversion, disable to prevent zombie villagers from being cured")
                     .define("enable_zombie_villager_curing", true);
 
-            zombifiedPiglinBurnBiomes = builder
-                    .comment("Biomes in which zombified piglins lose fire immunity and burn in the daylight.")
-                    .comment("Example: \"minecraft:desert\", \"minecraft:badlands\"")
-                    .comment("Applies to base zombified piglins, direct derivatives, and Special Mobs variants.")
+            zombifiedPiglinBurnRules = builder
+                    .comment("Rules controlling whether zombified piglins lose fire immunity and burn in daylight.")
+                    .comment("Each rule is an inline table with either 'dimension', 'biome', or 'structure' location options")
+                    .comment("These three locations can be set to a string or list of strings, each representing their respective ID.")
+                    .comment("Each table also contains a 'burn' boolean that controls which override is applied.")
+                    .comment("Rules are evaluated in order, later rules taking priority.")
+                    .comment("If no rule matches, vanilla fire immunity is kept.")
+                    .comment("Applies to base zombified piglins, direct derivatives, and SpecialMobs variants.")
+                    .comment("Example:")
+                    .comment("  zombified_piglin_burn_rules = [")
+                    .comment("      { dimension = \"minecraft:overworld\", burn = true },")
+                    .comment("      { biome = \"minecraft:ice_spikes\", burn = false },")
+                    .comment("      { structure = \"example:piglin_defense_dome\", burn = false },")
+                    .comment("  ]")
+                    .comment("Makes the piglins burn in the overworld, unless they are in the ice spikes biome or within a piglin defense dome structure.")
                     .defineListAllowEmpty(
-                            List.of("zombified_piglin_burn_biomes"),
+                            List.of("zombified_piglin_burn_rules"),
                             List::of,
-                            obj -> obj instanceof String s && ResourceLocation.tryParse(s) != null
+                            BurnRule::isValidConfigEntry
                     );
 
             enableWaterPlantSourcePrevention = builder
