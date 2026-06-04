@@ -5,11 +5,11 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.item.ItemStack;
 
-// Functions to control sunlight sensitivty for mobs based on the ScarcitySunlightSensitivity NBT tag.
+// Functions to control sunlight sensitivity for mobs based on the ScarcitySunlightSensitivity NBT tag.
 // The tag is a boolean stored at the root of the mob's data, read/set elsewhere.
 // When the tag is absent, defaults to vanilla's behavior
 // When the tag is true, the mob loses fire immunity and burns in the daylight
-// When the tag if alse, the mob does not burn in the daylight, even if it normally would
+// When the tag if false, the mob does not burn in the daylight, even if it normally would
 public final class SunlightSensitivity {
 
     public static final String TAG = "ScarcitySunlightSensitivity";
