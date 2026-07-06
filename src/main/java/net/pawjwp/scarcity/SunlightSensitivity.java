@@ -1,6 +1,9 @@
 package net.pawjwp.scarcity;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.item.ItemStack;
@@ -13,6 +16,13 @@ import net.minecraft.world.item.ItemStack;
 public final class SunlightSensitivity {
 
     public static final String TAG = "ScarcitySunlightSensitivity";
+
+    public static final EntityDataAccessor<Byte> DATA =
+            SynchedEntityData.defineId(Mob.class, EntityDataSerializers.BYTE);
+
+    public static State getState(Mob mob) {
+        return State.byId(mob.getEntityData().get(DATA));
+    }
 
     public enum State {
         DEFAULT, SENSITIVE, INSENSITIVE;

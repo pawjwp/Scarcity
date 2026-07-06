@@ -1,9 +1,6 @@
 package net.pawjwp.scarcity.mixin;
 
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -20,23 +17,19 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(Mob.class)
 public abstract class MobMixin extends LivingEntity {
 
-    @Unique
-    private static final EntityDataAccessor<Byte> SCARCITY_SUNLIGHT_SENSITIVITY =
-            SynchedEntityData.defineId(Mob.class, EntityDataSerializers.BYTE);
-
     protected MobMixin(EntityType<? extends LivingEntity> entityType, Level level) {
         super(entityType, level);
     }
 
     @Unique
     private SunlightSensitivity.State scarcity$sunlightState() {
-        return SunlightSensitivity.State.byId(this.getEntityData().get(SCARCITY_SUNLIGHT_SENSITIVITY));
+        return SunlightSensitivity.getState((Mob) (Object) this);
     }
 
     // Define sunlight sensitivity state
     @Inject(method = "defineSynchedData", at = @At("TAIL"))
     private void scarcity$defineSunlight(CallbackInfo ci) {
-        this.getEntityData().define(SCARCITY_SUNLIGHT_SENSITIVITY, (byte) SunlightSensitivity.State.DEFAULT.ordinal());
+        this.getEntityData().define(SunlightSensitivity.DATA, (byte) SunlightSensitivity.State.DEFAULT.ordinal());
     }
 
     // Read the NBT tag as part of readAdditionalSaveData
@@ -46,7 +39,7 @@ public abstract class MobMixin extends LivingEntity {
             SunlightSensitivity.State state = tag.getBoolean(SunlightSensitivity.TAG)
                     ? SunlightSensitivity.State.SENSITIVE
                     : SunlightSensitivity.State.INSENSITIVE;
-            this.getEntityData().set(SCARCITY_SUNLIGHT_SENSITIVITY, (byte) state.ordinal());
+            this.getEntityData().set(SunlightSensitivity.DATA, (byte) state.ordinal());
         }
     }
 

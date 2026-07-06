@@ -12,6 +12,7 @@
     "compat.ItemHelperMixin",
     "compat.RefineryRecipeManagerMixin",
     "compat.SingleFluidFuelManagerMixin",
+    "compat.SpecialMobDataMixin",
     "KelpBlockMixin",
     "MobMixin",
     "PlayerMixin",
