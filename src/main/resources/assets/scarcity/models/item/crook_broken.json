@@ -1,0 +1,18 @@
+{
+  "loader": "tconstruct:tool",
+  "parent": "forge:item/default-tool",
+  "textures": {
+    "head":    "scarcity:item/tool/crook/head_broken",
+    "handle":  "scarcity:item/tool/crook/handle",
+    "binding": "scarcity:item/tool/crook/binding"
+  },
+  "modifier_roots": [
+    "scarcity:item/tool/crook/modifiers/broken/",
+    "scarcity:item/tool/crook/modifiers/"
+  ],
+  "parts": [
+    { "name": "head",    "index": 0 },
+    { "name": "handle",  "index": 1 },
+    { "name": "binding", "index": 2 }
+  ]
+}

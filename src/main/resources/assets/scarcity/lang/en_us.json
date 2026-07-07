@@ -21,6 +21,12 @@
   "item.scarcity.rubberwood_seed": "Rubberwood Seed",
   "item.scarcity.onion_seeds": "Onion Seeds",
 
+  "item.scarcity.crook": "Crook",
+  "item.scarcity.crushing_hammer": "Crushing Hammer",
+  "modifier.scarcity.heavy_hammering": "Heavy-Hammering",
+  "modifier.scarcity.heavy_hammering.flavor": "Strong enough to smash compressed blocks",
+  "modifier.scarcity.heavy_hammering.description": "The hammer can break compressed blocks like a compressed hammer.",
+
 
   "attribute.scarcity.regen_speed": "Regen Speed",
   "attribute.scarcity.fast_regen_speed": "Slow Regen Speed",
