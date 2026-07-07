@@ -1,0 +1,24 @@
+// 1.20.1	2026-07-06T21:59:44.4809412	Tags for minecraft:item mod id scarcity
+f92fd3de5187c630bb54afcc754a1c97051a7f44 data/exdeorum/tags/items/crooks.json
+ea7dd78850dfc2f8a581a53dca55b403cc447150 data/exdeorum/tags/items/hammers.json
+da02f329c7211ba3eae6b43bffacf279d944681c data/forge/tags/items/tools.json
+ea7dd78850dfc2f8a581a53dca55b403cc447150 data/minecraft/tags/items/breaks_decorated_pots.json
+ea7dd78850dfc2f8a581a53dca55b403cc447150 data/minecraft/tags/items/pickaxes.json
+da02f329c7211ba3eae6b43bffacf279d944681c data/minecraft/tags/items/tools.json
+da02f329c7211ba3eae6b43bffacf279d944681c data/tconstruct/tags/items/modifiable.json
+da02f329c7211ba3eae6b43bffacf279d944681c data/tconstruct/tags/items/modifiable/aoe.json
+da02f329c7211ba3eae6b43bffacf279d944681c data/tconstruct/tags/items/modifiable/bonus_slots.json
+da02f329c7211ba3eae6b43bffacf279d944681c data/tconstruct/tags/items/modifiable/durability.json
+da02f329c7211ba3eae6b43bffacf279d944681c data/tconstruct/tags/items/modifiable/harvest.json
+da02f329c7211ba3eae6b43bffacf279d944681c data/tconstruct/tags/items/modifiable/harvest/primary.json
+da02f329c7211ba3eae6b43bffacf279d944681c data/tconstruct/tags/items/modifiable/held.json
+da02f329c7211ba3eae6b43bffacf279d944681c data/tconstruct/tags/items/modifiable/interactable.json
+da02f329c7211ba3eae6b43bffacf279d944681c data/tconstruct/tags/items/modifiable/interactable/charge.json
+da02f329c7211ba3eae6b43bffacf279d944681c data/tconstruct/tags/items/modifiable/interactable/right.json
+ea7dd78850dfc2f8a581a53dca55b403cc447150 data/tconstruct/tags/items/modifiable/loot_capable_tool.json
+da02f329c7211ba3eae6b43bffacf279d944681c data/tconstruct/tags/items/modifiable/melee.json
+da02f329c7211ba3eae6b43bffacf279d944681c data/tconstruct/tags/items/modifiable/melee/weapon.json
+da02f329c7211ba3eae6b43bffacf279d944681c data/tconstruct/tags/items/modifiable/multipart.json
+da02f329c7211ba3eae6b43bffacf279d944681c data/tconstruct/tags/items/modifiable/small.json
+da02f329c7211ba3eae6b43bffacf279d944681c data/tleveling/tags/items/tinker_mining.json
+da02f329c7211ba3eae6b43bffacf279d944681c data/tleveling/tags/items/tinker_tools.json
