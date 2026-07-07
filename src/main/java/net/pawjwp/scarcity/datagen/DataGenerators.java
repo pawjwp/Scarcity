@@ -21,5 +21,14 @@ public class DataGenerators {
         CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
 
         generator.addProvider(event.includeClient(), new ScarcityItemModels(packOutput, existingFileHelper));
+
+        var blockTags = new ScarcityBlockTags(packOutput, lookupProvider, existingFileHelper);
+        generator.addProvider(event.includeServer(), blockTags);
+        generator.addProvider(event.includeServer(), new ScarcityItemTags(packOutput, lookupProvider, blockTags.contentsGetter(), existingFileHelper));
+
+        // Tinkers data gen providers
+        generator.addProvider(event.includeServer(), new ScarcityToolDefinitions(packOutput));
+        generator.addProvider(event.includeServer(), new ScarcityStationLayouts(packOutput));
+        generator.addProvider(event.includeServer(), new ScarcityModifiers(packOutput));
     }
 }
