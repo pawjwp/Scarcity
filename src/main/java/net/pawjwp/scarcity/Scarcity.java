@@ -13,6 +13,9 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.pawjwp.scarcity.attribute.ScarcityAttributes;
+import net.pawjwp.scarcity.compat.Mods;
+import net.pawjwp.scarcity.compat.tinkers.TinkersClient;
+import net.pawjwp.scarcity.compat.tinkers.TinkersCompat;
 import net.pawjwp.scarcity.config.ScarcityConfig;
 import net.pawjwp.scarcity.item.ScarcityCreativeTabs;
 import net.pawjwp.scarcity.item.ScarcityItems;
@@ -37,6 +40,10 @@ public class Scarcity
 
         ScarcityCreativeTabs.register(modEventBus);
         ScarcityItems.register(modEventBus);
+
+        if (Mods.TINKERS) {
+            TinkersCompat.register(modEventBus);
+        }
 
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
@@ -79,6 +86,9 @@ public class Scarcity
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event)
         {
+            if (Mods.TINKERS) {
+                event.enqueueWork(TinkersClient::registerItemProperties);
+            }
         }
     }
 }

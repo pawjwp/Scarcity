@@ -201,6 +201,14 @@ dependencies {
     runtimeOnly fg.deobf("maven.modrinth:cold-sweat:${cs_version}")
     compileOnly fg.deobf("maven.modrinth:cold-sweat:${cs_version}")
 
+    compileOnly fg.deobf("curse.maven:ex-deorum-901420:7666539")
+    runtimeOnly fg.deobf("curse.maven:ex-deorum-901420:7666539")
+
+    compileOnly fg.deobf("curse.maven:mantle-74924:7563777")
+    runtimeOnly fg.deobf("curse.maven:mantle-74924:7563777")
+    compileOnly fg.deobf("curse.maven:tinkers-construct-74072:7449219")
+    runtimeOnly fg.deobf("curse.maven:tinkers-construct-74072:7449219")
+
     // Mixins
     annotationProcessor("org.spongepowered:mixin:0.8.5:processor")
     compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:0.5.3"))
