@@ -174,6 +174,9 @@ repositories {
             includeGroup "curse.maven"
         }
     }
+    maven {
+        url = 'https://jitpack.io'
+    }
 }
 
 dependencies {
@@ -203,6 +206,7 @@ dependencies {
 
     compileOnly fg.deobf("curse.maven:ex-deorum-901420:7666539")
     runtimeOnly fg.deobf("curse.maven:ex-deorum-901420:7666539")
+    runtimeOnly fg.deobf('com.github.thedarkcolour:ModKit:cc8f1c11ec')
 
     compileOnly fg.deobf("curse.maven:mantle-74924:7563777")
     runtimeOnly fg.deobf("curse.maven:mantle-74924:7563777")
