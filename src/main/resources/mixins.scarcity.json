@@ -12,6 +12,7 @@
     "compat.CrookLootModifierMixin",
     "compat.HammerLootModifierMixin",
     "compat.ItemHelperMixin",
+    "compat.MechanicalHammerBlockEntityMixin",
     "compat.RefineryRecipeManagerMixin",
     "compat.SingleFluidFuelManagerMixin",
     "compat.SpecialMobDataMixin",
