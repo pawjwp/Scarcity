@@ -9,6 +9,8 @@
     "FallingBlockEntityMixin",
     "FoodDataMixin",
     "compat.ChillerRecipeManagerMixin",
+    "compat.CrookLootModifierMixin",
+    "compat.HammerLootModifierMixin",
     "compat.ItemHelperMixin",
     "compat.RefineryRecipeManagerMixin",
     "compat.SingleFluidFuelManagerMixin",
