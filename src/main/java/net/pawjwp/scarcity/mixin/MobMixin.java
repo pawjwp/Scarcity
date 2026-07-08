@@ -17,19 +17,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(Mob.class)
 public abstract class MobMixin extends LivingEntity {
 
+    @Unique
+    private byte scarcity$sunlightSensitivity;
+
     protected MobMixin(EntityType<? extends LivingEntity> entityType, Level level) {
         super(entityType, level);
     }
 
     @Unique
     private SunlightSensitivity.State scarcity$sunlightState() {
-        return SunlightSensitivity.getState((Mob) (Object) this);
-    }
-
-    // Define sunlight sensitivity state
-    @Inject(method = "defineSynchedData", at = @At("TAIL"))
-    private void scarcity$defineSunlight(CallbackInfo ci) {
-        this.getEntityData().define(SunlightSensitivity.DATA, (byte) SunlightSensitivity.State.DEFAULT.ordinal());
+        return SunlightSensitivity.State.byId(this.scarcity$sunlightSensitivity);
     }
 
     // Read the NBT tag as part of readAdditionalSaveData
@@ -39,7 +36,7 @@ public abstract class MobMixin extends LivingEntity {
             SunlightSensitivity.State state = tag.getBoolean(SunlightSensitivity.TAG)
                     ? SunlightSensitivity.State.SENSITIVE
                     : SunlightSensitivity.State.INSENSITIVE;
-            this.getEntityData().set(SunlightSensitivity.DATA, (byte) state.ordinal());
+            this.scarcity$sunlightSensitivity = (byte) state.ordinal();
         }
     }
 
@@ -59,17 +56,6 @@ public abstract class MobMixin extends LivingEntity {
             return false;
         }
         return super.fireImmune();
-    }
-
-    // Force fire to be displayed even on mobs that override isOnFire()
-    @Override
-    public boolean displayFireAnimation() {
-        if (!this.isSpectator()
-                && scarcity$sunlightState() == SunlightSensitivity.State.SENSITIVE
-                && this.getSharedFlag(0)) {
-            return true;
-        }
-        return super.displayFireAnimation();
     }
 
     // Override vanilla sunlight sensitivity for applicable mobs
