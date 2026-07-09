@@ -177,6 +177,19 @@ repositories {
     maven {
         url = 'https://jitpack.io'
     }
+    maven {
+        // For Thermal Series
+        name = "Covers1624"
+        url = "https://maven.covers1624.net/"
+        content {
+            includeGroup "com.teamcofh"
+        }
+    }
+}
+
+// Exclude net.neoforged:forge CoFH tries to use
+configurations.all {
+    exclude group: 'net.neoforged', module: 'forge'
 }
 
 dependencies {
@@ -193,6 +206,8 @@ dependencies {
     // compileOnly fg.deobf("mezz.jei:jei-${mc_version}-forge-api:${jei_version}")
     // runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}-forge:${jei_version}")
 
+    compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
+    compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge-api:${jei_version}")
     runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
     runtimeOnly fg.deobf("maven.modrinth:jade:${jade_version}")
     runtimeOnly fg.deobf("maven.modrinth:appleskin:${appleskin_version}")
@@ -212,6 +227,15 @@ dependencies {
     runtimeOnly fg.deobf("curse.maven:mantle-74924:7563777")
     compileOnly fg.deobf("curse.maven:tinkers-construct-74072:7449219")
     runtimeOnly fg.deobf("curse.maven:tinkers-construct-74072:7449219")
+
+    compileOnly fg.deobf("com.teamcofh:cofh_core:1.20.1-11.0.2.56")
+    runtimeOnly fg.deobf("com.teamcofh:cofh_core:1.20.1-11.0.2.56")
+    compileOnly fg.deobf("com.teamcofh:thermal_core:1.20.1-11.0.6.24")
+    runtimeOnly fg.deobf("com.teamcofh:thermal_core:1.20.1-11.0.6.24")
+    compileOnly fg.deobf("com.teamcofh:thermal_foundation:1.20.1-11.0.6.70")
+    runtimeOnly fg.deobf("com.teamcofh:thermal_foundation:1.20.1-11.0.6.70")
+    runtimeOnly fg.deobf("com.teamcofh:thermal_expansion:1.20.1-11.0.2.30")
+    runtimeOnly fg.deobf("com.teamcofh:thermal_integration:1.20.1-11.0.1.27")
 
     // Mixins
     annotationProcessor("org.spongepowered:mixin:0.8.5:processor")
