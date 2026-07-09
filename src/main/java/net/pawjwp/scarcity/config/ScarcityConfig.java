@@ -65,6 +65,7 @@ public class ScarcityConfig {
 
     // ex deorum compat features
     public static boolean enableTinkersTools;
+    public static boolean enableExDeorumToolOverrides;
 
     public static void onLoad(final ModConfigEvent.Loading event) {
         if (event.getConfig().getSpec() == COMMON_SPEC) {
@@ -127,6 +128,7 @@ public class ScarcityConfig {
 
         // ex deorum compat features
         enableTinkersTools = COMMON.enableTinkersTools.get();
+        enableExDeorumToolOverrides = COMMON.enableExDeorumToolOverrides.get();
     }
 
     public static class CommonConfig {
@@ -174,6 +176,7 @@ public class ScarcityConfig {
 
         // ex deorum compat features
         public final ForgeConfigSpec.BooleanValue enableTinkersTools;
+        public final ForgeConfigSpec.BooleanValue enableExDeorumToolOverrides;
 
         public CommonConfig(ForgeConfigSpec.Builder builder) {
             builder.push("food");
@@ -333,6 +336,13 @@ public class ScarcityConfig {
                     .comment("Enable the Tinkers Construct Crook and Crushing Hammer.")
                     .comment("Requires Tinkers Construct and Ex Deorum.")
                     .define("enable_tinkers_tools", true);
+
+            enableExDeorumToolOverrides = builder
+                    .comment("Enable Ex Deorum overrides for Scarcity's Tinkers tools:")
+                    .comment("- Broken tools no longer work as hammers/crooks")
+                    .comment("- The Heavy-Hammering modifier makes the Crushing Hammer act as a compressed hammer")
+                    .comment("- Tinkers tools inside the Mechanical Hammer break instead of being destroyed")
+                    .define("enable_exdeorum_tool_overrides", true);
 
             builder.pop(); // compat
         }

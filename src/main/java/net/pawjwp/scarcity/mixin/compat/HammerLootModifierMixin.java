@@ -9,6 +9,7 @@ import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.pawjwp.scarcity.compat.Mods;
 import net.pawjwp.scarcity.compat.tinkers.TinkersCompat;
+import net.pawjwp.scarcity.config.ScarcityConfig;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.At;
@@ -36,7 +37,7 @@ public class HammerLootModifierMixin {
                                                    ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
         ItemStack tool = context.getParamOrNull(LootContextParams.TOOL);
 
-        if (tool != null && Mods.TINKERS) {
+        if (tool != null && Mods.TINKERS && ScarcityConfig.enableExDeorumToolOverrides) {
             if (TinkersCompat.isBroken(tool)) {
                 return null;
             }

@@ -6,6 +6,7 @@ import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.pawjwp.scarcity.compat.Mods;
 import net.pawjwp.scarcity.compat.tinkers.TinkersCompat;
+import net.pawjwp.scarcity.config.ScarcityConfig;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.At;
@@ -14,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import thedarkcolour.exdeorum.loot.CrookLootModifier;
 
 // Overrides Ex Deorum's tag-based crook detection for Scarcity's Crooks to support the following functionality
-// - Broken tools should not longer be treated as valid crooks even though they would still have the tag
+// - Broken tools should no longer be treated as valid crooks even though they would still have the tag
 @Pseudo
 @Mixin(value = CrookLootModifier.class, remap = false)
 public class CrookLootModifierMixin {
@@ -24,7 +25,7 @@ public class CrookLootModifierMixin {
                                            CallbackInfoReturnable<ObjectArrayList<ItemStack>> cir) {
         ItemStack tool = context.getParamOrNull(LootContextParams.TOOL);
 
-        if (tool != null && Mods.TINKERS && TinkersCompat.isBroken(tool)) {
+        if (tool != null && Mods.TINKERS && ScarcityConfig.enableExDeorumToolOverrides && TinkersCompat.isBroken(tool)) {
             cir.setReturnValue(generatedLoot);
         }
     }

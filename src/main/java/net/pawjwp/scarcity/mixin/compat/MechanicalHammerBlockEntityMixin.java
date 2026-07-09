@@ -4,6 +4,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.pawjwp.scarcity.compat.Mods;
 import net.pawjwp.scarcity.compat.tinkers.TinkersCompat;
+import net.pawjwp.scarcity.config.ScarcityConfig;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.Shadow;
@@ -27,7 +28,7 @@ public class MechanicalHammerBlockEntityMixin {
         var self = (MechanicalHammerBlockEntity) (Object) this;
         ItemStack hammer = self.inventory.getStackInSlot(MechanicalHammerBlockEntity.HAMMER_SLOT);
 
-        if (Mods.TINKERS && TinkersCompat.isTinkersTool(hammer)) {
+        if (Mods.TINKERS && ScarcityConfig.enableExDeorumToolOverrides && TinkersCompat.isTinkersTool(hammer)) {
             TinkersCompat.damageTool(hammer);
             if (TinkersCompat.isBroken(hammer)) {
                 this.efficiency = 1f;
@@ -42,7 +43,7 @@ public class MechanicalHammerBlockEntityMixin {
         var self = (MechanicalHammerBlockEntity) (Object) this;
         ItemStack hammer = self.inventory.getStackInSlot(MechanicalHammerBlockEntity.HAMMER_SLOT);
 
-        if (Mods.TINKERS && TinkersCompat.isBroken(hammer)) {
+        if (Mods.TINKERS && ScarcityConfig.enableExDeorumToolOverrides && TinkersCompat.isBroken(hammer)) {
             this.efficiency = 1f;
         }
     }
