@@ -17,6 +17,7 @@ import net.pawjwp.scarcity.compat.Mods;
 import net.pawjwp.scarcity.compat.tinkers.TinkersClient;
 import net.pawjwp.scarcity.compat.tinkers.TinkersCompat;
 import net.pawjwp.scarcity.config.ScarcityConfig;
+import net.pawjwp.scarcity.config.ScarcityConfigCondition;
 import net.pawjwp.scarcity.item.ScarcityCreativeTabs;
 import net.pawjwp.scarcity.item.ScarcityItems;
 import org.slf4j.Logger;
@@ -58,6 +59,8 @@ public class Scarcity
         context.registerConfig(ModConfig.Type.COMMON, ScarcityConfig.COMMON_SPEC);
         modEventBus.addListener(ScarcityConfig::onLoad);
         modEventBus.addListener(ScarcityConfig::onReload);
+
+        CraftingHelper.register(ScarcityConfigCondition.Serializer.INSTANCE);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event)
@@ -70,6 +73,9 @@ public class Scarcity
     {
         if(event.getTabKey() == ScarcityCreativeTabs.SCARCITY_TAB.getKey()) {
             ScarcityItems.CREATIVE_TAB_ITEMS.forEach(event::accept);
+            if (Mods.TINKERS && ScarcityConfig.enableTinkersTools) {
+                TinkersCompat.addToolVariants(event::accept);
+            }
         }
     }
 
