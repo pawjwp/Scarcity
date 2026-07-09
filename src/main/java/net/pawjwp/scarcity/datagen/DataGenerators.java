@@ -20,6 +20,8 @@ public class DataGenerators {
         ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
         CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
 
+        generator.addProvider(event.includeServer(), new ScarcityRecipes(packOutput));
+
         generator.addProvider(event.includeClient(), new ScarcityItemModels(packOutput, existingFileHelper));
 
         var blockTags = new ScarcityBlockTags(packOutput, lookupProvider, existingFileHelper);

@@ -1,0 +1,22 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "tconstruct"
+        },
+        {
+          "type": "scarcity:config",
+          "flag": "enable_tinkers_tools"
+        }
+      ],
+      "recipe": {
+        "type": "tconstruct:tool_building",
+        "result": "scarcity:crook",
+        "result_count": 1
+      }
+    }
+  ]
+}
