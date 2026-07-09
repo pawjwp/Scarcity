@@ -8,14 +8,17 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.pawjwp.scarcity.Scarcity;
-import net.pawjwp.scarcity.item.ScarcityItems;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
+import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
+import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.item.ModifiableItem;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
+
+import java.util.function.Consumer;
 
 // Tinkers Construct versions of the Ex Deorum crook and hammer
 // Only loaded if Tinkers Construct is present
@@ -35,8 +38,12 @@ public final class TinkersCompat {
 
     public static void register(IEventBus modEventBus) {
         ITEMS.register(modEventBus);
-        ScarcityItems.CREATIVE_TAB_ITEMS.add(CROOK);
-        ScarcityItems.CREATIVE_TAB_ITEMS.add(CRUSHING_HAMMER);
+    }
+
+    // Adds a single-material tool for each material to the creative tab
+    public static void addToolVariants(Consumer<ItemStack> output) {
+        ToolBuildHandler.addVariants(output, (IModifiable) CROOK.get(), "");
+        ToolBuildHandler.addVariants(output, (IModifiable) CRUSHING_HAMMER.get(), "");
     }
 
     public static boolean isBroken(ItemStack stack) {
