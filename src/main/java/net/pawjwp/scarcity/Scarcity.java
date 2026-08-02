@@ -16,6 +16,7 @@ import net.pawjwp.scarcity.attribute.ScarcityAttributes;
 import net.pawjwp.scarcity.compat.Mods;
 import net.pawjwp.scarcity.compat.tinkers.TinkersClient;
 import net.pawjwp.scarcity.compat.tinkers.TinkersCompat;
+import net.minecraftforge.common.crafting.CraftingHelper;
 import net.pawjwp.scarcity.config.ScarcityConfig;
 import net.pawjwp.scarcity.config.ScarcityConfigCondition;
 import net.pawjwp.scarcity.item.ScarcityCreativeTabs;

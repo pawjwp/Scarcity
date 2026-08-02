@@ -32,5 +32,6 @@ public class DataGenerators {
         generator.addProvider(event.includeServer(), new ScarcityToolDefinitions(packOutput));
         generator.addProvider(event.includeServer(), new ScarcityStationLayouts(packOutput));
         generator.addProvider(event.includeServer(), new ScarcityModifiers(packOutput));
+        generator.addProvider(event.includeServer(), new ScarcityModifierTags(packOutput, existingFileHelper));
     }
 }

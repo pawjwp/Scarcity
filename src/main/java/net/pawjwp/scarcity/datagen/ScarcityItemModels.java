@@ -8,6 +8,8 @@ import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.pawjwp.scarcity.Scarcity;
+import net.pawjwp.scarcity.compat.tinkers.TinkersCompat;
+import net.pawjwp.scarcity.item.SecondaryBlockItem;
 
 import java.util.*;
 import java.util.function.Predicate;
@@ -28,11 +30,15 @@ public class ScarcityItemModels extends ItemModelProvider {
         Set<Item> items = ForgeRegistries.ITEMS.getValues().stream().filter(i -> Scarcity.MOD_ID.equals(ForgeRegistries.ITEMS.getKey(i).getNamespace()))
                 .collect(Collectors.toSet());
 
-        // If needed in the future, exclude specific items here
-        // items.remove(ScarcityItems.EXAMPLE_ITEM.get());
+        // Exclude specific items here
+        items.remove(TinkersCompat.CROOK.get());
+        items.remove(TinkersCompat.CRUSHING_HAMMER.get());
+
+        // Blocks with special item sprites, which is every seed
+        takeAll(items, i -> i instanceof SecondaryBlockItem).forEach(item -> itemGeneratedModel(item, resourceItem(itemName(item))));
 
         // Blocks whose items look alike
-        // takeAll(items, i -> i instanceof BlockItem).forEach(item -> blockBasedModel(item, ""));
+        takeAll(items, i -> i instanceof BlockItem).forEach(item -> blockBasedModel(item, ""));
 
         // Remaining items
         items.forEach(item -> itemGeneratedModel(item, resourceItem(itemName(item))));

@@ -14,20 +14,15 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class ScarcityItemTags extends ItemTagsProvider {
+    // Shared by both tools. modifiable/harvest, /melee, /held, /interactable, and modifiable itself are left out
+    // since Tinkers derives them automatically from the leaf tags below (e.g. modifiable/held from interactable/right).
     private static final List<String> TOOL_TAGS = List.of(
             "forge:tools",
             "minecraft:tools",
-            "tconstruct:modifiable",
-            "tconstruct:modifiable/aoe",
             "tconstruct:modifiable/bonus_slots",
             "tconstruct:modifiable/durability",
-            "tconstruct:modifiable/harvest",
             "tconstruct:modifiable/harvest/primary",
-            "tconstruct:modifiable/held",
-            "tconstruct:modifiable/interactable",
-            "tconstruct:modifiable/interactable/charge",
             "tconstruct:modifiable/interactable/right",
-            "tconstruct:modifiable/melee",
             "tconstruct:modifiable/melee/weapon",
             "tconstruct:modifiable/multipart",
             "tconstruct:modifiable/small",
@@ -41,6 +36,7 @@ public class ScarcityItemTags extends ItemTagsProvider {
             "exdeorum:hammers",
             "minecraft:breaks_decorated_pots",
             "minecraft:pickaxes",
+            "tconstruct:modifiable/aoe",
             "tconstruct:modifiable/loot_capable_tool"
     );
 
