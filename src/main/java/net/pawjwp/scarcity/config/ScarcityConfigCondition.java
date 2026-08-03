@@ -11,6 +11,7 @@ public record ScarcityConfigCondition(String flag) implements ICondition {
     private static final ResourceLocation NAME = ResourceLocation.fromNamespaceAndPath(Scarcity.MOD_ID, "config");
 
     public static final String TINKERS_TOOLS = "enable_tinkers_tools";
+    public static final String MACHINE_SIEVE = "enable_machine_sieve";
     public static final String EX_DEORUM_TOOL_OVERRIDES = "enable_exdeorum_tool_overrides";
 
     @Override
@@ -22,6 +23,7 @@ public record ScarcityConfigCondition(String flag) implements ICondition {
     public boolean test(IContext context) {
         return switch (this.flag) {
             case TINKERS_TOOLS -> ScarcityConfig.enableTinkersTools;
+            case MACHINE_SIEVE -> ScarcityConfig.enableMachineSieve;
             case EX_DEORUM_TOOL_OVERRIDES -> ScarcityConfig.enableExDeorumToolOverrides;
             default -> throw new IllegalArgumentException("Unknown config flag: " + this.flag);
         };

@@ -27,6 +27,11 @@
   "modifier.scarcity.heavy_hammering.flavor": "Strong enough to smash compressed blocks",
   "modifier.scarcity.heavy_hammering.description": "The hammer can break compressed blocks like a compressed hammer.",
 
+  "block.scarcity.machine_sieve": "Particulate Sieve",
+  "item.scarcity.sieve_heavy_augment": "Heavy Agitator",
+  "item.scarcity.sieve_heavy_augment.desc": "Allows the Particulate Sieve to also process compressed blocks, at much higher power cost and lower speed.",
+  "info.scarcity.machine_sieve": "Automatically sifts materials through a mesh, like an Ex Deorum sieve. Install a Heavy Agitator to process compressed blocks at higher power cost and lower speed.",
+
 
   "attribute.scarcity.regen_speed": "Regen Speed",
   "attribute.scarcity.fast_regen_speed": "Slow Regen Speed",

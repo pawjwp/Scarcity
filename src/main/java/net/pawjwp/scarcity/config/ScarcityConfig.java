@@ -66,6 +66,11 @@ public class ScarcityConfig {
     // ex deorum compat features
     public static boolean enableTinkersTools;
     public static boolean enableExDeorumToolOverrides;
+    public static boolean enableMachineSieve;
+    public static int machineSieveEnergyPerTick;
+    public static int machineSieveEnergyPerOperation;
+    public static double heavyAgitatorPowerMultiplier;
+    public static double heavyAgitatorEnergyMultiplier;
 
     public static void onLoad(final ModConfigEvent.Loading event) {
         if (event.getConfig().getSpec() == COMMON_SPEC) {
@@ -129,6 +134,11 @@ public class ScarcityConfig {
         // ex deorum compat features
         enableTinkersTools = COMMON.enableTinkersTools.get();
         enableExDeorumToolOverrides = COMMON.enableExDeorumToolOverrides.get();
+        enableMachineSieve = COMMON.enableMachineSieve.get();
+        machineSieveEnergyPerTick = COMMON.machineSieveEnergyPerTick.get();
+        machineSieveEnergyPerOperation = COMMON.machineSieveEnergyPerOperation.get();
+        heavyAgitatorPowerMultiplier = COMMON.heavyAgitatorPowerMultiplier.get();
+        heavyAgitatorEnergyMultiplier = COMMON.heavyAgitatorEnergyMultiplier.get();
     }
 
     public static class CommonConfig {
@@ -177,6 +187,11 @@ public class ScarcityConfig {
         // ex deorum compat features
         public final ForgeConfigSpec.BooleanValue enableTinkersTools;
         public final ForgeConfigSpec.BooleanValue enableExDeorumToolOverrides;
+        public final ForgeConfigSpec.BooleanValue enableMachineSieve;
+        public final ForgeConfigSpec.IntValue machineSieveEnergyPerTick;
+        public final ForgeConfigSpec.IntValue machineSieveEnergyPerOperation;
+        public final ForgeConfigSpec.DoubleValue heavyAgitatorPowerMultiplier;
+        public final ForgeConfigSpec.DoubleValue heavyAgitatorEnergyMultiplier;
 
         public CommonConfig(ForgeConfigSpec.Builder builder) {
             builder.push("food");
@@ -343,6 +358,28 @@ public class ScarcityConfig {
                     .comment("- The Heavy-Hammering modifier makes the Crushing Hammer act as a compressed hammer")
                     .comment("- Tinkers tools inside the Mechanical Hammer break instead of being destroyed")
                     .define("enable_exdeorum_tool_overrides", true);
+
+            enableMachineSieve = builder
+                    .comment("Enable the Particulate Sieve machine and Heavy Agitator augment.")
+                    .comment("Requires Thermal and Ex Deorum.")
+                    .define("enable_machine_sieve", true);
+
+            machineSieveEnergyPerTick = builder
+                    .comment("Base energy per tick used by the Particulate Sieve.")
+                    .defineInRange("machine_sieve_energy_per_tick", 40, 1, 100_000);
+
+            machineSieveEnergyPerOperation = builder
+                    .comment("Base energy consumed by one sieve operation.")
+                    .defineInRange("machine_sieve_energy_per_operation", 4000, 1, 10_000_000);
+
+            heavyAgitatorPowerMultiplier = builder
+                    .comment("Energy consumption multiplier from the Heavy Agitator augment.")
+                    .defineInRange("heavy_agitator_power_multiplier", 2.0, 0.1, 100.0);
+
+            heavyAgitatorEnergyMultiplier = builder
+                    .comment("Total energy per operation multiplier from the Heavy Agitator augment.")
+                    .comment("Determines process speed combined with the power multiplier")
+                    .defineInRange("heavy_agitator_energy_multiplier", 6.0, 0.1, 100.0);
 
             builder.pop(); // compat
         }

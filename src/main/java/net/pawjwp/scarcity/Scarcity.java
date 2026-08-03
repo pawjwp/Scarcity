@@ -14,6 +14,8 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.pawjwp.scarcity.attribute.ScarcityAttributes;
 import net.pawjwp.scarcity.compat.Mods;
+import net.pawjwp.scarcity.compat.thermal.ThermalClient;
+import net.pawjwp.scarcity.compat.thermal.ThermalCompat;
 import net.pawjwp.scarcity.compat.tinkers.TinkersClient;
 import net.pawjwp.scarcity.compat.tinkers.TinkersCompat;
 import net.minecraftforge.common.crafting.CraftingHelper;
@@ -46,6 +48,9 @@ public class Scarcity
         if (Mods.TINKERS) {
             TinkersCompat.register(modEventBus);
         }
+        if (Mods.THERMAL && Mods.EX_DEORUM) {
+            ThermalCompat.register(modEventBus);
+        }
 
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
@@ -77,6 +82,10 @@ public class Scarcity
             if (Mods.TINKERS && ScarcityConfig.enableTinkersTools) {
                 TinkersCompat.addToolVariants(event::accept);
             }
+            if (Mods.THERMAL && Mods.EX_DEORUM && ScarcityConfig.enableMachineSieve) {
+                event.accept(ThermalCompat.MACHINE_SIEVE_ITEM.get());
+                event.accept(ThermalCompat.SIEVE_HEAVY_AUGMENT.get());
+            }
         }
     }
 
@@ -95,6 +104,9 @@ public class Scarcity
         {
             if (Mods.TINKERS) {
                 event.enqueueWork(TinkersClient::registerItemProperties);
+            }
+            if (Mods.THERMAL && Mods.EX_DEORUM) {
+                event.enqueueWork(ThermalClient::registerScreens);
             }
         }
     }
