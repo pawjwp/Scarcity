@@ -21,7 +21,9 @@ public class DataGenerators {
         CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
 
         generator.addProvider(event.includeServer(), new ScarcityRecipes(packOutput));
+        generator.addProvider(event.includeServer(), ScarcityLootTables.create(packOutput));
 
+        generator.addProvider(event.includeClient(), new ScarcityBlockStates(packOutput, existingFileHelper));
         generator.addProvider(event.includeClient(), new ScarcityItemModels(packOutput, existingFileHelper));
 
         var blockTags = new ScarcityBlockTags(packOutput, lookupProvider, existingFileHelper);
