@@ -5,6 +5,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.level.Level;
+import net.pawjwp.scarcity.ScarcitySunlightAccess;
 import net.pawjwp.scarcity.SunlightSensitivity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -15,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 // Adds an optional ScarcitySunlightSensitivity NBT tag to any LivingEntity, overriding fire immunity and making the mob burn in the daytime.
 @Mixin(Mob.class)
-public abstract class MobMixin extends LivingEntity {
+public abstract class MobMixin extends LivingEntity implements ScarcitySunlightAccess {
 
     @Unique
     private byte scarcity$sunlightSensitivity;
@@ -24,8 +25,8 @@ public abstract class MobMixin extends LivingEntity {
         super(entityType, level);
     }
 
-    @Unique
-    private SunlightSensitivity.State scarcity$sunlightState() {
+    @Override
+    public SunlightSensitivity.State scarcity$sunlightState() {
         return SunlightSensitivity.State.byId(this.scarcity$sunlightSensitivity);
     }
 
