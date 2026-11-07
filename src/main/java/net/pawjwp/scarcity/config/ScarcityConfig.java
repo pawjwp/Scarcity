@@ -352,6 +352,8 @@ public class ScarcityConfig {
             enableEnderIOPatches = builder
                     .comment("Enable Ender IO compat patches")
                     .comment("- Keep fluid NBT when fluid conduits transfer fluids, including conduits locked to one fluid")
+                    .comment("- Keep fluid NBT when a fluid tank empties/fills fluid containers")
+                    .comment("- Make the Fluid Tank empty/fill fluid containers one item at a time")
                     .define("enable_enderio_patches", true);
 
             hideObscureAPIMenuButton = builder
