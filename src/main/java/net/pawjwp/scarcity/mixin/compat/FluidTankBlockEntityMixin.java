@@ -79,12 +79,18 @@ public class FluidTankBlockEntityMixin {
         }
 
         // See what fluid is available to drain from the item.
-        // We act here because we're acting on a copy of the input.
         FluidStack availableFluid = fluidHandlerItem.drain(Integer.MAX_VALUE, IFluidHandler.FluidAction.SIMULATE);
 
         // See if we can insert this fluid into the block's tank.
         int filled = TANK.fill(self, availableFluid, IFluidHandler.FluidAction.SIMULATE);
         if (filled <= 0) {
+            return;
+        }
+
+        // Drain the accepted amount from the item.
+        // We act here because we're acting on a copy of the input.
+        FluidStack drainedFluid = fluidHandlerItem.drain(new FluidStack(availableFluid, filled), IFluidHandler.FluidAction.EXECUTE);
+        if (drainedFluid.isEmpty()) {
             return;
         }
 
@@ -95,12 +101,12 @@ public class FluidTankBlockEntityMixin {
         //  destination tank is not full
         if (inputItem.getCount() == 1 && TANK.getFluidAmount(self) < TANK.getCapacity(self)
                 && IntStream.range(0, fluidHandlerItem.getTanks()).anyMatch(i -> !fluidHandlerItem.getFluidInTank(i).isEmpty())) {
-            TANK.fill(self, new FluidStack(availableFluid, filled), IFluidHandler.FluidAction.EXECUTE);
+            TANK.fill(self, drainedFluid, IFluidHandler.FluidAction.EXECUTE);
             FLUID_FILL_INPUT.setStackInSlot(self, resultStack);
         } else if (!self.getInventory().extractItem(FLUID_FILL_INPUT.getIndex(), 1, true).isEmpty() &&
             FLUID_FILL_OUTPUT.insertItem(self, resultStack, true).isEmpty()) {
 
-            TANK.fill(self, new FluidStack(availableFluid, filled), IFluidHandler.FluidAction.EXECUTE);
+            TANK.fill(self, drainedFluid, IFluidHandler.FluidAction.EXECUTE);
             self.getInventory().extractItem(FLUID_FILL_INPUT.getIndex(), 1, false);
             FLUID_FILL_OUTPUT.insertItem(self, resultStack, false);
         }
