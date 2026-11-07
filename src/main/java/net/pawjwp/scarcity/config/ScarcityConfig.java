@@ -60,6 +60,9 @@ public class ScarcityConfig {
     // thermal patches
     public static boolean enableThermalPatches;
 
+    // ender io patches
+    public static boolean enableEnderIOPatches;
+
     // obscure api patches
     public static boolean hideObscureAPIMenuButton;
 
@@ -128,6 +131,9 @@ public class ScarcityConfig {
         // thermal patches
         enableThermalPatches = COMMON.enableThermalPatches.get();
 
+        // ender io patches
+        enableEnderIOPatches = COMMON.enableEnderIOPatches.get();
+
         // obscure api patches
         hideObscureAPIMenuButton = COMMON.hideObscureAPIMenuButton.get();
 
@@ -182,6 +188,7 @@ public class ScarcityConfig {
         public final ForgeConfigSpec.BooleanValue enableZombieVillagerCuring;
         public final ForgeConfigSpec.BooleanValue enableWaterPlantSourcePrevention;
         public final ForgeConfigSpec.BooleanValue enableThermalPatches;
+        public final ForgeConfigSpec.BooleanValue enableEnderIOPatches;
         public final ForgeConfigSpec.BooleanValue hideObscureAPIMenuButton;
 
         // ex deorum compat features
@@ -341,6 +348,11 @@ public class ScarcityConfig {
                     .comment("- Disable crafting remainders in machines")
                     .comment("- Make Chiller, Refinery, and single-fluid Dynamos ignore fluid NBT for recipe/fuel matching")
                     .define("enable_thermal_patches", false);
+
+            enableEnderIOPatches = builder
+                    .comment("Enable Ender IO compat patches")
+                    .comment("- Keep fluid NBT when fluid conduits transfer fluids, including conduits locked to one fluid")
+                    .define("enable_enderio_patches", true);
 
             hideObscureAPIMenuButton = builder
                     .comment("Hide the Obscure API title-screen button.")

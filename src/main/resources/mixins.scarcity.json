@@ -10,6 +10,7 @@
     "FoodDataMixin",
     "compat.ChillerRecipeManagerMixin",
     "compat.CrookLootModifierMixin",
+    "compat.FluidConduitTickerMixin",
     "compat.HammerLootModifierMixin",
     "compat.ItemHelperMixin",
     "compat.MechanicalHammerBlockEntityMixin",
