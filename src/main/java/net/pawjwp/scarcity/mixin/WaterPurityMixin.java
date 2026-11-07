@@ -9,8 +9,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+// Target either Thirst was Taken or Thirst was Reclaimed
 @Pseudo
-@Mixin(targets = "dev.ghen.thirst.content.purity.WaterPurity", remap = false)
+@Mixin(targets = {"dev.ghen.thirst.content.purity.WaterPurity", "cn.mlus.thirst.content.purity.WaterPurity"}, remap = false)
 public class WaterPurityMixin {
     
     // Cancels Thirst's harvestRunningWater method when bottle pickup adjustments are enabled
