@@ -90,15 +90,21 @@ public final class ThirstCompat {
         return fluidWithoutPurity;
     }
 
+    // Applies a fluid's purity to an item when it is a water container (based on how Thirst fills its containers)
+    public static ItemStack withFluidPurity(ItemStack item, FluidStack fluid) {
+        if (!Mods.THIRST || !WaterPurity.hasPurity(fluid) || !WaterPurity.isWaterFilledContainer(item)) {
+            return item;
+        }
+
+        return WaterPurity.addPurity(item.copy(), WaterPurity.getPurity(fluid));
+    }
+
     // Applies a fluid's purity to a list of items (based on how Thirst fills its containers)
     public static List<ItemStack> withFluidPurity(List<ItemStack> items, FluidStack fluid) {
         if (!Mods.THIRST || !WaterPurity.hasPurity(fluid)) {
             return items;
         }
 
-        int purity = WaterPurity.getPurity(fluid);
-        return items.stream()
-                .map(item -> WaterPurity.isWaterFilledContainer(item) ? WaterPurity.addPurity(item.copy(), purity) : item)
-                .collect(Collectors.toList());
+        return items.stream().map(item -> withFluidPurity(item, fluid)).collect(Collectors.toList());
     }
 }

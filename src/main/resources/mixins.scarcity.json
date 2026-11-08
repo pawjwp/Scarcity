@@ -11,6 +11,7 @@
     "compat.BaseMachineRecipeMixin",
     "compat.BasicFluidTankMixin",
     "compat.BottlerRecipeNBTMixin",
+    "compat.CastingBlockEntityMixin",
     "compat.CoFHFluidHelperMixin",
     "compat.CrookLootModifierMixin",
     "compat.FluidConduitTickerMixin",
