@@ -367,6 +367,7 @@ public class ScarcityConfig {
                     .comment("Merge water of different purities to the lowest purity, matching how Thirst Was Reclaimed merges water in other tanks")
                     .comment("No effect when using Thirst Was Taken instead of Thirst Was Reclaimed")
                     .comment("- Ender IO tanks/machines")
+                    .comment("- Mekanism tanks")
                     .comment("- Items that hold fluid (including the Ender IO Fluid Tank item)")
                     .define("enable_thirst_purity_merging", false);
 

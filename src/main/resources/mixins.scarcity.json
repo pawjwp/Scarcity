@@ -8,6 +8,7 @@
     "BottleItemMixin",
     "FallingBlockEntityMixin",
     "FoodDataMixin",
+    "compat.BasicFluidTankMixin",
     "compat.ChillerRecipeManagerMixin",
     "compat.CrookLootModifierMixin",
     "compat.FluidConduitTickerMixin",
