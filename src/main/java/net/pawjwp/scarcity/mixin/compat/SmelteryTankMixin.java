@@ -16,7 +16,7 @@ import slimeknights.tconstruct.smeltery.block.entity.tank.SmelteryTank;
 @Mixin(value = SmelteryTank.class, remap = false)
 public class SmelteryTankMixin {
 
-    // Merges the two fluid stacks, setting the resulting fluid's purity to the lower of the two purity values
+    // Merges the two fluid stacks
     // Affects the Tinkers' Construct smeltery and foundry, which grow the matching fluid when one of their fluids is added to
     @WrapOperation(
             method = "fill",
@@ -26,7 +26,7 @@ public class SmelteryTankMixin {
             ),
             require = 0
     )
-    private void scarcity$mergeToLowestPurity(FluidStack stored, int usable, Operation<Void> original, @Local(argsOnly = true) FluidStack resource) {
+    private void scarcity$mergePurity(FluidStack stored, int usable, Operation<Void> original, @Local(argsOnly = true) FluidStack resource) {
         original.call(stored, usable);
         if (ScarcityConfig.enableThirstPurityMerging) {
             ThirstCompat.mergePurity(stored, resource, usable);

@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(targets = "mekanism.common.capabilities.fluid.BasicFluidTank", remap = false)
 public class BasicFluidTankMixin {
 
-    // Merges the two fluid stacks, setting the resulting fluid's purity to the lower of the two purity values
+    // Merges the two fluid stacks
     // Affects all Mekanism fluid tanks
     @WrapOperation(
             method = "insert",
@@ -25,7 +25,7 @@ public class BasicFluidTankMixin {
             ),
             require = 0
     )
-    private void scarcity$mergeToLowestPurity(FluidStack stored, int toAdd, Operation<Void> original, @Local(argsOnly = true) FluidStack stack) {
+    private void scarcity$mergePurity(FluidStack stored, int toAdd, Operation<Void> original, @Local(argsOnly = true) FluidStack stack) {
         original.call(stored, toAdd);
         if (ScarcityConfig.enableThirstPurityMerging) {
             ThirstCompat.mergePurity(stored, stack, toAdd);

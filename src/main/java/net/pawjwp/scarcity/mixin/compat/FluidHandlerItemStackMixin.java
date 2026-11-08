@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 @Mixin(value = FluidHandlerItemStack.class, remap = false)
 public class FluidHandlerItemStackMixin {
 
-    // Merges the two fluid stacks, setting the resulting fluid's purity to the lower of the two purity values
+    // Merges the two fluid stacks
     // Affects all items built Forge's FluidHandlerItemStack
     @ModifyArg(
             method = "fill",
@@ -23,7 +23,7 @@ public class FluidHandlerItemStackMixin {
             ),
             require = 0
     )
-    private FluidStack scarcity$mergeToLowestPurity(FluidStack fluid, @Local(argsOnly = true) FluidStack resource, @Local int fillAmount) {
+    private FluidStack scarcity$mergePurity(FluidStack fluid, @Local(argsOnly = true) FluidStack resource, @Local int fillAmount) {
         if (ScarcityConfig.enableThirstPurityMerging) {
             ThirstCompat.mergePurity(fluid, resource, fillAmount);
         }

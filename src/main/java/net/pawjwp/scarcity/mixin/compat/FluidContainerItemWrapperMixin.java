@@ -32,11 +32,11 @@ public class FluidContainerItemWrapperMixin {
     @Final
     protected IFluidContainerItem item;
 
-    // Merges the two fluid stacks, setting the resulting fluid's purity to the lower of the two purity values
+    // Merges the two fluid stacks
     // Affects Thermal items that hold fluid like the Fluid Reservoir
     // Saves its fluid in NBT so it can be read again
     @Inject(method = "fill", at = @At("RETURN"), require = 0)
-    private void scarcity$mergeToLowestPurity(FluidStack resource, IFluidHandler.FluidAction action, CallbackInfoReturnable<Integer> cir) {
+    private void scarcity$mergePurity(FluidStack resource, IFluidHandler.FluidAction action, CallbackInfoReturnable<Integer> cir) {
         if (ScarcityConfig.enableThirstPurityMerging && action.execute() && cir.getReturnValue() > 0 && item instanceof FluidContainerItem) {
             CompoundTag fluidTag = item.getOrCreateTankTag(container).getCompound(TAG_FLUID);
             FluidStack stored = FluidStack.loadFluidStackFromNBT(fluidTag);

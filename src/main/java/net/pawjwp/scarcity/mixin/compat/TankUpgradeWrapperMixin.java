@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(targets = "net.p3pp3rf1y.sophisticatedcore.upgrades.tank.TankUpgradeWrapper", remap = false)
 public class TankUpgradeWrapperMixin {
 
-    // Merges the two fluid stacks, setting the resulting fluid's purity to the lower of the two purity values
+    // Merges the two fluid stacks
     // Affects Sophisticated Backpacks and Storage tank upgrades
     // Runs when the stored amount increases, before its contents are saved the item's NBT
     @WrapOperation(
@@ -26,7 +26,7 @@ public class TankUpgradeWrapperMixin {
             ),
             require = 0
     )
-    private void scarcity$mergeToLowestPurity(FluidStack stored, int amount, Operation<Void> original, @Local(argsOnly = true) FluidStack resource) {
+    private void scarcity$mergePurity(FluidStack stored, int amount, Operation<Void> original, @Local(argsOnly = true) FluidStack resource) {
         int addedAmount = amount - stored.getAmount();
         original.call(stored, amount);
         if (ScarcityConfig.enableThirstPurityMerging) {

@@ -19,10 +19,10 @@ public class PNCFluidTankMixin {
     @Shadow
     protected FluidStack fluid;
 
-    // Merges the two fluid stacks, setting the resulting fluid's purity to the lower of the two purity values
+    // Merges the two fluid stacks
     // Affects all PneumaticCraft tanks and machines
     @Inject(method = "fill", at = @At("RETURN"), require = 0)
-    private void scarcity$mergeToLowestPurity(FluidStack resource, IFluidHandler.FluidAction action, CallbackInfoReturnable<Integer> cir) {
+    private void scarcity$mergePurity(FluidStack resource, IFluidHandler.FluidAction action, CallbackInfoReturnable<Integer> cir) {
         if (ScarcityConfig.enableThirstPurityMerging && action.execute() && cir.getReturnValue() > 0) {
             ThirstCompat.mergePurity(fluid, resource, cir.getReturnValue());
         }

@@ -17,10 +17,10 @@ import slimeknights.tconstruct.library.fluid.FluidTankBase;
 @Mixin(value = FluidTankBase.class, remap = false)
 public class FluidTankBaseMixin {
 
-    // Merges the two fluid stacks, setting the resulting fluid's purity to the lower of the two purity values
+    // Merges the two fluid stacks
     // Affects Tinkers' Construct tanks, whose fill replaces the Forge FluidTank fill that Thirst Was Reclaimed already merges
     @Inject(method = "fill", at = @At("RETURN"), require = 0)
-    private void scarcity$mergeToLowestPurity(FluidStack resource, IFluidHandler.FluidAction action, CallbackInfoReturnable<Integer> cir) {
+    private void scarcity$mergePurity(FluidStack resource, IFluidHandler.FluidAction action, CallbackInfoReturnable<Integer> cir) {
         if (ScarcityConfig.enableThirstPurityMerging && action.execute() && cir.getReturnValue() > 0) {
             ThirstCompat.mergePurity(((FluidTank) (Object) this).getFluid(), resource, cir.getReturnValue());
         }
