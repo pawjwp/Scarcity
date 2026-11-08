@@ -356,7 +356,6 @@ public class ScarcityConfig {
                     .comment("Enable Thermal series compat patches")
                     .comment("- Fix Thermal machines not recognizing mod-modified stack sizes")
                     .comment("- Disable crafting remainders in machines")
-                    .comment("- Make Chiller, Refinery, and single-fluid Dynamos ignore fluid NBT for recipe/fuel matching")
                     .define("enable_thermal_patches", false);
 
             enableEnderIOPatches = builder
