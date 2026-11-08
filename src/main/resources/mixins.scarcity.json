@@ -11,6 +11,7 @@
     "compat.ChillerRecipeManagerMixin",
     "compat.CrookLootModifierMixin",
     "compat.FluidConduitTickerMixin",
+    "compat.FluidHandlerItemStackMixin",
     "compat.FluidTankBlockEntityMixin",
     "compat.HammerLootModifierMixin",
     "compat.ItemHelperMixin",
