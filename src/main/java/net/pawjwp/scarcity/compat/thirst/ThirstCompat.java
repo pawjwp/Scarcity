@@ -1,6 +1,7 @@
 package net.pawjwp.scarcity.compat.thirst;
 
 import dev.ghen.thirst.content.purity.WaterPurity;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.fluids.FluidStack;
 import net.pawjwp.scarcity.compat.Mods;
@@ -18,6 +19,18 @@ public final class ThirstCompat {
         int incomingPurity = WaterPurity.getPurity(incoming);
         if (incomingPurity < WaterPurity.getPurity(stored)) {
             WaterPurity.addPurity(stored, incomingPurity);
+        }
+    }
+
+    // Adds the purity tag from block to a FluidStack
+    public static void addBlockPurity(FluidStack fluid, BlockState state) {
+        if (!Mods.THIRST || !fluid.getFluid().isSame(Fluids.WATER)) {
+            return;
+        }
+
+        int purity = WaterPurity.getBlockPurity(state);
+        if (purity >= 0) {
+            WaterPurity.addPurity(fluid, purity);
         }
     }
 }

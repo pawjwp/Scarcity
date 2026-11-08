@@ -383,6 +383,7 @@ public class ScarcityConfig {
             enableThirstPurityFixes = builder
                     .comment("Fix some mods removing water purity during transfer")
                     .comment("- AE2 storage buses only extract water of the requested purity")
+                    .comment("- Create pipes maintain the purity of water drained from cauldrons")
                     .define("enable_thirst_purity_fixes", false);
 
             hideObscureAPIMenuButton = builder
