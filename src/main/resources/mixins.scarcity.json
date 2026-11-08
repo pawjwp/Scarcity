@@ -27,6 +27,7 @@
     "compat.SingleFluidFuelManagerMixin",
     "compat.SmelteryTankMixin",
     "compat.SpecialMobDataMixin",
+    "compat.TankUpgradeWrapperMixin",
     "KelpBlockMixin",
     "MobMixin",
     "PlayerMixin",

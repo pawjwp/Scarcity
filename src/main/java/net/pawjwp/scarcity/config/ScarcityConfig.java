@@ -373,6 +373,7 @@ public class ScarcityConfig {
                     .comment("- Tinkers' Construct tanks and smeltery/foundry")
                     .comment("- PneumaticCraft tanks/machines")
                     .comment("- Ex Deorum barrels and crucibles")
+                    .comment("- Sophisticated Backpacks/Storage tank upgrades")
                     .comment("- Items that hold fluid (including the Ender IO Fluid Tank item)")
                     .define("enable_thirst_purity_merging", false);
 
