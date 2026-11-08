@@ -368,6 +368,7 @@ public class ScarcityConfig {
                     .comment("No effect when using Thirst Was Taken instead of Thirst Was Reclaimed")
                     .comment("- Ender IO tanks/machines")
                     .comment("- Mekanism tanks")
+                    .comment("- Thermal tanks/machines and Fluid Cells")
                     .comment("- Items that hold fluid (including the Ender IO Fluid Tank item)")
                     .define("enable_thirst_purity_merging", false);
 

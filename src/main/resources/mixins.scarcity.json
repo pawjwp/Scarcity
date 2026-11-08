@@ -13,6 +13,7 @@
     "compat.CrookLootModifierMixin",
     "compat.FluidConduitTickerMixin",
     "compat.FluidHandlerItemStackMixin",
+    "compat.FluidStorageCoFHMixin",
     "compat.FluidTankBlockEntityMixin",
     "compat.HammerLootModifierMixin",
     "compat.ItemHelperMixin",
