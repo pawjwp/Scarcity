@@ -14,6 +14,7 @@
     "compat.FluidConduitTickerMixin",
     "compat.FluidContainerItemWrapperMixin",
     "compat.FluidHandlerItemStackMixin",
+    "compat.FluidHelperMixin",
     "compat.FluidStorageCoFHMixin",
     "compat.FluidTankBaseMixin",
     "compat.FluidTankBlockEntityMixin",
