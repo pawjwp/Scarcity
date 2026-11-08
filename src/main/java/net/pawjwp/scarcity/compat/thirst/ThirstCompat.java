@@ -1,6 +1,7 @@
 package net.pawjwp.scarcity.compat.thirst;
 
 import dev.ghen.thirst.content.purity.WaterPurity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.fluids.FluidStack;
@@ -32,5 +33,23 @@ public final class ThirstCompat {
         if (purity >= 0) {
             WaterPurity.addPurity(fluid, purity);
         }
+    }
+
+    // Adds the purity tag from an item to its contained fluid, based on how Thirst handles vanilla buckets
+    public static void copyItemPurityToFluid(ItemStack item, FluidStack fluid) {
+        if (!Mods.THIRST || fluid.isEmpty() || !WaterPurity.hasPurity(item)) {
+            return;
+        }
+
+        WaterPurity.addPurity(fluid, WaterPurity.getPurity(item));
+    }
+
+    // Adds the purity tag from a fluid to the item that contains it, based on how Thirst handles vanilla buckets
+    public static void copyFluidPurityToItem(FluidStack fluid, ItemStack item) {
+        if (!Mods.THIRST || item.isEmpty() || !WaterPurity.hasPurity(fluid)) {
+            return;
+        }
+
+        WaterPurity.addPurity(item, WaterPurity.getPurity(fluid));
     }
 }
