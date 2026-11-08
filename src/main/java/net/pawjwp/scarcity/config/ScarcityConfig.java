@@ -371,6 +371,7 @@ public class ScarcityConfig {
                     .comment("- Thermal tanks/machines and Fluid Cells")
                     .comment("- Thermal items that hold fluid (including the Fluid Reservoir)")
                     .comment("- Tinkers' Construct tanks and smeltery/foundry")
+                    .comment("- PneumaticCraft tanks/machines")
                     .comment("- Items that hold fluid (including the Ender IO Fluid Tank item)")
                     .define("enable_thirst_purity_merging", false);
 
