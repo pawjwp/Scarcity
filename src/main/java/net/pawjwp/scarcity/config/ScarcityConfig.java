@@ -385,6 +385,7 @@ public class ScarcityConfig {
                     .comment("- Create pipes maintain the purity of water drained from cauldrons")
                     .comment("- Ex Deorum porcelain buckets maintain water purity when filled/emptied")
                     .comment("- Thermal machines and dynamos treat water of any purity as valid for recipes and fuel")
+                    .comment("- Water bottles produced by Thermal machines maintain water purity")
                     .define("enable_thirst_purity_fixes", false);
 
             hideObscureAPIMenuButton = builder

@@ -11,6 +11,9 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.fluids.FluidStack;
 import net.pawjwp.scarcity.compat.Mods;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 // Water purity helper functions for Thirst Was Taken and Thirst Was Reclaimed
 // Uses Thirst Was Taken's WaterPurity class, which Thirst Was Reclaimed allows as a bridge to its own
 public final class ThirstCompat {
@@ -85,5 +88,17 @@ public final class ThirstCompat {
         FluidStack fluidWithoutPurity = fluid.copy();
         fluidWithoutPurity.getTag().remove("Purity");
         return fluidWithoutPurity;
+    }
+
+    // Applies a fluid's purity to a list of items (based on how Thirst fills its containers)
+    public static List<ItemStack> withFluidPurity(List<ItemStack> items, FluidStack fluid) {
+        if (!Mods.THIRST || !WaterPurity.hasPurity(fluid)) {
+            return items;
+        }
+
+        int purity = WaterPurity.getPurity(fluid);
+        return items.stream()
+                .map(item -> WaterPurity.isWaterFilledContainer(item) ? WaterPurity.addPurity(item.copy(), purity) : item)
+                .collect(Collectors.toList());
     }
 }
