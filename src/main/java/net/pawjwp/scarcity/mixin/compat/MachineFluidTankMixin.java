@@ -25,7 +25,7 @@ public class MachineFluidTankMixin {
     @Inject(method = "fill", at = @At("RETURN"), require = 0)
     private void scarcity$mergeToLowestPurity(FluidStack resource, IFluidHandler.FluidAction action, CallbackInfoReturnable<Integer> cir) {
         if (ScarcityConfig.enableThirstPurityMerging && action.execute() && cir.getReturnValue() > 0) {
-            ThirstCompat.mergeToLowestPurity(fluid, resource);
+            ThirstCompat.mergePurity(fluid, resource, cir.getReturnValue());
         }
     }
 }

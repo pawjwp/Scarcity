@@ -23,9 +23,9 @@ public class FluidHandlerItemStackMixin {
             ),
             require = 0
     )
-    private FluidStack scarcity$mergeToLowestPurity(FluidStack fluid, @Local(argsOnly = true) FluidStack resource) {
+    private FluidStack scarcity$mergeToLowestPurity(FluidStack fluid, @Local(argsOnly = true) FluidStack resource, @Local int fillAmount) {
         if (ScarcityConfig.enableThirstPurityMerging) {
-            ThirstCompat.mergeToLowestPurity(fluid, resource);
+            ThirstCompat.mergePurity(fluid, resource, fillAmount);
         }
         return fluid;
     }

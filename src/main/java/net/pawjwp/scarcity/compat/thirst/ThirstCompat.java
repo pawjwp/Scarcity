@@ -10,7 +10,7 @@ import net.pawjwp.scarcity.compat.Mods;
 public final class ThirstCompat {
     // Merges two fluid stacks, setting the resulting fluid's purity to the lower of the two purity values
     // Matches Thirst Was Reclaimed's overrides to Forge's FluidTank
-    public static void mergeToLowestPurity(FluidStack stored, FluidStack incoming) {
+    public static void mergePurity(FluidStack stored, FluidStack incoming, int addedAmount) {
         if (!Mods.THIRST || !stored.getFluid().isSame(Fluids.WATER) || !incoming.getFluid().isSame(Fluids.WATER)) {
             return;
         }
