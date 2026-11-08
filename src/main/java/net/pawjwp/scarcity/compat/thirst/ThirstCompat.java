@@ -1,8 +1,12 @@
 package net.pawjwp.scarcity.compat.thirst;
 
 import dev.ghen.thirst.content.purity.WaterPurity;
+import net.minecraft.core.BlockPos;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.fluids.FluidStack;
 import net.pawjwp.scarcity.compat.Mods;
@@ -35,7 +39,7 @@ public final class ThirstCompat {
         }
     }
 
-    // Adds the purity tag from an item to its contained fluid, based on how Thirst handles vanilla buckets
+    // Adds the purity tag from an item to its contained fluid (based on how Thirst handles vanilla buckets)
     public static void copyItemPurityToFluid(ItemStack item, FluidStack fluid) {
         if (!Mods.THIRST || fluid.isEmpty() || !WaterPurity.hasPurity(item)) {
             return;
@@ -44,12 +48,31 @@ public final class ThirstCompat {
         WaterPurity.addPurity(fluid, WaterPurity.getPurity(item));
     }
 
-    // Adds the purity tag from a fluid to the item that contains it, based on how Thirst handles vanilla buckets
+    // Adds the purity tag from a fluid to the item that contains it (based on how Thirst handles vanilla buckets)
     public static void copyFluidPurityToItem(FluidStack fluid, ItemStack item) {
         if (!Mods.THIRST || item.isEmpty() || !WaterPurity.hasPurity(fluid)) {
             return;
         }
 
         WaterPurity.addPurity(item, WaterPurity.getPurity(fluid));
+    }
+
+    // Gets the purity of a water source block that is about to be picked up (based on how Thirst handles vanilla buckets)
+    public static Integer getSourcePurity(Level level, BlockPos pos) {
+        FluidState fluidState = level.getFluidState(pos);
+        if (!Mods.THIRST || !fluidState.is(FluidTags.WATER) || !fluidState.isSource()) {
+            return null; // null if not a water source
+        }
+
+        return WaterPurity.getBlockPurity(level, pos);
+    }
+
+    // Adds a purity tag to an item
+    public static void addPurity(ItemStack item, int purity) {
+        if (!Mods.THIRST) {
+            return;
+        }
+
+        WaterPurity.addPurity(item, purity);
     }
 }

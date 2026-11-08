@@ -25,6 +25,7 @@
     "compat.MechanicalHammerBlockEntityMixin",
     "compat.PNCFluidTankMixin",
     "compat.PorcelainBucketCapabilityProviderMixin",
+    "compat.PorcelainBucketMixin",
     "compat.RefineryRecipeManagerMixin",
     "compat.SingleFluidFuelManagerMixin",
     "compat.SmelteryTankMixin",
