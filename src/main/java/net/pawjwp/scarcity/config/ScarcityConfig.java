@@ -356,6 +356,7 @@ public class ScarcityConfig {
                     .comment("Enable Thermal series compat patches")
                     .comment("- Fix Thermal machines not recognizing mod-modified stack sizes")
                     .comment("- Disable crafting remainders in machines")
+                    .comment("- Allow the Fluid Encapsulator to fill Florbs with fluids that have NBT")
                     .define("enable_thermal_patches", false);
 
             enableEnderIOPatches = builder

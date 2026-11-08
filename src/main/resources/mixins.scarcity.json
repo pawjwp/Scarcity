@@ -10,6 +10,7 @@
     "FoodDataMixin",
     "compat.BaseMachineRecipeMixin",
     "compat.BasicFluidTankMixin",
+    "compat.BottlerRecipeNBTMixin",
     "compat.CoFHFluidHelperMixin",
     "compat.CrookLootModifierMixin",
     "compat.FluidConduitTickerMixin",
