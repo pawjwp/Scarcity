@@ -14,6 +14,7 @@
     "compat.FluidTankBlockEntityMixin",
     "compat.HammerLootModifierMixin",
     "compat.ItemHelperMixin",
+    "compat.MachineFluidTankMixin",
     "compat.MechanicalHammerBlockEntityMixin",
     "compat.RefineryRecipeManagerMixin",
     "compat.SingleFluidFuelManagerMixin",

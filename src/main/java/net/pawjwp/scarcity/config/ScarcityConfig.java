@@ -63,6 +63,9 @@ public class ScarcityConfig {
     // ender io patches
     public static boolean enableEnderIOPatches;
 
+    // thirst patches
+    public static boolean enableThirstPurityMerging;
+
     // obscure api patches
     public static boolean hideObscureAPIMenuButton;
 
@@ -134,6 +137,9 @@ public class ScarcityConfig {
         // ender io patches
         enableEnderIOPatches = COMMON.enableEnderIOPatches.get();
 
+        // thirst patches
+        enableThirstPurityMerging = COMMON.enableThirstPurityMerging.get();
+
         // obscure api patches
         hideObscureAPIMenuButton = COMMON.hideObscureAPIMenuButton.get();
 
@@ -189,6 +195,7 @@ public class ScarcityConfig {
         public final ForgeConfigSpec.BooleanValue enableWaterPlantSourcePrevention;
         public final ForgeConfigSpec.BooleanValue enableThermalPatches;
         public final ForgeConfigSpec.BooleanValue enableEnderIOPatches;
+        public final ForgeConfigSpec.BooleanValue enableThirstPurityMerging;
         public final ForgeConfigSpec.BooleanValue hideObscureAPIMenuButton;
 
         // ex deorum compat features
@@ -355,6 +362,12 @@ public class ScarcityConfig {
                     .comment("- Keep fluid NBT when a fluid tank empties/fills fluid containers")
                     .comment("- Make the Fluid Tank empty/fill fluid containers one item at a time")
                     .define("enable_enderio_patches", true);
+
+            enableThirstPurityMerging = builder
+                    .comment("Merge water of different purities to the lowest purity, matching how Thirst Was Reclaimed merges water in other tanks")
+                    .comment("No effect when using Thirst Was Taken instead of Thirst Was Reclaimed")
+                    .comment("- Ender IO tanks/machines")
+                    .define("enable_thirst_purity_merging", false);
 
             hideObscureAPIMenuButton = builder
                     .comment("Hide the Obscure API title-screen button.")
