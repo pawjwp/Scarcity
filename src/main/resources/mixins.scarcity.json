@@ -13,6 +13,7 @@
     "compat.CrookLootModifierMixin",
     "compat.FluidConduitTickerMixin",
     "compat.FluidContainerItemWrapperMixin",
+    "compat.FluidHandlerFacadeMixin",
     "compat.FluidHandlerItemStackMixin",
     "compat.FluidHelperMixin",
     "compat.FluidStorageCoFHMixin",

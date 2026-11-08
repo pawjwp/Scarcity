@@ -65,6 +65,7 @@ public class ScarcityConfig {
 
     // thirst patches
     public static boolean enableThirstPurityMerging;
+    public static boolean enableThirstPurityFixes;
 
     // obscure api patches
     public static boolean hideObscureAPIMenuButton;
@@ -139,6 +140,7 @@ public class ScarcityConfig {
 
         // thirst patches
         enableThirstPurityMerging = COMMON.enableThirstPurityMerging.get();
+        enableThirstPurityFixes = COMMON.enableThirstPurityFixes.get();
 
         // obscure api patches
         hideObscureAPIMenuButton = COMMON.hideObscureAPIMenuButton.get();
@@ -196,6 +198,7 @@ public class ScarcityConfig {
         public final ForgeConfigSpec.BooleanValue enableThermalPatches;
         public final ForgeConfigSpec.BooleanValue enableEnderIOPatches;
         public final ForgeConfigSpec.BooleanValue enableThirstPurityMerging;
+        public final ForgeConfigSpec.BooleanValue enableThirstPurityFixes;
         public final ForgeConfigSpec.BooleanValue hideObscureAPIMenuButton;
 
         // ex deorum compat features
@@ -376,6 +379,11 @@ public class ScarcityConfig {
                     .comment("- Sophisticated Backpacks/Storage tank upgrades")
                     .comment("- Items that hold fluid (including the Ender IO Fluid Tank item)")
                     .define("enable_thirst_purity_merging", false);
+
+            enableThirstPurityFixes = builder
+                    .comment("Fix some mods removing water purity during transfer")
+                    .comment("- AE2 storage buses only extract water of the requested purity")
+                    .define("enable_thirst_purity_fixes", false);
 
             hideObscureAPIMenuButton = builder
                     .comment("Hide the Obscure API title-screen button.")
