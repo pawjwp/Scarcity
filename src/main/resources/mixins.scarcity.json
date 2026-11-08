@@ -9,6 +9,7 @@
     "FallingBlockEntityMixin",
     "FoodDataMixin",
     "compat.BasicFluidTankMixin",
+    "compat.CoFHFluidHelperMixin",
     "compat.CrookLootModifierMixin",
     "compat.FluidConduitTickerMixin",
     "compat.FluidContainerItemWrapperMixin",

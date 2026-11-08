@@ -75,4 +75,15 @@ public final class ThirstCompat {
 
         WaterPurity.addPurity(item, purity);
     }
+
+    // Gets a copy of a fluid without the purity tag for matching in recipes
+    public static FluidStack withoutPurity(FluidStack fluid) {
+        if (!fluid.hasTag() || !fluid.getTag().contains("Purity")) {
+            return fluid;
+        }
+
+        FluidStack fluidWithoutPurity = fluid.copy();
+        fluidWithoutPurity.getTag().remove("Purity");
+        return fluidWithoutPurity;
+    }
 }
