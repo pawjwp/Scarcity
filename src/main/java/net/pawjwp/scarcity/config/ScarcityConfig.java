@@ -416,6 +416,7 @@ public class ScarcityConfig {
                     .comment("- Thermal machines and dynamos treat water of any purity as valid for recipes and fuel")
                     .comment("- Water bottles produced by Thermal machines maintain water purity")
                     .comment("- Water bottles produced by Tinkers' Construct casting maintain water purity")
+                    .comment("- Tinkers' Construct tanks maintain water purity when filling/emptying bottles")
                     .define("enable_thirst_purity_fixes", false);
 
             hideObscureAPIMenuButton = builder
