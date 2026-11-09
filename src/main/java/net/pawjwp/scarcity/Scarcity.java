@@ -14,6 +14,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.pawjwp.scarcity.attribute.ScarcityAttributes;
 import net.pawjwp.scarcity.compat.Mods;
+import net.pawjwp.scarcity.compat.refurbished.RefurbishedCompat;
 import net.pawjwp.scarcity.compat.thermal.ThermalClient;
 import net.pawjwp.scarcity.compat.thermal.ThermalCompat;
 import net.pawjwp.scarcity.compat.tinkers.TinkersClient;
@@ -50,6 +51,9 @@ public class Scarcity
         }
         if (Mods.THERMAL && Mods.EX_DEORUM) {
             ThermalCompat.register(modEventBus);
+        }
+        if (Mods.REFURBISHED_FURNITURE && Mods.THIRST) {
+            RefurbishedCompat.register();
         }
 
         // Register the commonSetup method for modloading

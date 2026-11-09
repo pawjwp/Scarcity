@@ -7,6 +7,7 @@ public final class Mods {
     public static final boolean TINKERS = ModList.get().isLoaded("tconstruct");
     public static final boolean EX_DEORUM = ModList.get().isLoaded("exdeorum");
     public static final boolean THERMAL = ModList.get().isLoaded("thermal");
+    public static final boolean REFURBISHED_FURNITURE = ModList.get().isLoaded("refurbished_furniture");
     // Thirst Was Taken and Thirst Was Reclaimed both use "thirst" as their ID
     public static final boolean THIRST = ModList.get().isLoaded("thirst");
 }
