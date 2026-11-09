@@ -65,6 +65,8 @@ public class ScarcityConfig {
 
     // thirst patches
     public static boolean enableThirstPurityMerging;
+    public static PurityMergeMethod thirstPurityMergeMethod = PurityMergeMethod.LOWEST; // Load lowest by default so mixins can't read null values while the config loads
+    public static double thirstPurityRoundingThreshold;
     public static boolean enableThirstPurityFixes;
 
     // obscure api patches
@@ -140,6 +142,8 @@ public class ScarcityConfig {
 
         // thirst patches
         enableThirstPurityMerging = COMMON.enableThirstPurityMerging.get();
+        thirstPurityMergeMethod = COMMON.thirstPurityMergeMethod.get();
+        thirstPurityRoundingThreshold = COMMON.thirstPurityRoundingThreshold.get();
         enableThirstPurityFixes = COMMON.enableThirstPurityFixes.get();
 
         // obscure api patches
@@ -154,6 +158,9 @@ public class ScarcityConfig {
         heavyAgitatorPowerMultiplier = COMMON.heavyAgitatorPowerMultiplier.get();
         heavyAgitatorEnergyMultiplier = COMMON.heavyAgitatorEnergyMultiplier.get();
     }
+
+    // How the purity is chosen when water of different purities merges in a tank
+    public enum PurityMergeMethod { LOWEST, NEAREST, FLOOR, CEILING, RANDOM, THRESHOLD }
 
     public static class CommonConfig {
         // fast regen
@@ -198,6 +205,8 @@ public class ScarcityConfig {
         public final ForgeConfigSpec.BooleanValue enableThermalPatches;
         public final ForgeConfigSpec.BooleanValue enableEnderIOPatches;
         public final ForgeConfigSpec.BooleanValue enableThirstPurityMerging;
+        public final ForgeConfigSpec.EnumValue<PurityMergeMethod> thirstPurityMergeMethod;
+        public final ForgeConfigSpec.DoubleValue thirstPurityRoundingThreshold;
         public final ForgeConfigSpec.BooleanValue enableThirstPurityFixes;
         public final ForgeConfigSpec.BooleanValue hideObscureAPIMenuButton;
 
@@ -367,7 +376,7 @@ public class ScarcityConfig {
                     .define("enable_enderio_patches", true);
 
             enableThirstPurityMerging = builder
-                    .comment("Merge water of different purities to the lowest purity, matching how Thirst Was Reclaimed merges water in other tanks")
+                    .comment("Merge water of different purities with thirst_purity_merge_method, matching how Thirst Was Reclaimed merges water in other tanks")
                     .comment("No effect when using Thirst Was Taken instead of Thirst Was Reclaimed")
                     .comment("- Ender IO tanks/machines")
                     .comment("- Mekanism tanks")
@@ -379,6 +388,24 @@ public class ScarcityConfig {
                     .comment("- Sophisticated Backpacks/Storage tank upgrades")
                     .comment("- Items that hold fluid (including the Ender IO Fluid Tank item)")
                     .define("enable_thirst_purity_merging", false);
+
+            thirstPurityMergeMethod = builder
+                    .comment("How purity is calculated when merging water of different purities in a tank")
+                    .comment("No effect if using Thirst Was Taken instead of Thirst Was Reclaimed")
+                    .comment("- LOWEST: Use the lower purity, matching Thirst Was Reclaimed")
+                    .comment("- NEAREST: Take a weighted average, then round to the nearest purity")
+                    .comment("- FLOOR: Take a weighted average, then round down")
+                    .comment("- CEILING: Take a weighted average, then round up")
+                    .comment("- RANDOM: Take a weighted average, then round up or down at random based on the fractional value")
+                    .comment("- THRESHOLD: Round up only when the fraction is above thirst_purity_rounding_threshold")
+                    .comment("Warning: NEAREST, CEILING and THRESHOLD can be exploited to purify water for free by merging it in small amounts")
+                    .defineEnum("thirst_purity_merge_method", PurityMergeMethod.LOWEST);
+
+            thirstPurityRoundingThreshold = builder
+                    .comment("Threshold at which the THRESHOLD merge method will round the average purity up instead of down")
+                    .comment("For example, 0.9 rounds an average purity of 2.91 up to 3 and 2.89 down to 2")
+                    .comment("No effect if thirst_purity_merge_method is not set to THRESHOLD")
+                    .defineInRange("thirst_purity_rounding_threshold", 0.9, 0.0, 1.0);
 
             enableThirstPurityFixes = builder
                     .comment("Fix some mods removing water purity during transfer")

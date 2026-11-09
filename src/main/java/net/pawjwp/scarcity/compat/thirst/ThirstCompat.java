@@ -10,24 +10,47 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.fluids.FluidStack;
 import net.pawjwp.scarcity.compat.Mods;
+import net.pawjwp.scarcity.config.ScarcityConfig;
 
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
 // Water purity helper functions for Thirst Was Taken and Thirst Was Reclaimed
 // Uses Thirst Was Taken's WaterPurity class, which Thirst Was Reclaimed allows as a bridge to its own
 public final class ThirstCompat {
-    // Merges two fluid stacks, setting the resulting fluid's purity to the lower of the two purity values
-    // Matches Thirst Was Reclaimed's overrides to Forge's FluidTank
+    // Merges two fluid stacks, setting the resulting fluid's purity using the method of merging set by the config
     public static void mergePurity(FluidStack stored, FluidStack incoming, int addedAmount) {
+        mergePurity(stored, getPurity(stored), incoming, addedAmount);
+    }
+
+    // Merges two fluid stacks like above, using the stored fluid's purity from before the incoming fluid was added
+    public static void mergePurity(FluidStack stored, int storedPurity, FluidStack incoming, int addedAmount) {
         if (!Mods.THIRST || !stored.getFluid().isSame(Fluids.WATER) || !incoming.getFluid().isSame(Fluids.WATER)) {
             return;
         }
 
         int incomingPurity = WaterPurity.getPurity(incoming);
-        if (incomingPurity < WaterPurity.getPurity(stored)) {
-            WaterPurity.addPurity(stored, incomingPurity);
+        double average = storedPurity + (incomingPurity - storedPurity) * (double) Math.min(addedAmount, stored.getAmount()) / stored.getAmount();
+        int roundedDown = (int) average;
+        double remainder = average - roundedDown;
+        int purity = switch (ScarcityConfig.thirstPurityMergeMethod) {
+            case LOWEST -> Math.min(storedPurity, incomingPurity); // The default, and what Thirst Was Reclaimed uses in its overrides to the Forge FluidTank
+            case NEAREST -> (int) Math.round(average);
+            case FLOOR -> roundedDown;
+            case CEILING -> (int) Math.ceil(average);
+            case RANDOM -> ThreadLocalRandom.current().nextDouble() < remainder ? roundedDown + 1 : roundedDown;
+            case THRESHOLD -> remainder > ScarcityConfig.thirstPurityRoundingThreshold ? roundedDown + 1 : roundedDown;
+        };
+
+        if (purity != WaterPurity.getPurity(stored)) {
+            WaterPurity.addPurity(stored, purity);
         }
+    }
+
+    // Gets the purity of a fluid, using the max purity if the tag is missing
+    public static int getPurity(FluidStack fluid) {
+        return Mods.THIRST ? WaterPurity.getPurity(fluid) : WaterPurity.MAX_PURITY;
     }
 
     // Adds the purity tag from block to a FluidStack
