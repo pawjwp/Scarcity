@@ -34,6 +34,8 @@
     "compat.ItemHelperMixin",
     "compat.MachineFluidTankMixin",
     "compat.MechanicalHammerBlockEntityMixin",
+    "compat.MountedBottleDispenseBehaviorMixin",
+    "compat.MountedBucketDispenseBehaviorMixin",
     "compat.PNCFluidTankMixin",
     "compat.PorcelainBucketCapabilityProviderMixin",
     "compat.PorcelainBucketMixin",

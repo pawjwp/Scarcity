@@ -93,6 +93,15 @@ public final class ThirstCompat {
         return WaterPurity.getBlockPurity(level, pos);
     }
 
+    // Gets the purity of a water block, including flowing water
+    public static Integer getWaterPurity(Level level, BlockPos pos) {
+        if (!Mods.THIRST || !level.getFluidState(pos).is(FluidTags.WATER)) {
+            return null; // null if not water
+        }
+
+        return WaterPurity.getBlockPurity(level, pos);
+    }
+
     // Adds a purity tag to an item
     public static void addPurity(ItemStack item, int purity) {
         if (!Mods.THIRST) {
