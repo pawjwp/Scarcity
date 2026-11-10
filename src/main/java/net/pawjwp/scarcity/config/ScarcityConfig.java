@@ -412,6 +412,7 @@ public class ScarcityConfig {
                     .comment("- AE2 storage buses only extract water of the requested purity")
                     .comment("- Create pipes maintain the purity of water drained from cauldrons")
                     .comment("- Ex Deorum porcelain buckets maintain water purity when filled/emptied")
+                    .comment("- Industrial Foregoing Fluid Collectors maintain water purity when picking up water")
                     .comment("- Mekanism pump and tanks maintain water purity when picking up water")
                     .comment("- PneumaticCraft machines maintain water purity when picking up water")
                     .comment("- Refurbished Furniture tank blocks maintain water purity when filling/emptying bottles, and treat bottles as 250mb instead of 1000")

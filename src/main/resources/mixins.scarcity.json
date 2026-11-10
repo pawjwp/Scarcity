@@ -19,6 +19,7 @@
     "compat.DroneAILiquidImportMixin",
     "compat.EmptyPotionTransferMixin",
     "compat.FillFluidContainerTransferMixin",
+    "compat.FluidCollectorTileMixin",
     "compat.FluidConduitTickerMixin",
     "compat.FluidContainerItemWrapperMixin",
     "compat.FluidHandlerFacadeMixin",
