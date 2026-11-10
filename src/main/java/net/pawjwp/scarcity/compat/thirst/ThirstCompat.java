@@ -102,6 +102,15 @@ public final class ThirstCompat {
         WaterPurity.addPurity(item, purity);
     }
 
+    // Adds a purity tag to water
+    public static void addPurity(FluidStack fluid, int purity) {
+        if (!Mods.THIRST || !fluid.getFluid().isSame(Fluids.WATER)) {
+            return;
+        }
+
+        WaterPurity.addPurity(fluid, purity);
+    }
+
     // Gets a copy of a fluid without the purity tag for matching in recipes
     public static FluidStack withoutPurity(FluidStack fluid) {
         if (!fluid.hasTag() || !fluid.getTag().contains("Purity")) {

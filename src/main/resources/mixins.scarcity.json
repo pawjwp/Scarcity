@@ -6,6 +6,7 @@
   "mixins": [
     "BlockItemMixin",
     "BottleItemMixin",
+    "BucketPickupHandlerWrapperMixin",
     "FallingBlockEntityMixin",
     "FluidTankMixin",
     "FoodDataMixin",
