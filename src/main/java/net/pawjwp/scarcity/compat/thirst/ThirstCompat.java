@@ -30,11 +30,18 @@ public final class ThirstCompat {
             return;
         }
 
-        int incomingPurity = WaterPurity.getPurity(incoming);
-        double average = storedPurity + (incomingPurity - storedPurity) * (double) Math.min(addedAmount, stored.getAmount()) / stored.getAmount();
+        int purity = mergedPurity(storedPurity, WaterPurity.getPurity(incoming), addedAmount, stored.getAmount());
+        if (purity != WaterPurity.getPurity(stored)) {
+            WaterPurity.addPurity(stored, purity);
+        }
+    }
+
+    // Gets the purity of merged water, calculated without FluidStacks
+    public static int mergedPurity(int storedPurity, int incomingPurity, int addedAmount, int totalAmount) {
+        double average = storedPurity + (incomingPurity - storedPurity) * (double) Math.min(addedAmount, totalAmount) / totalAmount;
         int roundedDown = (int) average;
         double remainder = average - roundedDown;
-        int purity = switch (ScarcityConfig.thirstPurityMergeMethod) {
+        return switch (ScarcityConfig.thirstPurityMergeMethod) {
             case LOWEST -> Math.min(storedPurity, incomingPurity); // The default, and what Thirst Was Reclaimed uses in its overrides to the Forge FluidTank
             case NEAREST -> (int) Math.round(average);
             case FLOOR -> roundedDown;
@@ -42,10 +49,6 @@ public final class ThirstCompat {
             case RANDOM -> ThreadLocalRandom.current().nextDouble() < remainder ? roundedDown + 1 : roundedDown;
             case THRESHOLD -> remainder > ScarcityConfig.thirstPurityRoundingThreshold ? roundedDown + 1 : roundedDown;
         };
-
-        if (purity != WaterPurity.getPurity(stored)) {
-            WaterPurity.addPurity(stored, purity);
-        }
     }
 
     // Gets the purity of a fluid, using the default purity if the tag is missing
