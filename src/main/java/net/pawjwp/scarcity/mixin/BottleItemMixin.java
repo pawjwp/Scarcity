@@ -3,6 +3,7 @@ package net.pawjwp.scarcity.mixin;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.AreaEffectCloud;
@@ -22,7 +23,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.pawjwp.scarcity.compat.thirst.ThirstCompat;
 import net.pawjwp.scarcity.config.ScarcityConfig;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -36,11 +36,6 @@ public abstract class BottleItemMixin extends Item {
     public BottleItemMixin(Properties properties) {
         super(properties);
     }
-
-    @Shadow
-    protected abstract ItemStack turnBottleIntoItem(ItemStack bottleStack,
-                                                    Player player,
-                                                    ItemStack filledBottleStack);
 
     // Fills four bottles from a water source and removes the source
     @Inject(
@@ -68,7 +63,9 @@ public abstract class BottleItemMixin extends Item {
             return;
         }
 
-        if (itemstack.getCount() < 4) {
+        int bottlesPerBucket = 4;
+
+        if (itemstack.getCount() < bottlesPerBucket) {
             cir.setReturnValue(InteractionResultHolder.pass(itemstack));
             cir.cancel();
             return;
@@ -90,17 +87,26 @@ public abstract class BottleItemMixin extends Item {
         }
 
         level.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.BOTTLE_FILL, SoundSource.NEUTRAL, 1.0F, 1.0F);
+        ItemStack waterBottles = PotionUtils.setPotion(
+                new ItemStack(Items.POTION, bottlesPerBucket),
+                Potions.WATER
+        );
+        // Apply purity to picked up bottles
+        if (purity != null) {
+            ThirstCompat.addPurity(waterBottles, purity);
+        }
+
+        // Fills all four bottles at once
+        player.awardStat(Stats.ITEM_USED.get(this), bottlesPerBucket);
         ItemStack currentStack = itemstack;
-        for (int i = 0; i < 4; i++) {
-            ItemStack waterPotion = PotionUtils.setPotion(
-                    new ItemStack(Items.POTION),
-                    Potions.WATER
-            );
-            // Apply purity to picked up bottles
-            if (purity != null) {
-                ThirstCompat.addPurity(waterPotion, purity);
-            }
-            currentStack = this.turnBottleIntoItem(currentStack, player, waterPotion);
+        if (!player.getAbilities().instabuild) {
+            currentStack.shrink(bottlesPerBucket);
+        }
+        if (currentStack.isEmpty()) {
+            currentStack = waterBottles.split(waterBottles.getMaxStackSize());
+        }
+        if (!waterBottles.isEmpty() && !player.getInventory().add(waterBottles)) {
+            player.drop(waterBottles, false);
         }
 
         level.gameEvent(player, GameEvent.FLUID_PICKUP, blockPos);
