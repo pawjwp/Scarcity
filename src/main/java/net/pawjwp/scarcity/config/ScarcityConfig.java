@@ -67,6 +67,7 @@ public class ScarcityConfig {
     public static boolean enableThirstPurityMerging;
     public static PurityMergeMethod thirstPurityMergeMethod = PurityMergeMethod.LOWEST; // Load lowest by default so mixins can't read null values while the config loads
     public static double thirstPurityRoundingThreshold;
+    public static int thirstUntaggedWaterPurity = -1; // Keep Thirst's own default until the config loads, since 0 would mean dirty
     public static boolean enableThirstPurityFixes;
 
     // obscure api patches
@@ -144,6 +145,7 @@ public class ScarcityConfig {
         enableThirstPurityMerging = COMMON.enableThirstPurityMerging.get();
         thirstPurityMergeMethod = COMMON.thirstPurityMergeMethod.get();
         thirstPurityRoundingThreshold = COMMON.thirstPurityRoundingThreshold.get();
+        thirstUntaggedWaterPurity = COMMON.thirstUntaggedWaterPurity.get();
         enableThirstPurityFixes = COMMON.enableThirstPurityFixes.get();
 
         // obscure api patches
@@ -207,6 +209,7 @@ public class ScarcityConfig {
         public final ForgeConfigSpec.BooleanValue enableThirstPurityMerging;
         public final ForgeConfigSpec.EnumValue<PurityMergeMethod> thirstPurityMergeMethod;
         public final ForgeConfigSpec.DoubleValue thirstPurityRoundingThreshold;
+        public final ForgeConfigSpec.IntValue thirstUntaggedWaterPurity;
         public final ForgeConfigSpec.BooleanValue enableThirstPurityFixes;
         public final ForgeConfigSpec.BooleanValue hideObscureAPIMenuButton;
 
@@ -407,6 +410,10 @@ public class ScarcityConfig {
                     .comment("For example, 0.9 rounds an average purity of 2.91 up to 3 and 2.89 down to 2")
                     .comment("No effect if thirst_purity_merge_method is not set to THRESHOLD")
                     .defineInRange("thirst_purity_rounding_threshold", 0.9, 0.0, 1.0);
+
+            thirstUntaggedWaterPurity = builder
+                    .comment("Purity of water with no purity tag, -1 to use the Thirst default")
+                    .defineInRange("thirst_untagged_water_purity", -1, -1, 3);
 
             enableThirstPurityFixes = builder
                     .comment("Fix some mods removing water purity during transfer")

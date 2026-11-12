@@ -48,7 +48,7 @@ public final class ThirstCompat {
         }
     }
 
-    // Gets the purity of a fluid, using the max purity if the tag is missing
+    // Gets the purity of a fluid, using the default purity if the tag is missing
     public static int getPurity(FluidStack fluid) {
         return Mods.THIRST ? WaterPurity.getPurity(fluid) : WaterPurity.MAX_PURITY;
     }
