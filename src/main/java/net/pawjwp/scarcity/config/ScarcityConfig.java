@@ -341,6 +341,7 @@ public class ScarcityConfig {
 
             enableBottlePickupAdjustments = builder
                     .comment("Enable water bottle pickup adjustments, requiring 4 bottles to fill, and replacing the water source block")
+                    .comment("Also applies to dispensers")
                     .define("enable_bottle_pickup_adjustments", false);
 
             enableFallingBlockBreakingAdjustments = builder
