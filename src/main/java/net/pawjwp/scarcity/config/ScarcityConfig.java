@@ -366,35 +366,52 @@ public class ScarcityConfig {
             builder.push("compat");
 
             enableThermalPatches = builder
-                    .comment("Enable Thermal series compat patches")
-                    .comment("- Fix Thermal machines not recognizing mod-modified stack sizes")
+                    .comment("Enable Thermal Series compat patches")
+                    .comment("- Fix Thermal machines not recognizing stack sizes changed by other mods")
                     .comment("- Disable crafting remainders in machines")
                     .comment("- Allow the Fluid Encapsulator to fill Florbs with fluids that have NBT")
                     .define("enable_thermal_patches", false);
 
             enableEnderIOPatches = builder
                     .comment("Enable Ender IO compat patches")
-                    .comment("- Keep fluid NBT when fluid conduits transfer fluids, including conduits locked to one fluid")
-                    .comment("- Keep fluid NBT when a fluid tank empties/fills fluid containers")
-                    .comment("- Make the Fluid Tank empty/fill fluid containers one item at a time")
+                    .comment("- Fluid conduits maintain fluid NBT, including conduits locked to one fluid")
+                    .comment("- Fluid Tanks keep fluid NBT when filling or emptying fluid containers")
+                    .comment("- The Fluid Tank fills or empties stacks of fluid containers one item at a time")
                     .define("enable_enderio_patches", true);
 
+            thirstUntaggedWaterPurity = builder
+                    .comment("Purity of water with no purity tag, -1 to use Thirst's default")
+                    .defineInRange("thirst_untagged_water_purity", -1, -1, 3);
+
+            enableThirstPurityFixes = builder
+                    .comment("Fix various mods losing water purity")
+                    .comment("- AE2 storage buses only extract water of the requested purity")
+                    .comment("- Create pipes extracting from cauldrons and dispensers on contraption maintain purity")
+                    .comment("- Ex Deorum porcelain buckets maintain purity")
+                    .comment("- Forge default world water pickups maintain purity (used by the Thermal Reservoirs and the Sophisticated Series pump upgrade)")
+                    .comment("- Industrial Foregoing fluid collectors maintain purity")
+                    .comment("- Mekanism electric pumps and tanks maintain purity")
+                    .comment("- PneumaticCraft gas lifts, liquid hoppers, and drones maintain purity")
+                    .comment("- Refurbished Furniture blocks with internal tanks maintain purity and use 250 mb per bottle instead of 1000")
+                    .comment("- Thermal Series machines and dynamos accept all purity values, and maintain purity when used with water bottles")
+                    .comment("- Tinkers' Construct tanks, casting, and tools maintain purity")
+                    .define("enable_thirst_purity_fixes", false);
+
             enableThirstPurityMerging = builder
-                    .comment("Merge water of different purities with thirst_purity_merge_method, matching how Thirst Was Reclaimed merges water in other tanks")
-                    .comment("No effect when using Thirst Was Taken instead of Thirst Was Reclaimed")
-                    .comment("- Ender IO tanks/machines")
-                    .comment("- Mekanism tanks")
-                    .comment("- Thermal tanks/machines and Fluid Cells")
-                    .comment("- Thermal items that hold fluid (including the Fluid Reservoir)")
-                    .comment("- Tinkers' Construct tanks and smeltery/foundry")
-                    .comment("- PneumaticCraft tanks/machines")
-                    .comment("- Ex Deorum barrels and crucibles")
-                    .comment("- Sophisticated Backpacks/Storage tank upgrades")
-                    .comment("- Items that hold fluid (including the Ender IO Fluid Tank item)")
+                    .comment("Merge water of different purities in tanks that Thirst Was Reclaimed doesn't cover, using thirst_purity_merge_method")
+                    .comment("No effect with Thirst Was Taken, which never merges water of different purities")
+                    .comment("- Ender IO: Tanks and machines, including the Fluid Tank item")
+                    .comment("- Ex Deorum: Barrels and crucibles")
+                    .comment("- Mekanism: Tanks, including the Portable Fluid Tank's bucket mode")
+                    .comment("- PneumaticCraft: Tanks and machines")
+                    .comment("- Sophisticated Backpacks/Storage: Tank upgrades")
+                    .comment("- Thermal: Tanks, machines, Fluid Cells, and items that hold fluid like the Fluid Reservoir")
+                    .comment("- Tinkers' Construct: Tanks, the smeltery/foundry, and tools that pick up fluids")
+                    .comment("- Other items that hold fluid, using Forge's standard item tank")
                     .define("enable_thirst_purity_merging", false);
 
             thirstPurityMergeMethod = builder
-                    .comment("How purity is calculated when merging water of different purities in a tank")
+                    .comment("Change how purity is calculated when merging water of different purities in tanks")
                     .comment("No effect if using Thirst Was Taken instead of Thirst Was Reclaimed")
                     .comment("- LOWEST: Use the lower purity, matching Thirst Was Reclaimed")
                     .comment("- NEAREST: Take a weighted average, then round to the nearest purity")
@@ -402,7 +419,7 @@ public class ScarcityConfig {
                     .comment("- CEILING: Take a weighted average, then round up")
                     .comment("- RANDOM: Take a weighted average, then round up or down at random based on the fractional value")
                     .comment("- THRESHOLD: Round up only when the fraction is above thirst_purity_rounding_threshold")
-                    .comment("Warning: NEAREST, CEILING and THRESHOLD can be exploited to purify water for free by merging it in small amounts")
+                    .comment("Warning: NEAREST, CEILING, and THRESHOLD can be exploited to purify water by merging it in small amounts")
                     .defineEnum("thirst_purity_merge_method", PurityMergeMethod.LOWEST);
 
             thirstPurityRoundingThreshold = builder
@@ -410,28 +427,6 @@ public class ScarcityConfig {
                     .comment("For example, 0.9 rounds an average purity of 2.91 up to 3 and 2.89 down to 2")
                     .comment("No effect if thirst_purity_merge_method is not set to THRESHOLD")
                     .defineInRange("thirst_purity_rounding_threshold", 0.9, 0.0, 1.0);
-
-            thirstUntaggedWaterPurity = builder
-                    .comment("Purity of water with no purity tag, -1 to use the Thirst default")
-                    .defineInRange("thirst_untagged_water_purity", -1, -1, 3);
-
-            enableThirstPurityFixes = builder
-                    .comment("Fix some mods removing water purity during transfer")
-                    .comment("- AE2 storage buses only extract water of the requested purity")
-                    .comment("- Create pipes maintain the purity of water drained from cauldrons")
-                    .comment("- Dispensers on Create contraptions maintain water purity when filling buckets/bottles")
-                    .comment("- Ex Deorum porcelain buckets maintain water purity when filled/emptied")
-                    .comment("- Industrial Foregoing Fluid Collectors maintain water purity when picking up water")
-                    .comment("- Mekanism pump and tanks maintain water purity when picking up water")
-                    .comment("- PneumaticCraft machines maintain water purity when picking up water")
-                    .comment("- Refurbished Furniture tank blocks maintain water purity when filling/emptying bottles, and treat bottles as 250mb instead of 1000")
-                    .comment("- Forge's world fluid pickup system maintains purity when picking up water")
-                    .comment("- Thermal machines and dynamos treat water of any purity as valid for recipes and fuel")
-                    .comment("- Water bottles produced by Thermal machines maintain water purity")
-                    .comment("- Water bottles produced by Tinkers' Construct casting maintain water purity")
-                    .comment("- Tinkers' Construct tanks maintain water purity when filling/emptying bottles")
-                    .comment("- Tinkers' Construct tools that pick up fluids maintain water purity when picking up water")
-                    .define("enable_thirst_purity_fixes", false);
 
             hideObscureAPIMenuButton = builder
                     .comment("Hide the Obscure API title-screen button.")

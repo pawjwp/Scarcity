@@ -38,6 +38,37 @@ This mod was created for my modpack, [Desolate Planet](https://modrinth.com/modp
 - Limited water bottle pickup, consuming the water source block and filling four bottles at a time
 - Water source block prevention to stop kelp, seagrass, rice (from Farmer's Delight), and generic waterloggable blocks from converting flowing water into source blocks
 
+### Thirst Water Purity
+- Configurable purity for water that has no purity tag, since Thirst Was Reclaimed has changed its default between versions
+- Fix various mods losing water purity
+  - AE2 storage buses only extract water of the requested purity
+  - Create pipes extracting from cauldrons and dispensers on contraption maintain purity
+  - Ex Deorum porcelain buckets maintain purity
+  - Forge default world water pickups maintain purity (used by the Thermal Reservoirs and the Sophisticated Series pump upgrade)
+  - Industrial Foregoing fluid collectors maintain purity
+  - Mekanism electric pumps and tanks maintain purity
+  - PneumaticCraft gas lifts, liquid hoppers, and drones maintain purity
+  - Refurbished Furniture blocks with internal tanks maintain purity and use 250 mb per bottle instead of 1000
+  - Thermal Series machines and dynamos accept all purity values, and maintain purity when used with water bottles
+  - Tinkers' Construct tanks, casting, and tools maintain purity
+- Merge water of different purities in tanks that Thirst Was Reclaimed doesn't cover
+  - No effect with Thirst Was Taken, which never merges water of different purities
+  - Ender IO: Tanks and machines, including the Fluid Tank item
+  - Ex Deorum: Barrels and crucibles
+  - Mekanism: Tanks, including the Portable Fluid Tank's bucket mode
+  - PneumaticCraft: Tanks and machines
+  - Sophisticated Backpacks/Storage: Tank upgrades
+  - Thermal: Tanks, machines, Fluid Cells, and items that hold fluid like the Fluid Reservoir
+  - Tinkers' Construct: Tanks, the smeltery/foundry, and tools that pick up fluids
+  - Other items that hold fluid, using Forge's standard item tank
+- Change how purity is calculated when merging water of different purities in tanks
+  - Use the lower purity, matching Thirst Was Reclaimed
+  - Take a weighted average, then round to the nearest purity
+  - Take a weighted average, then round down
+  - Take a weighted average, then round up
+  - Take a weighted average, then round up or down at random based on the fractional value
+  - Round up only when the fraction is above a configurable threshold
+
 ### New Seeds
 - New seeds for plants that do not normally have them, intended for modpack makers on skyblock-style maps (seeds do not spawn or drop naturally and must be added to loot tables to be obtainable)
 - Seeds for all vanilla saplings (oak, spruce, birch, jungle, acacia, dark oak, cherry, but not including non-sapling trees like mangrove, crimson, or warped)
@@ -47,10 +78,14 @@ This mod was created for my modpack, [Desolate Planet](https://modrinth.com/modp
 
 ### Misc
 - Falling block breaking adjustments, giving them a chance to break partial blocks they land on (chance is based on the broken block's hardness)
-- Thermal Series bug fixes
-  - Fixed Thermal machines failing to process fluid recipes if the fluids have NBT
-  - Fixed Thermal machines failing to recognize when another mod has updated an item's stack size
-  - Fixed Thermal machines leaving crafting remainders when they should be consumed (for example, smelting a bucket of fluid into another bucket of fluid will no longer leave the bucket behind)
+- Thermal Series compat patches
+  - Fix Thermal machines not recognizing stack sizes changed by other mods
+  - Disable crafting remainders in machines (for example, smelting a bucket of fluid into another bucket of fluid will no longer leave the bucket behind)
+  - Allow the Fluid Encapsulator to fill Florbs with fluids that have NBT
+- Ender IO compat patches
+  - Fluid conduits maintain fluid NBT, including conduits locked to one fluid
+  - Fluid Tanks keep fluid NBT when filling or emptying fluid containers
+  - The Fluid Tank fills or empties stacks of fluid containers one item at a time
 - Option to disable zombie villager curing
 - Sunlight sensitivity NBT tag system that can make any mob lose fire invulnerability and burn in the daylight
 - Option to hide the Obscure API title screen button
