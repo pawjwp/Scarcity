@@ -423,6 +423,7 @@ public class ScarcityConfig {
                     .comment("- Water bottles produced by Thermal machines maintain water purity")
                     .comment("- Water bottles produced by Tinkers' Construct casting maintain water purity")
                     .comment("- Tinkers' Construct tanks maintain water purity when filling/emptying bottles")
+                    .comment("- Tinkers' Construct tools that pick up fluids maintain water purity when picking up water")
                     .define("enable_thirst_purity_fixes", false);
 
             hideObscureAPIMenuButton = builder
