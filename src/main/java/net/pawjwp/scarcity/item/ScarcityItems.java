@@ -75,6 +75,13 @@ public class ScarcityItems {
     public static final RegistryObject<Item> ONION_SEEDS = registerSeed("onion_seeds",
             ResourceLocation.parse("farmersdelight:onions"));
 
+    public static final RegistryObject<Item> WATER_FILTER = registerWithTab("water_filter",
+            () -> new Item(new Item.Properties().durability(16)));
+    public static final RegistryObject<Item> INSULATED_HYDRAULIC_FABRIC = registerWithTab("insulated_hydraulic_fabric",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> FILTRATION_POCKET = registerWithTab("filtration_pocket",
+            () -> new Item(new Item.Properties()));
+
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
     }

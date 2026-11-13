@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "tag": "forge:ingots/copper"
+    },
+    "F": {
+      "item": "scarcity:water_filter"
+    },
+    "I": {
+      "item": "scarcity:insulated_hydraulic_fabric"
+    }
+  },
+  "pattern": [
+    "ICI",
+    "IFI",
+    "III"
+  ],
+  "result": {
+    "item": "scarcity:filtration_pocket"
+  },
+  "show_notification": true
+}

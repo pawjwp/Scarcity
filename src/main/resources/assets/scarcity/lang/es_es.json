@@ -21,6 +21,10 @@
   "item.scarcity.rubberwood_seed": "Semilla de árbol de caucho",
   "item.scarcity.onion_seeds": "Semillas de cebolla",
 
+  "item.scarcity.water_filter": "Filtro de agua",
+  "item.scarcity.insulated_hydraulic_fabric": "Tela hidráulica de aislamiento",
+  "item.scarcity.filtration_pocket": "Bolsillo de filtración",
+
   
   "attribute.scarcity.regen_speed": "Velocidad de regeneración",
   "attribute.scarcity.fast_regen_speed": "Velocidad de regeneración lenta",

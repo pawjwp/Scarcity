@@ -17,7 +17,11 @@ public class ScarcityRemapping {
     // old_namespace:old_id, new_namespace:new_id
     private static final Map<String, String> REMAPS = Map.ofEntries(
             Map.entry("kubejs:crook", "scarcity:crook"),
-            Map.entry("kubejs:crushing_hammer", "scarcity:crushing_hammer")
+            Map.entry("kubejs:crushing_hammer", "scarcity:crushing_hammer"),
+
+            Map.entry("kubejs:filter", "scarcity:water_filter"),
+            Map.entry("kubejs:insulated_hydraulic_fabric", "scarcity:insulated_hydraulic_fabric"),
+            Map.entry("kubejs:filtration_pocket", "scarcity:filtration_pocket")
     );
 
     @SubscribeEvent

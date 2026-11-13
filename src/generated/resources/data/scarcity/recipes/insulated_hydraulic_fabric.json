@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "L": {
+      "tag": "forge:leather"
+    },
+    "S": {
+      "tag": "forge:string"
+    },
+    "W": {
+      "tag": "minecraft:wool"
+    }
+  },
+  "pattern": [
+    "SLS",
+    "LWL",
+    "SLS"
+  ],
+  "result": {
+    "count": 2,
+    "item": "scarcity:insulated_hydraulic_fabric"
+  },
+  "show_notification": true
+}

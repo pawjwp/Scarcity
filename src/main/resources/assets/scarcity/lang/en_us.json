@@ -21,6 +21,10 @@
   "item.scarcity.rubberwood_seed": "Rubberwood Seed",
   "item.scarcity.onion_seeds": "Onion Seeds",
 
+  "item.scarcity.water_filter": "Water Filter",
+  "item.scarcity.insulated_hydraulic_fabric": "Insulated Hydraulic Fabric",
+  "item.scarcity.filtration_pocket": "Filtration Pocket",
+
   "item.scarcity.crook": "Crook",
   "item.scarcity.crushing_hammer": "Crushing Hammer",
   "modifier.scarcity.heavy_hammering": "Heavy-Hammering",

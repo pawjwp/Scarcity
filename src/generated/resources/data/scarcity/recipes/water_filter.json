@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "minecraft:charcoal"
+    },
+    "G": {
+      "tag": "forge:gravel"
+    },
+    "P": {
+      "item": "minecraft:paper"
+    }
+  },
+  "pattern": [
+    "PGP",
+    "PCP",
+    " P "
+  ],
+  "result": {
+    "item": "scarcity:water_filter"
+  },
+  "show_notification": true
+}
