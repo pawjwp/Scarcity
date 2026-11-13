@@ -8,6 +8,7 @@ import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.pawjwp.scarcity.Scarcity;
+import net.pawjwp.scarcity.compat.thirst.CamelPackItem;
 import net.pawjwp.scarcity.compat.tinkers.TinkersCompat;
 import net.pawjwp.scarcity.item.SecondaryBlockItem;
 
@@ -33,6 +34,7 @@ public class ScarcityItemModels extends ItemModelProvider {
         // Exclude specific items here
         items.remove(TinkersCompat.CROOK.get());
         items.remove(TinkersCompat.CRUSHING_HAMMER.get());
+        items.removeIf(i -> i instanceof CamelPackItem);
 
         // Blocks with special item sprites, which is every seed
         takeAll(items, i -> i instanceof SecondaryBlockItem).forEach(item -> itemGeneratedModel(item, resourceItem(itemName(item))));
