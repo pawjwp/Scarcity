@@ -4,6 +4,7 @@ import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.data.recipes.SpecialRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
@@ -15,6 +16,7 @@ import net.pawjwp.scarcity.Scarcity;
 import net.pawjwp.scarcity.compat.tinkers.TinkersCompat;
 import net.pawjwp.scarcity.config.ScarcityConfigCondition;
 import net.pawjwp.scarcity.item.ScarcityItems;
+import net.pawjwp.scarcity.recipe.ScarcityRecipeSerializers;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.ModifierRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.tinkerstation.building.ToolBuildingRecipeBuilder;
 import slimeknights.tconstruct.library.tools.SlotType;
@@ -59,6 +61,12 @@ public class ScarcityCraftingRecipes {
                 .define('F', ScarcityItems.WATER_FILTER.get())
                 .unlockedBy("has_insulated_hydraulic_fabric", InventoryChangeTrigger.TriggerInstance.hasItems(ScarcityItems.INSULATED_HYDRAULIC_FABRIC.get()))
                 .save(consumer);
+
+        // Purifies a container by one water purity level with a water filter
+        ConditionalRecipe.builder()
+                .addCondition(new ModLoadedCondition("thirst"))
+                .addRecipe(c -> SpecialRecipeBuilder.special(ScarcityRecipeSerializers.WATER_FILTERING.get()).save(c, "scarcity:water_filtering"))
+                .build(consumer, ResourceLocation.fromNamespaceAndPath(Scarcity.MOD_ID, "water_filtering"));
     }
 
     private static void recipesTinkersTools(Consumer<FinishedRecipe> consumer) {

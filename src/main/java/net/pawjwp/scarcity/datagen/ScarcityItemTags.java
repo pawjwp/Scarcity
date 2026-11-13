@@ -5,9 +5,11 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.pawjwp.scarcity.Scarcity;
+import net.pawjwp.scarcity.tag.ScarcityTags;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -49,6 +51,8 @@ public class ScarcityItemTags extends ItemTagsProvider {
     protected void addTags(HolderLookup.Provider provider) {
         var crook = ResourceLocation.fromNamespaceAndPath(Scarcity.MOD_ID, "crook");
         var crushingHammer = ResourceLocation.fromNamespaceAndPath(Scarcity.MOD_ID, "crushing_hammer");
+
+        tag(ScarcityTags.WATER_FILTER_PURIFIABLE).add(Items.POTION, Items.WATER_BUCKET);
 
         for (String tag : TOOL_TAGS) {
             tag(ItemTags.create(ResourceLocation.parse(tag))).addOptional(crook).addOptional(crushingHammer);

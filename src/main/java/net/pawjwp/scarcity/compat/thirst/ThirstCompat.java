@@ -19,6 +19,13 @@ import java.util.stream.Collectors;
 // Water purity helper functions for Thirst Was Taken and Thirst Was Reclaimed
 // Uses Thirst Was Taken's WaterPurity class, which Thirst Was Reclaimed allows as a bridge to its own
 public final class ThirstCompat {
+    public static final int MAX_PURITY = WaterPurity.MAX_PURITY;
+
+    // Gets the purity of a water container item
+    public static int getPurity(ItemStack item) {
+        return Mods.THIRST ? WaterPurity.getPurity(item) : MAX_PURITY;
+    }
+
     // Merges two fluid stacks, setting the resulting fluid's purity using the method of merging set by the config
     public static void mergePurity(FluidStack stored, FluidStack incoming, int addedAmount) {
         mergePurity(stored, getPurity(stored), incoming, addedAmount);

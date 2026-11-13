@@ -24,6 +24,7 @@ import net.pawjwp.scarcity.config.ScarcityConfig;
 import net.pawjwp.scarcity.config.ScarcityConfigCondition;
 import net.pawjwp.scarcity.item.ScarcityCreativeTabs;
 import net.pawjwp.scarcity.item.ScarcityItems;
+import net.pawjwp.scarcity.recipe.ScarcityRecipeSerializers;
 import org.slf4j.Logger;
 
 // The value here should match an entry in the META-INF/mods.toml file
@@ -45,6 +46,7 @@ public class Scarcity
 
         ScarcityCreativeTabs.register(modEventBus);
         ScarcityItems.register(modEventBus);
+        ScarcityRecipeSerializers.register(modEventBus);
 
         if (Mods.TINKERS) {
             TinkersCompat.register(modEventBus);
