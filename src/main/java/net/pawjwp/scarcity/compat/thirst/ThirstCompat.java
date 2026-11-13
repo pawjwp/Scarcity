@@ -3,12 +3,15 @@ package net.pawjwp.scarcity.compat.thirst;
 import dev.ghen.thirst.content.purity.WaterPurity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.FluidStack;
+import net.pawjwp.scarcity.ScarcityThirstAccess;
 import net.pawjwp.scarcity.compat.Mods;
 import net.pawjwp.scarcity.config.ScarcityConfig;
 
@@ -157,5 +160,25 @@ public final class ThirstCompat {
         }
 
         return items.stream().map(item -> withFluidPurity(item, fluid)).collect(Collectors.toList());
+    }
+
+    // Gets a player's thirst data
+    public static ScarcityThirstAccess getThirst(Player player) {
+        return (ScarcityThirstAccess) player.getCapability(PlayerThirstCapability.INSTANCE).orElse(null);
+    }
+
+    // The Thirst mods' player thirst capability
+    private static class PlayerThirstCapability {
+        static final Capability<?> INSTANCE = find();
+
+        private static Capability<?> find() {
+            for (String modPackage : List.of("cn.mlus", "dev.ghen")) {
+                try {
+                    return (Capability<?>) Class.forName(modPackage + ".thirst.foundation.common.capability.ModCapabilities").getField("PLAYER_THIRST").get(null);
+                } catch (ReflectiveOperationException ignored) {
+                }
+            }
+            throw new IllegalStateException("Thirst's player thirst capability was not found");
+        }
     }
 }

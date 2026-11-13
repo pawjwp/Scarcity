@@ -49,6 +49,7 @@
     "KelpBlockMixin",
     "MobMixin",
     "PlayerMixin",
+    "PlayerThirstMixin",
     "RiceBlockMixin",
     "SeagrassBlockMixin",
     "WaterPurityMixin",
