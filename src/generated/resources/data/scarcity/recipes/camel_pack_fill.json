@@ -1,0 +1,17 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "thirst"
+        }
+      ],
+      "recipe": {
+        "type": "scarcity:camel_pack_fill",
+        "category": "misc"
+      }
+    }
+  ]
+}

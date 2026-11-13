@@ -67,6 +67,12 @@ public class ScarcityCraftingRecipes {
                 .addCondition(new ModLoadedCondition("thirst"))
                 .addRecipe(c -> SpecialRecipeBuilder.special(ScarcityRecipeSerializers.WATER_FILTERING.get()).save(c, "scarcity:water_filtering"))
                 .build(consumer, ResourceLocation.fromNamespaceAndPath(Scarcity.MOD_ID, "water_filtering"));
+
+        // Fills a camel pack from a water bottle or an item that holds fluid
+        ConditionalRecipe.builder()
+                .addCondition(new ModLoadedCondition("thirst"))
+                .addRecipe(c -> SpecialRecipeBuilder.special(ScarcityRecipeSerializers.CAMEL_PACK_FILL.get()).save(c, "scarcity:camel_pack_fill"))
+                .build(consumer, ResourceLocation.fromNamespaceAndPath(Scarcity.MOD_ID, "camel_pack_fill"));
     }
 
     private static void recipesTinkersTools(Consumer<FinishedRecipe> consumer) {

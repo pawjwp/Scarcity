@@ -1,7 +1,8 @@
-// 1.20.1	2026-11-12T23:44:16.7693358	Recipes
+// 1.20.1	2026-11-13T01:08:00.816427	Recipes
 bebb6789aa856418e38a500403e0934b2c8d33cc data/scarcity/advancements/recipes/misc/filtration_pocket.json
 c6248fdba76768225f499729419eae5d4b88f3a6 data/scarcity/advancements/recipes/misc/insulated_hydraulic_fabric.json
 72158bb9a402a62f2420cff6041b60d495275981 data/scarcity/advancements/recipes/misc/water_filter.json
+32e65519c59e103ccb1a02e72093fa2a1340b741 data/scarcity/recipes/camel_pack_fill.json
 08ec4dc686125d5a3fec84d26cfe9d9dd5c61b7d data/scarcity/recipes/filtration_pocket.json
 b2d07bbf990d1f0744f8f11d23ef1006e39418ae data/scarcity/recipes/insulated_hydraulic_fabric.json
 9807dcaa3658622b1d5732f2ba43b3aa1a34ef07 data/scarcity/recipes/tools/crook.json
