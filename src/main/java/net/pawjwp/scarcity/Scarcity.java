@@ -14,6 +14,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.pawjwp.scarcity.attribute.ScarcityAttributes;
 import net.pawjwp.scarcity.compat.Mods;
+import net.pawjwp.scarcity.compat.thirst.CamelPacks;
 import net.pawjwp.scarcity.compat.refurbished.RefurbishedCompat;
 import net.pawjwp.scarcity.compat.thermal.ThermalClient;
 import net.pawjwp.scarcity.compat.thermal.ThermalCompat;
@@ -57,6 +58,9 @@ public class Scarcity
         if (Mods.REFURBISHED_FURNITURE && Mods.THIRST) {
             RefurbishedCompat.register();
         }
+        if (Mods.THIRST) {
+            CamelPacks.register(modEventBus);
+        }
 
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
@@ -91,6 +95,11 @@ public class Scarcity
             if (Mods.THERMAL && Mods.EX_DEORUM && ScarcityConfig.enableMachineSieve) {
                 event.accept(ThermalCompat.MACHINE_SIEVE_ITEM.get());
                 event.accept(ThermalCompat.SIEVE_HEAVY_AUGMENT.get());
+            }
+            if (Mods.THIRST) {
+                event.accept(CamelPacks.CAMEL_PACK.get());
+                event.accept(CamelPacks.ADVANCED_CAMEL_PACK.get());
+                event.accept(CamelPacks.UNLIMITED_CAMEL_PACK.get());
             }
         }
     }

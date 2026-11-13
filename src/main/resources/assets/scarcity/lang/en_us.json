@@ -25,6 +25,9 @@
   "item.scarcity.insulated_hydraulic_fabric": "Insulated Hydraulic Fabric",
   "item.scarcity.filtration_pocket": "Filtration Pocket",
 
+  "item.scarcity.camel_pack": "Camel Pack",
+  "item.scarcity.advanced_camel_pack": "Advanced Camel Pack",
+  "item.scarcity.unlimited_camel_pack": "Condensentrating Camel Pack",
   "item.scarcity.crook": "Crook",
   "item.scarcity.crushing_hammer": "Crushing Hammer",
   "modifier.scarcity.heavy_hammering": "Heavy-Hammering",

@@ -21,7 +21,11 @@ public class ScarcityRemapping {
 
             Map.entry("kubejs:filter", "scarcity:water_filter"),
             Map.entry("kubejs:insulated_hydraulic_fabric", "scarcity:insulated_hydraulic_fabric"),
-            Map.entry("kubejs:filtration_pocket", "scarcity:filtration_pocket")
+            Map.entry("kubejs:filtration_pocket", "scarcity:filtration_pocket"),
+
+            Map.entry("kubejs:camel_pack", "scarcity:camel_pack"),
+            Map.entry("kubejs:advanced_camel_pack", "scarcity:advanced_camel_pack"),
+            Map.entry("kubejs:unlimited_camel_pack", "scarcity:unlimited_camel_pack")
     );
 
     @SubscribeEvent
