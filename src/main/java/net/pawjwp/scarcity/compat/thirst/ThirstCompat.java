@@ -167,6 +167,11 @@ public final class ThirstCompat {
         return (ScarcityThirstAccess) player.getCapability(PlayerThirstCapability.INSTANCE).orElse(null);
     }
 
+    // Gives a player Thirst's effects for drinking water of the given purity
+    public static boolean givePurityEffects(Player player, int purity) {
+        return WaterPurity.givePurityEffects(player, purity);
+    }
+
     // The Thirst mods' player thirst capability
     private static class PlayerThirstCapability {
         static final Capability<?> INSTANCE = find();
