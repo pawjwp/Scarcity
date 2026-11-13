@@ -10,4 +10,5 @@ public final class Mods {
     public static final boolean REFURBISHED_FURNITURE = ModList.get().isLoaded("refurbished_furniture");
     // Thirst Was Taken and Thirst Was Reclaimed both use "thirst" as their ID
     public static final boolean THIRST = ModList.get().isLoaded("thirst");
+    public static final boolean CURIOS = ModList.get().isLoaded("curios");
 }

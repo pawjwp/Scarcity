@@ -186,6 +186,14 @@ repositories {
         }
     }
     maven {
+        // For Curios
+        name = "Illusive Soulworks"
+        url = "https://maven.theillusivec4.top/"
+        content {
+            includeGroup "top.theillusivec4.curios"
+        }
+    }
+    maven {
         // For Ender IO
         name = "Rover656"
         url = "https://maven.rover656.dev/releases"
@@ -229,6 +237,9 @@ dependencies {
 
     runtimeOnly fg.deobf("maven.modrinth:cold-sweat:${cs_version}")
     compileOnly fg.deobf("maven.modrinth:cold-sweat:${cs_version}")
+
+    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}:api")
+    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}")
 
     compileOnly fg.deobf("curse.maven:ex-deorum-901420:7666539")
     runtimeOnly fg.deobf("curse.maven:ex-deorum-901420:7666539")
