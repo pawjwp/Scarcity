@@ -14,6 +14,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.pawjwp.scarcity.attribute.ScarcityAttributes;
 import net.pawjwp.scarcity.compat.Mods;
+import net.pawjwp.scarcity.compat.curios.CamelPackRenderer;
 import net.pawjwp.scarcity.compat.curios.CuriosCompat;
 import net.pawjwp.scarcity.compat.thirst.CamelPackClient;
 import net.pawjwp.scarcity.compat.thirst.CamelPacks;
@@ -131,6 +132,9 @@ public class Scarcity
             }
             if (Mods.THIRST) {
                 event.enqueueWork(CamelPackClient::registerItemProperties);
+            }
+            if (Mods.THIRST && Mods.CURIOS) {
+                event.enqueueWork(CamelPackRenderer::register);
             }
         }
     }
