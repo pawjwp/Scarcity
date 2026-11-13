@@ -1,0 +1,38 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "tconstruct"
+        },
+        {
+          "type": "scarcity:config",
+          "flag": "enable_tinkers_tools"
+        },
+        {
+          "type": "scarcity:config",
+          "flag": "enable_exdeorum_tool_overrides"
+        }
+      ],
+      "recipe": {
+        "type": "tconstruct:modifier",
+        "allow_crystal": true,
+        "inputs": [
+          {
+            "item": "minecraft:anvil"
+          }
+        ],
+        "level": 1,
+        "result": "scarcity:heavy_hammering",
+        "slots": {
+          "upgrades": 1
+        },
+        "tools": {
+          "item": "scarcity:crushing_hammer"
+        }
+      }
+    }
+  ]
+}

@@ -1,10 +1,6 @@
 {
   "values": [
     {
-      "id": "scarcity:crook",
-      "required": false
-    },
-    {
       "id": "scarcity:crushing_hammer",
       "required": false
     }

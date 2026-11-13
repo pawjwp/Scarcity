@@ -1,0 +1,6 @@
+{
+  "parent": "thermal:block/machine_base",
+  "textures": {
+    "north": "scarcity:block/machine_sieve_front"
+  }
+}
