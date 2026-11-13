@@ -16,6 +16,8 @@ public class ScarcityRecipeSerializers {
             () -> new SimpleCraftingRecipeSerializer<>(WaterFilteringRecipe::new));
     public static final RegistryObject<RecipeSerializer<CamelPackFillRecipe>> CAMEL_PACK_FILL = RECIPE_SERIALIZERS.register("camel_pack_fill",
             () -> new SimpleCraftingRecipeSerializer<>(CamelPackFillRecipe::new));
+    public static final RegistryObject<RecipeSerializer<CamelPackUpgradeRecipe>> CAMEL_PACK_UPGRADE = RECIPE_SERIALIZERS.register("camel_pack_upgrade",
+            CamelPackUpgradeRecipe.Serializer::new);
 
     public static void register(IEventBus eventBus) {
         RECIPE_SERIALIZERS.register(eventBus);
