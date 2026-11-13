@@ -155,4 +155,18 @@ public class CamelPackItem extends Item {
             }
         }
     }
+
+    // Lets the pack be worn in the chestplate slot when Curios is not installed
+    @Override
+    public @Nullable EquipmentSlot getEquipmentSlot(ItemStack stack) {
+        return Mods.CURIOS ? null : EquipmentSlot.CHEST;
+    }
+
+    // Ticks the pack worn in the chestplate slot, since Curios ticks it instead when installed
+    @Override
+    public void inventoryTick(ItemStack stack, Level level, Entity entity, int slot, boolean selected) {
+        if (!Mods.CURIOS && entity instanceof Player player && player.getItemBySlot(EquipmentSlot.CHEST) == stack) {
+            wornTick(stack, player);
+        }
+    }
 }

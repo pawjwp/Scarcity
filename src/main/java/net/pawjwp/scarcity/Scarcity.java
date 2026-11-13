@@ -14,6 +14,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.pawjwp.scarcity.attribute.ScarcityAttributes;
 import net.pawjwp.scarcity.compat.Mods;
+import net.pawjwp.scarcity.compat.curios.CuriosCompat;
 import net.pawjwp.scarcity.compat.thirst.CamelPacks;
 import net.pawjwp.scarcity.compat.refurbished.RefurbishedCompat;
 import net.pawjwp.scarcity.compat.thermal.ThermalClient;
@@ -83,6 +84,10 @@ public class Scarcity
     {
         // Some common setup code
         LOGGER.info("HELLO FROM COMMON SETUP");
+
+        if (Mods.THIRST && Mods.CURIOS) {
+            event.enqueueWork(CuriosCompat::registerCamelPacks);
+        }
     }
 
     private void addCreative(BuildCreativeModeTabContentsEvent event)

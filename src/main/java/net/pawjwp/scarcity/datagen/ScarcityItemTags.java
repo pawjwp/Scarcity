@@ -54,6 +54,14 @@ public class ScarcityItemTags extends ItemTagsProvider {
 
         tag(ScarcityTags.WATER_FILTER_PURIFIABLE).add(Items.POTION, Items.WATER_BUCKET);
 
+        // Curios slots that a camel pack can be worn in
+        for (String slot : List.of("back", "belt")) {
+            tag(ItemTags.create(ResourceLocation.fromNamespaceAndPath("curios", slot)))
+                    .addOptional(ResourceLocation.fromNamespaceAndPath(Scarcity.MOD_ID, "camel_pack"))
+                    .addOptional(ResourceLocation.fromNamespaceAndPath(Scarcity.MOD_ID, "advanced_camel_pack"))
+                    .addOptional(ResourceLocation.fromNamespaceAndPath(Scarcity.MOD_ID, "unlimited_camel_pack"));
+        }
+
         for (String tag : TOOL_TAGS) {
             tag(ItemTags.create(ResourceLocation.parse(tag))).addOptional(crook).addOptional(crushingHammer);
         }

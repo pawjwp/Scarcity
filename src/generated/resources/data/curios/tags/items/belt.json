@@ -1,0 +1,16 @@
+{
+  "values": [
+    {
+      "id": "scarcity:camel_pack",
+      "required": false
+    },
+    {
+      "id": "scarcity:advanced_camel_pack",
+      "required": false
+    },
+    {
+      "id": "scarcity:unlimited_camel_pack",
+      "required": false
+    }
+  ]
+}
