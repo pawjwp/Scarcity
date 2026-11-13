@@ -82,6 +82,22 @@ public class ScarcityConfig {
     public static double heavyAgitatorPowerMultiplier;
     public static double heavyAgitatorEnergyMultiplier;
 
+    // camel packs
+    public static int camelPackSipAmount;
+    public static double camelPackBottleThirst;
+    public static double camelPackBottleQuenched;
+    // load default capacities at the start to avoid size 0 issues
+    public static int camelPackCapacity = 4000;
+    public static int advancedCamelPackCapacity = 20000;
+    public static double camelPackThirstMultiplier;
+    public static double camelPackQuenchMultiplier;
+    public static int camelPackPurityBonus;
+    public static double advancedCamelPackThirstMultiplier;
+    public static double advancedCamelPackQuenchMultiplier;
+    public static int advancedCamelPackPurityBonus;
+    public static double unlimitedCamelPackThirstMultiplier;
+    public static double unlimitedCamelPackQuenchMultiplier;
+
     public static void onLoad(final ModConfigEvent.Loading event) {
         if (event.getConfig().getSpec() == COMMON_SPEC) {
             bakeConfig();
@@ -159,6 +175,21 @@ public class ScarcityConfig {
         machineSieveEnergyPerOperation = COMMON.machineSieveEnergyPerOperation.get();
         heavyAgitatorPowerMultiplier = COMMON.heavyAgitatorPowerMultiplier.get();
         heavyAgitatorEnergyMultiplier = COMMON.heavyAgitatorEnergyMultiplier.get();
+
+        // camel packs
+        camelPackSipAmount = COMMON.camelPackSipAmount.get();
+        camelPackBottleThirst = COMMON.camelPackBottleThirst.get();
+        camelPackBottleQuenched = COMMON.camelPackBottleQuenched.get();
+        camelPackCapacity = COMMON.camelPackCapacity.get();
+        advancedCamelPackCapacity = COMMON.advancedCamelPackCapacity.get();
+        camelPackThirstMultiplier = COMMON.camelPackThirstMultiplier.get();
+        camelPackQuenchMultiplier = COMMON.camelPackQuenchMultiplier.get();
+        camelPackPurityBonus = COMMON.camelPackPurityBonus.get();
+        advancedCamelPackThirstMultiplier = COMMON.advancedCamelPackThirstMultiplier.get();
+        advancedCamelPackQuenchMultiplier = COMMON.advancedCamelPackQuenchMultiplier.get();
+        advancedCamelPackPurityBonus = COMMON.advancedCamelPackPurityBonus.get();
+        unlimitedCamelPackThirstMultiplier = COMMON.unlimitedCamelPackThirstMultiplier.get();
+        unlimitedCamelPackQuenchMultiplier = COMMON.unlimitedCamelPackQuenchMultiplier.get();
     }
 
     // How the purity is chosen when water of different purities merges in a tank
@@ -221,6 +252,21 @@ public class ScarcityConfig {
         public final ForgeConfigSpec.IntValue machineSieveEnergyPerOperation;
         public final ForgeConfigSpec.DoubleValue heavyAgitatorPowerMultiplier;
         public final ForgeConfigSpec.DoubleValue heavyAgitatorEnergyMultiplier;
+
+        // camel packs
+        public final ForgeConfigSpec.IntValue camelPackSipAmount;
+        public final ForgeConfigSpec.DoubleValue camelPackBottleThirst;
+        public final ForgeConfigSpec.DoubleValue camelPackBottleQuenched;
+        public final ForgeConfigSpec.IntValue camelPackCapacity;
+        public final ForgeConfigSpec.IntValue advancedCamelPackCapacity;
+        public final ForgeConfigSpec.DoubleValue camelPackThirstMultiplier;
+        public final ForgeConfigSpec.DoubleValue camelPackQuenchMultiplier;
+        public final ForgeConfigSpec.IntValue camelPackPurityBonus;
+        public final ForgeConfigSpec.DoubleValue advancedCamelPackThirstMultiplier;
+        public final ForgeConfigSpec.DoubleValue advancedCamelPackQuenchMultiplier;
+        public final ForgeConfigSpec.IntValue advancedCamelPackPurityBonus;
+        public final ForgeConfigSpec.DoubleValue unlimitedCamelPackThirstMultiplier;
+        public final ForgeConfigSpec.DoubleValue unlimitedCamelPackQuenchMultiplier;
 
         public CommonConfig(ForgeConfigSpec.Builder builder) {
             builder.push("food");
@@ -466,6 +512,62 @@ public class ScarcityConfig {
                     .comment("Total energy per operation multiplier from the Heavy Agitator augment.")
                     .comment("Determines process speed combined with the power multiplier")
                     .defineInRange("heavy_agitator_energy_multiplier", 6.0, 0.1, 100.0);
+
+            builder.push("camel_pack");
+
+            camelPackSipAmount = builder
+                    .comment("Fluid drained from a camel pack each time it is drank from (mB).")
+                    .defineInRange("sip_amount", 100, 1, 1000);
+
+            camelPackBottleThirst = builder
+                    .comment("Thirst from drinking one bottle (250 mB) of water from a camel pack (before applying its thirst multiplier).")
+                    .defineInRange("bottle_thirst", 5.0, 0.0, 20.0);
+
+            camelPackBottleQuenched = builder
+                    .comment("Quenched from drinking one bottle (250 mB) of water from a camel pack (before applying its quench multiplier).")
+                    .defineInRange("bottle_quenched", 8.0, 0.0, 20.0);
+
+            camelPackCapacity = builder
+                    .comment("Tank capacity of the Camel Pack (mB).")
+                    .defineInRange("capacity", 4000, 1, 1_000_000);
+
+            camelPackThirstMultiplier = builder
+                    .comment("Multiplier for thirst restored by the Camel Pack.")
+                    .defineInRange("thirst_multiplier", 1.0, 0.0, 100.0);
+
+            camelPackQuenchMultiplier = builder
+                    .comment("Multiplier for quenched restored by the Camel Pack.")
+                    .defineInRange("quench_multiplier", 1.0, 0.0, 100.0);
+
+            camelPackPurityBonus = builder
+                    .comment("Purity level added to the water drank from the Camel Pack.")
+                    .defineInRange("purity_bonus", 1, 0, 3);
+
+            advancedCamelPackCapacity = builder
+                    .comment("Tank capacity of the Advanced Camel Pack (mB).")
+                    .defineInRange("advanced_capacity", 20000, 1, 1_000_000);
+
+            advancedCamelPackThirstMultiplier = builder
+                    .comment("Multiplier for thirst restored by the Advanced Camel Pack.")
+                    .defineInRange("advanced_thirst_multiplier", 1.0, 0.0, 100.0);
+
+            advancedCamelPackQuenchMultiplier = builder
+                    .comment("Multiplier for quenched restored by the Advanced Camel Pack.")
+                    .defineInRange("advanced_quench_multiplier", 1.25, 0.0, 100.0);
+
+            advancedCamelPackPurityBonus = builder
+                    .comment("Purity level added to the water drank from the Advanced Camel Pack")
+                    .defineInRange("advanced_purity_bonus", 2, 0, 3);
+
+            unlimitedCamelPackThirstMultiplier = builder
+                    .comment("Multiplier for the thirst restored by the Condensentrating Camel Pack.")
+                    .defineInRange("unlimited_thirst_multiplier", 1.5, 0.0, 100.0);
+
+            unlimitedCamelPackQuenchMultiplier = builder
+                    .comment("Multiplier for the quenched restored by the Condensentrating Camel Pack.")
+                    .defineInRange("unlimited_quench_multiplier", 1.5, 0.0, 100.0);
+
+            builder.pop(); // camel_pack
 
             builder.pop(); // compat
         }
