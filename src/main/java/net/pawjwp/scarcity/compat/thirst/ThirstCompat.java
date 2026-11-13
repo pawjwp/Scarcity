@@ -2,6 +2,7 @@ package net.pawjwp.scarcity.compat.thirst;
 
 import dev.ghen.thirst.content.purity.WaterPurity;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -170,6 +171,11 @@ public final class ThirstCompat {
     // Gives a player Thirst's effects for drinking water of the given purity
     public static boolean givePurityEffects(Player player, int purity) {
         return WaterPurity.givePurityEffects(player, purity);
+    }
+
+    // Gets the name of a purity and its display color
+    public static Component getPurityText(int purity) {
+        return Component.literal(WaterPurity.getPurityText(purity)).withStyle(style -> style.withColor(WaterPurity.getPurityColor(purity)));
     }
 
     // The Thirst mods' player thirst capability

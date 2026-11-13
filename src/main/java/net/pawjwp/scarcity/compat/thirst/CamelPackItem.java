@@ -169,4 +169,38 @@ public class CamelPackItem extends Item {
             wornTick(stack, player);
         }
     }
+
+    // durability bar based on tank amount
+    @Override
+    public boolean isBarVisible(ItemStack stack) {
+        return !getFluid(stack).isEmpty(); // hide bar if empty
+    }
+
+    @Override
+    public int getBarWidth(ItemStack stack) {
+        return Math.round((float) getFluid(stack).getAmount() / config.capacity().getAsInt() * 13);
+    }
+
+    @Override
+    public int getBarColor(ItemStack stack) {
+        return CamelPackFluids.getFluidBarColor(getFluid(stack).getFluid());
+    }
+
+    @Override
+    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> text, TooltipFlag flag) {
+        if (config.hasTank()) {
+            FluidStack fluid = getFluid(stack);
+            if (fluid.isEmpty()) {
+                text.add(Component.translatable("item.scarcity.camel_pack.empty"));
+            } else {
+                text.add(Component.translatable("item.scarcity.camel_pack.fluid", fluid.getDisplayName()));
+                // show water purity tooltip matching Thirst's purity text and style
+                if (fluid.getFluid().isSame(Fluids.WATER)) {
+                    text.add(ThirstCompat.getPurityText(ThirstCompat.getPurity(fluid)));
+                }
+                text.add(Component.translatable("item.scarcity.camel_pack.amount", fluid.getAmount(), config.capacity().getAsInt()));
+            }
+        }
+        text.add(Component.translatable(getDescriptionId() + ".description").withStyle(ChatFormatting.GRAY));
+    }
 }
