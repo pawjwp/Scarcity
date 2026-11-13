@@ -15,6 +15,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.pawjwp.scarcity.attribute.ScarcityAttributes;
 import net.pawjwp.scarcity.compat.Mods;
 import net.pawjwp.scarcity.compat.curios.CuriosCompat;
+import net.pawjwp.scarcity.compat.thirst.CamelPackClient;
 import net.pawjwp.scarcity.compat.thirst.CamelPacks;
 import net.pawjwp.scarcity.compat.refurbished.RefurbishedCompat;
 import net.pawjwp.scarcity.compat.thermal.ThermalClient;
@@ -127,6 +128,9 @@ public class Scarcity
             }
             if (Mods.THERMAL && Mods.EX_DEORUM) {
                 event.enqueueWork(ThermalClient::registerScreens);
+            }
+            if (Mods.THIRST) {
+                event.enqueueWork(CamelPackClient::registerItemProperties);
             }
         }
     }
