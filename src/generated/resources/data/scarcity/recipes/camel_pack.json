@@ -1,0 +1,40 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "thirst"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "category": "misc",
+        "key": {
+          "B": {
+            "item": "minecraft:bucket"
+          },
+          "F": {
+            "item": "scarcity:water_filter"
+          },
+          "L": {
+            "tag": "forge:leather"
+          },
+          "S": {
+            "tag": "forge:string"
+          }
+        },
+        "pattern": [
+          "SLS",
+          "LFL",
+          "LBL"
+        ],
+        "result": {
+          "item": "scarcity:camel_pack"
+        },
+        "show_notification": true
+      }
+    }
+  ]
+}

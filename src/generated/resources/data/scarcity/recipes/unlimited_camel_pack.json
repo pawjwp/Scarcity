@@ -1,0 +1,43 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "thirst"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "category": "misc",
+        "key": {
+          "A": {
+            "tag": "forge:ingots/netherite"
+          },
+          "R": {
+            "item": "minecraft:nether_star"
+          },
+          "S": {
+            "item": "minecraft:totem_of_undying"
+          },
+          "T": {
+            "item": "minecraft:cauldron"
+          },
+          "W": {
+            "item": "scarcity:advanced_camel_pack"
+          }
+        },
+        "pattern": [
+          "ARA",
+          "SWS",
+          "ATA"
+        ],
+        "result": {
+          "item": "scarcity:unlimited_camel_pack"
+        },
+        "show_notification": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "thirst"
+        }
+      ],
+      "recipe": {
+        "type": "scarcity:camel_pack_upgrade",
+        "category": "misc",
+        "key": {
+          "C": {
+            "item": "minecraft:hopper"
+          },
+          "F": {
+            "item": "scarcity:insulated_hydraulic_fabric"
+          },
+          "P": {
+            "item": "scarcity:filtration_pocket"
+          },
+          "W": {
+            "item": "scarcity:camel_pack"
+          }
+        },
+        "pattern": [
+          "FCF",
+          "PWP",
+          "FFF"
+        ],
+        "result": {
+          "item": "scarcity:advanced_camel_pack"
+        },
+        "show_notification": true
+      }
+    }
+  ]
+}
