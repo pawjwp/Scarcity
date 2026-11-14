@@ -77,7 +77,7 @@ public class ScarcityCraftingRecipes {
                 .addRecipe(c -> SpecialRecipeBuilder.special(ScarcityRecipeSerializers.CAMEL_PACK_FILL.get()).save(c, "scarcity:camel_pack_fill"))
                 .build(consumer, ResourceLocation.fromNamespaceAndPath(Scarcity.MOD_ID, "camel_pack_fill"));
 
-        thirstRecipe(consumer, "camel_pack", ShapedRecipeBuilder.shaped(RecipeCategory.MISC, CamelPacks.CAMEL_PACK.get())
+        modRecipe(consumer, "camel_pack", ShapedRecipeBuilder.shaped(RecipeCategory.MISC, CamelPacks.CAMEL_PACK.get())
                 .pattern("SLS")
                 .pattern("LFL")
                 .pattern("LBL")
@@ -85,9 +85,10 @@ public class ScarcityCraftingRecipes {
                 .define('F', ScarcityItems.WATER_FILTER.get())
                 .define('L', Tags.Items.LEATHER)
                 .define('S', Tags.Items.STRING)
-                .unlockedBy("has_water_filter", InventoryChangeTrigger.TriggerInstance.hasItems(ScarcityItems.WATER_FILTER.get())), false);
+                .unlockedBy("has_water_filter", InventoryChangeTrigger.TriggerInstance.hasItems(ScarcityItems.WATER_FILTER.get())),
+                "thirst");
 
-        thirstRecipe(consumer, "advanced_camel_pack", ShapedRecipeBuilder.shaped(RecipeCategory.MISC, CamelPacks.ADVANCED_CAMEL_PACK.get())
+        modRecipe(consumer, "advanced_camel_pack", ShapedRecipeBuilder.shaped(RecipeCategory.MISC, CamelPacks.ADVANCED_CAMEL_PACK.get())
                 .pattern("FCF")
                 .pattern("PBP")
                 .pattern("FPF")
@@ -95,20 +96,26 @@ public class ScarcityCraftingRecipes {
                 .define('C', Items.HOPPER)
                 .define('F', ScarcityItems.INSULATED_HYDRAULIC_FABRIC.get())
                 .define('P', ScarcityItems.FILTRATION_POCKET.get())
-                .unlockedBy("has_filtration_pocket", InventoryChangeTrigger.TriggerInstance.hasItems(ScarcityItems.FILTRATION_POCKET.get())), false);
+                .unlockedBy("has_filtration_pocket", InventoryChangeTrigger.TriggerInstance.hasItems(ScarcityItems.FILTRATION_POCKET.get())),
+                "thirst");
 
         // Upgrades a camel pack and keeps its stored fluid
-        thirstRecipe(consumer, "advanced_camel_pack_upgrade", ShapedRecipeBuilder.shaped(RecipeCategory.MISC, CamelPacks.ADVANCED_CAMEL_PACK.get())
-                .pattern("FCF")
-                .pattern("PWP")
-                .pattern("FFF")
-                .define('C', Items.HOPPER)
-                .define('F', ScarcityItems.INSULATED_HYDRAULIC_FABRIC.get())
-                .define('P', ScarcityItems.FILTRATION_POCKET.get())
-                .define('W', CamelPacks.CAMEL_PACK.get())
-                .unlockedBy("has_camel_pack", InventoryChangeTrigger.TriggerInstance.hasItems(CamelPacks.CAMEL_PACK.get())), true);
+        ResourceLocation upgradeId = ResourceLocation.fromNamespaceAndPath(Scarcity.MOD_ID, "advanced_camel_pack_upgrade");
+        ConditionalRecipe.builder()
+                .addCondition(new ModLoadedCondition("thirst"))
+                .addRecipe(c -> ShapedRecipeBuilder.shaped(RecipeCategory.MISC, CamelPacks.ADVANCED_CAMEL_PACK.get())
+                        .pattern("FCF")
+                        .pattern("PWP")
+                        .pattern("FFF")
+                        .define('C', Items.HOPPER)
+                        .define('F', ScarcityItems.INSULATED_HYDRAULIC_FABRIC.get())
+                        .define('P', ScarcityItems.FILTRATION_POCKET.get())
+                        .define('W', CamelPacks.CAMEL_PACK.get())
+                        .unlockedBy("has_camel_pack", InventoryChangeTrigger.TriggerInstance.hasItems(CamelPacks.CAMEL_PACK.get()))
+                        .save(recipe -> c.accept(new UpgradeRecipe(recipe)), upgradeId))
+                .build(consumer, upgradeId);
 
-        thirstRecipe(consumer, "unlimited_camel_pack", ShapedRecipeBuilder.shaped(RecipeCategory.MISC, CamelPacks.UNLIMITED_CAMEL_PACK.get())
+        modRecipe(consumer, "unlimited_camel_pack", ShapedRecipeBuilder.shaped(RecipeCategory.MISC, CamelPacks.UNLIMITED_CAMEL_PACK.get())
                 .pattern("ARA")
                 .pattern("SWS")
                 .pattern("ATA")
@@ -117,17 +124,18 @@ public class ScarcityCraftingRecipes {
                 .define('S', Items.TOTEM_OF_UNDYING)
                 .define('T', Items.CAULDRON)
                 .define('W', CamelPacks.ADVANCED_CAMEL_PACK.get())
-                .unlockedBy("has_advanced_camel_pack", InventoryChangeTrigger.TriggerInstance.hasItems(CamelPacks.ADVANCED_CAMEL_PACK.get())), false);
+                .unlockedBy("has_advanced_camel_pack", InventoryChangeTrigger.TriggerInstance.hasItems(CamelPacks.ADVANCED_CAMEL_PACK.get())),
+                "thirst");
     }
 
-    // A recipe that only loads when Thirst is present
-    private static void thirstRecipe(Consumer<FinishedRecipe> consumer, String name, ShapedRecipeBuilder builder, boolean keepsFluid) {
+    // A recipe that only loads when all listed mods are present
+    private static void modRecipe(Consumer<FinishedRecipe> consumer, String name, ShapedRecipeBuilder builder, String... modIds) {
         ResourceLocation id = ResourceLocation.fromNamespaceAndPath(Scarcity.MOD_ID, name);
-        ConditionalRecipe.builder()
-                .addCondition(new ModLoadedCondition("thirst"))
-                // if keepsFluid, save as an upgrade recipe
-                .addRecipe(c -> builder.save(recipe -> c.accept(keepsFluid ? new UpgradeRecipe(recipe) : recipe), id))
-                .build(consumer, id);
+        ConditionalRecipe.Builder conditional = ConditionalRecipe.builder();
+        for (String modId : modIds) {
+            conditional.addCondition(new ModLoadedCondition(modId));
+        }
+        conditional.addRecipe(builder::save).build(consumer, id);
     }
 
     // A recipe that uses the camel pack upgrade type
