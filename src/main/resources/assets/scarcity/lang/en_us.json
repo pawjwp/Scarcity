@@ -36,6 +36,10 @@
   "item.scarcity.camel_pack.fluid": "Fluid: %s",
   "item.scarcity.camel_pack.amount": "Amount: %s / %s mB",
 
+  "item.scarcity.stillsuit": "Stillsuit",
+  "item.scarcity.stillsuit.insulation": "Significantly insulates you from extreme temperatures.",
+  "item.scarcity.stillsuit.moisture": "Recycles moisture to reduce your water use.",
+
   "item.scarcity.crook": "Crook",
   "item.scarcity.crushing_hammer": "Crushing Hammer",
   "modifier.scarcity.heavy_hammering": "Heavy-Hammering",

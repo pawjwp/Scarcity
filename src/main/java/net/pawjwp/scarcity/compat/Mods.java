@@ -11,4 +11,5 @@ public final class Mods {
     // Thirst Was Taken and Thirst Was Reclaimed both use "thirst" as their ID
     public static final boolean THIRST = ModList.get().isLoaded("thirst");
     public static final boolean CURIOS = ModList.get().isLoaded("curios");
+    public static final boolean COLD_SWEAT = ModList.get().isLoaded("cold_sweat");
 }

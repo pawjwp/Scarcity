@@ -36,6 +36,10 @@
   "item.scarcity.camel_pack.fluid": "Fluido: %s",
   "item.scarcity.camel_pack.amount": "Cantidad: %s / %s mB",
 
+  "item.scarcity.stillsuit": "Traje de condensación",
+  "item.scarcity.stillsuit.insulation": "Te aísla significativamente de temperaturas extremas.",
+  "item.scarcity.stillsuit.moisture": "Recicla la humedad para reducir tu consumo de agua.",
+
   
   "attribute.scarcity.regen_speed": "Velocidad de regeneración",
   "attribute.scarcity.fast_regen_speed": "Velocidad de regeneración lenta",

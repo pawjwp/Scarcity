@@ -1,4 +1,4 @@
-// 1.20.1	2026-11-13T00:57:48.767443	Item Models: scarcity
+// 1.20.1	2026-11-13T01:31:17.777332	Item Models: scarcity
 a3aaa35fa479a3047f382d4ea9c8aabc0fdbe04f assets/scarcity/models/item/acacia_seed.json
 698b80399d79fc610a86ec6577daeefd1836d75c assets/scarcity/models/item/bamboo_seeds.json
 9e3224d60bfb39e43433ffcdea3d959ac7e6787c assets/scarcity/models/item/birch_seed.json
@@ -16,6 +16,7 @@ c3b1fa10fa3955dd25848c34f3406483c3c9751e assets/scarcity/models/item/potato_seed
 e68c519fa5bb402a4082c967cfbb2dddb5bcdd5a assets/scarcity/models/item/rubberwood_seed.json
 92d3fc368f15606c8615ed9e4a0830416e7d6030 assets/scarcity/models/item/sieve_heavy_augment.json
 fdb0331d5f2d7f5e38b39fa0b5f4013575e8ef66 assets/scarcity/models/item/spruce_seed.json
+8e0837aae6834e401f0d4e368524f145bdd38628 assets/scarcity/models/item/stillsuit.json
 023e7ef906c12ad397bd5f1d3ee81921a7670730 assets/scarcity/models/item/sugar_cane_seeds.json
 aeed481062f9e87037502d88f9a73920a22e1481 assets/scarcity/models/item/sweet_berry_seeds.json
 b177192c8c0aa6ea69cf23e0c919db31acfb9f3d assets/scarcity/models/item/water_filter.json
