@@ -27,6 +27,8 @@ public final class ColdSweatCompat {
     // Run whenever Cold Sweat data is loaded
     private static void registerInsulators(LoadRegistriesEvent.Pre event) {
         addInsulator(event, InsulationItems.STILLSUIT.get(), ScarcityConfig.stillsuitColdInsulation, ScarcityConfig.stillsuitHeatInsulation);
+        addInsulator(event, InsulationItems.LEATHER_INSULATION.get(), ScarcityConfig.leatherInsulationCold, ScarcityConfig.leatherInsulationHeat);
+        addInsulator(event, InsulationItems.WOOL_INSULATION.get(), ScarcityConfig.woolInsulationCold, ScarcityConfig.woolInsulationHeat);
     }
 
     // Adds insulation to an item in a Curios slot, based on Cold Sweat's KubeJS addInsulator

@@ -103,6 +103,12 @@ public class ScarcityConfig {
     public static double stillsuitColdInsulation;
     public static double stillsuitHeatInsulation;
 
+    // insulation
+    public static double leatherInsulationCold;
+    public static double leatherInsulationHeat;
+    public static double woolInsulationCold;
+    public static double woolInsulationHeat;
+
     public static void onLoad(final ModConfigEvent.Loading event) {
         if (event.getConfig().getSpec() == COMMON_SPEC) {
             bakeConfig();
@@ -200,6 +206,12 @@ public class ScarcityConfig {
         stillsuitThirstMultiplier = COMMON.stillsuitThirstMultiplier.get();
         stillsuitColdInsulation = COMMON.stillsuitColdInsulation.get();
         stillsuitHeatInsulation = COMMON.stillsuitHeatInsulation.get();
+
+        // insulation
+        leatherInsulationCold = COMMON.leatherInsulationCold.get();
+        leatherInsulationHeat = COMMON.leatherInsulationHeat.get();
+        woolInsulationCold = COMMON.woolInsulationCold.get();
+        woolInsulationHeat = COMMON.woolInsulationHeat.get();
     }
 
     // How the purity is chosen when water of different purities merges in a tank
@@ -282,6 +294,12 @@ public class ScarcityConfig {
         public final ForgeConfigSpec.DoubleValue stillsuitThirstMultiplier;
         public final ForgeConfigSpec.DoubleValue stillsuitColdInsulation;
         public final ForgeConfigSpec.DoubleValue stillsuitHeatInsulation;
+
+        // insulation
+        public final ForgeConfigSpec.DoubleValue leatherInsulationCold;
+        public final ForgeConfigSpec.DoubleValue leatherInsulationHeat;
+        public final ForgeConfigSpec.DoubleValue woolInsulationCold;
+        public final ForgeConfigSpec.DoubleValue woolInsulationHeat;
 
         public CommonConfig(ForgeConfigSpec.Builder builder) {
             builder.push("food");
@@ -600,6 +618,26 @@ public class ScarcityConfig {
                     .defineInRange("heat_insulation", 50.0, 0.0, 1000.0);
 
             builder.pop(); // stillsuit
+
+            builder.push("insulation");
+
+            leatherInsulationCold = builder
+                    .comment("Cold insulation from wearing Leather Insulation.")
+                    .defineInRange("leather_cold_insulation", 4.0, 0.0, 1000.0);
+
+            leatherInsulationHeat = builder
+                    .comment("Heat insulation from wearing Leather Insulation.")
+                    .defineInRange("leather_heat_insulation", 4.0, 0.0, 1000.0);
+
+            woolInsulationCold = builder
+                    .comment("Cold insulation from wearing Wool Insulation.")
+                    .defineInRange("wool_cold_insulation", 12.0, 0.0, 1000.0);
+
+            woolInsulationHeat = builder
+                    .comment("Heat insulation from wearing Wool Insulation.")
+                    .defineInRange("wool_heat_insulation", 0.0, 0.0, 1000.0);
+
+            builder.pop(); // insulation
 
             builder.pop(); // compat
         }
