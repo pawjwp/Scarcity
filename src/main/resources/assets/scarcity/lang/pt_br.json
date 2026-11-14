@@ -1,0 +1,27 @@
+{
+  "curios.identifier.insulation": "Isolamento",
+
+  "item.scarcity.water_filter": "Filtro de Água",
+  "item.scarcity.insulated_hydraulic_fabric": "Tecido Hidráulico Isolado",
+
+  "item.scarcity.camel_pack": "Mochila de Camelo",
+  "item.scarcity.camel_pack.description": "Um tanque de líquido vestível que mantém você hidratado.",
+  "item.scarcity.advanced_camel_pack": "Mochila de Camelo Avançada",
+  "item.scarcity.advanced_camel_pack.description": "Um tanque de líquido vestível grande que mantém você hidratado.",
+  "item.scarcity.unlimited_camel_pack": "Mochila de Camelo Condensadora",
+  "item.scarcity.unlimited_camel_pack.description": "Um tanque de líquido vestível que coleta água do ar para manter você hidratado.",
+  "item.scarcity.camel_pack.empty": "Vazio",
+  "item.scarcity.camel_pack.fluid": "Fluido: %s",
+  "item.scarcity.camel_pack.amount": "Quantidade: %s / %s mB",
+
+  "item.scarcity.stillsuit": "Traje de Recuperação",
+  "item.scarcity.stillsuit.insulation": "Isola significativamente de temperaturas extremas.",
+  "item.scarcity.stillsuit.moisture": "Recicla umidade para reduzir seu uso de água.",
+  "item.scarcity.leather_insulation": "Isolamento de Couro",
+  "item.scarcity.wool_insulation": "Isolamento de Lã",
+
+  "item.scarcity.crook": "Bordão",
+  "item.scarcity.crook.description": "O Bordão é uma ferramenta para colher folhas. Aumenta a queda de mudas e adiciona chance de soltar bichos-da-seda.",
+  "item.scarcity.crushing_hammer": "Martelo Triturador",
+  "item.scarcity.crushing_hammer.description": "O Martelo Triturador é usado para esmagar blocos em outros blocos e itens. Por exemplo, pode triturar pedregulho em cascalho, cascalho em areia e areia em poeira. Também pode triturar ardósia profunda, netherrack, pedra-negra e pedra do End em versões peneiráveis."
+}
