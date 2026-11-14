@@ -43,7 +43,9 @@
   "item.scarcity.wool_insulation": "Wool Insulation",
 
   "item.scarcity.crook": "Crook",
+  "item.scarcity.crook.description": "The Crook is a tool for harvesting leaves. It increases sapling drops and adds a chance to drop silkworms.",
   "item.scarcity.crushing_hammer": "Crushing Hammer",
+  "item.scarcity.crushing_hammer.description": "The Crushing Hammer is used to smash blocks into other blocks and items. For example, it can crush cobblestone into gravel, gravel into sand, and sand into dust. It can also crush deepslate, netherrack, blackstone, and end stone into siftable versions.",
   "modifier.scarcity.heavy_hammering": "Heavy-Hammering",
   "modifier.scarcity.heavy_hammering.flavor": "Strong enough to smash compressed blocks",
   "modifier.scarcity.heavy_hammering.description": "The hammer can break compressed blocks like a compressed hammer.",

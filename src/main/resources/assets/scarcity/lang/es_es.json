@@ -42,6 +42,11 @@
   "item.scarcity.leather_insulation": "Aislante de cuero",
   "item.scarcity.wool_insulation": "Aislante de lana",
 
+  "item.scarcity.crook": "Gancho",
+  "item.scarcity.crook.description": "El Gancho es una herramienta para romper hojas. Aumenta la caída de brotes y agrega una probabilidad de que caigan gusanos de seda.",
+  "item.scarcity.crushing_hammer": "Martillo triturador",
+  "item.scarcity.crushing_hammer.description": "El martillo triturador se usa para romper bloques en otros bloques y items. Por ejemplo, puede triturar cobblestone en grava, grava en arena, y arena en polvo. También puede triturar deepslate, netherrack, Piedra negra y end stone en versiones tamizables.",
+
   
   "attribute.scarcity.regen_speed": "Velocidad de regeneración",
   "attribute.scarcity.fast_regen_speed": "Velocidad de regeneración lenta",
