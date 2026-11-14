@@ -14,6 +14,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.pawjwp.scarcity.attribute.ScarcityAttributes;
 import net.pawjwp.scarcity.compat.Mods;
+import net.pawjwp.scarcity.compat.coldsweat.ColdSweatCompat;
 import net.pawjwp.scarcity.compat.curios.CamelPackRenderer;
 import net.pawjwp.scarcity.compat.curios.CuriosCompat;
 import net.pawjwp.scarcity.compat.curios.InsulationItems;
@@ -68,6 +69,9 @@ public class Scarcity
         }
         if (Mods.CURIOS && (Mods.THIRST || Mods.COLD_SWEAT)) {
             InsulationItems.register(modEventBus);
+        }
+        if (Mods.CURIOS && Mods.COLD_SWEAT) {
+            ColdSweatCompat.register();
         }
 
         // Register the commonSetup method for modloading
