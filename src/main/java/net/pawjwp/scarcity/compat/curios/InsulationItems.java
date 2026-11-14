@@ -33,6 +33,20 @@ public final class InsulationItems {
         }
     });
 
+    // Only register if Cold Sweat is installed
+    public static final RegistryObject<Item> LEATHER_INSULATION;
+    public static final RegistryObject<Item> WOOL_INSULATION;
+
+    static {
+        if (Mods.COLD_SWEAT) {
+            LEATHER_INSULATION = ITEMS.register("leather_insulation", () -> new Item(new Item.Properties().stacksTo(1)));
+            WOOL_INSULATION = ITEMS.register("wool_insulation", () -> new Item(new Item.Properties().stacksTo(1)));
+        } else {
+            LEATHER_INSULATION = null;
+            WOOL_INSULATION = null;
+        }
+    }
+
     public static void register(IEventBus modEventBus) {
         ITEMS.register(modEventBus);
     }

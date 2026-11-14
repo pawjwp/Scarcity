@@ -1,7 +1,7 @@
-// 1.20.1	2026-11-13T01:31:17.776234	Tags for minecraft:item mod id scarcity
+// 1.20.1	2026-11-14T09:55:48.8384957	Tags for minecraft:item mod id scarcity
 0d7134c7565472d29b650cfbafccc85af6da4f67 data/curios/tags/items/back.json
 0d7134c7565472d29b650cfbafccc85af6da4f67 data/curios/tags/items/belt.json
-8d8bde66f7d95791886bdece4abe11b073ed53bf data/curios/tags/items/insulation.json
+faec35030792cc26a8c01461d7a411f8b32de0c1 data/curios/tags/items/insulation.json
 f92fd3de5187c630bb54afcc754a1c97051a7f44 data/exdeorum/tags/items/crooks.json
 ea7dd78850dfc2f8a581a53dca55b403cc447150 data/exdeorum/tags/items/hammers.json
 da02f329c7211ba3eae6b43bffacf279d944681c data/forge/tags/items/tools.json

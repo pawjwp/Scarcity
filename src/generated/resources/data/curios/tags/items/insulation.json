@@ -3,6 +3,14 @@
     {
       "id": "scarcity:stillsuit",
       "required": false
+    },
+    {
+      "id": "scarcity:leather_insulation",
+      "required": false
+    },
+    {
+      "id": "scarcity:wool_insulation",
+      "required": false
     }
   ]
 }

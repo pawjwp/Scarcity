@@ -120,6 +120,10 @@ public class Scarcity
             if (Mods.CURIOS && (Mods.THIRST || Mods.COLD_SWEAT)) {
                 event.accept(InsulationItems.STILLSUIT.get());
             }
+            if (Mods.CURIOS && Mods.COLD_SWEAT) {
+                event.accept(InsulationItems.LEATHER_INSULATION.get());
+                event.accept(InsulationItems.WOOL_INSULATION.get());
+            }
         }
     }
 

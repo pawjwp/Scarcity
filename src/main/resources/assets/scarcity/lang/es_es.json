@@ -39,6 +39,8 @@
   "item.scarcity.stillsuit": "Traje de condensación",
   "item.scarcity.stillsuit.insulation": "Te aísla significativamente de temperaturas extremas.",
   "item.scarcity.stillsuit.moisture": "Recicla la humedad para reducir tu consumo de agua.",
+  "item.scarcity.leather_insulation": "Aislante de cuero",
+  "item.scarcity.wool_insulation": "Aislante de lana",
 
   
   "attribute.scarcity.regen_speed": "Velocidad de regeneración",

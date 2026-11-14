@@ -63,7 +63,9 @@ public class ScarcityItemTags extends ItemTagsProvider {
         }
 
         tag(ItemTags.create(ResourceLocation.fromNamespaceAndPath("curios", "insulation")))
-                .addOptional(ResourceLocation.fromNamespaceAndPath(Scarcity.MOD_ID, "stillsuit"));
+                .addOptional(ResourceLocation.fromNamespaceAndPath(Scarcity.MOD_ID, "stillsuit"))
+                .addOptional(ResourceLocation.fromNamespaceAndPath(Scarcity.MOD_ID, "leather_insulation"))
+                .addOptional(ResourceLocation.fromNamespaceAndPath(Scarcity.MOD_ID, "wool_insulation"));
 
         for (String tag : TOOL_TAGS) {
             tag(ItemTags.create(ResourceLocation.parse(tag))).addOptional(crook).addOptional(crushingHammer);
