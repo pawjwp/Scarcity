@@ -21,6 +21,7 @@ import net.pawjwp.scarcity.compat.curios.InsulationItems;
 import net.pawjwp.scarcity.compat.curios.StillsuitRenderer;
 import net.pawjwp.scarcity.compat.thirst.CamelPackClient;
 import net.pawjwp.scarcity.compat.thirst.CamelPacks;
+import net.pawjwp.scarcity.compat.thirst.PurityTagging;
 import net.pawjwp.scarcity.compat.refurbished.RefurbishedCompat;
 import net.pawjwp.scarcity.compat.thermal.ThermalClient;
 import net.pawjwp.scarcity.compat.thermal.ThermalCompat;
@@ -66,6 +67,7 @@ public class Scarcity
         }
         if (Mods.THIRST) {
             CamelPacks.register(modEventBus);
+            PurityTagging.register();
         }
         if (Mods.CURIOS && (Mods.THIRST || Mods.COLD_SWEAT)) {
             InsulationItems.register(modEventBus);

@@ -1,0 +1,14 @@
+{
+  "values": [
+    "minecraft:potion",
+    "minecraft:water_bucket",
+    {
+      "id": "thirst:terracotta_water_bowl",
+      "required": false
+    },
+    {
+      "id": "exdeorum:porcelain_water_bucket",
+      "required": false
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-// 1.20.1	2026-11-14T09:55:48.8384957	Tags for minecraft:item mod id scarcity
+// 1.20.1	2026-11-14T11:23:38.2271833	Tags for minecraft:item mod id scarcity
 0d7134c7565472d29b650cfbafccc85af6da4f67 data/curios/tags/items/back.json
 0d7134c7565472d29b650cfbafccc85af6da4f67 data/curios/tags/items/belt.json
 faec35030792cc26a8c01461d7a411f8b32de0c1 data/curios/tags/items/insulation.json
@@ -8,6 +8,7 @@ da02f329c7211ba3eae6b43bffacf279d944681c data/forge/tags/items/tools.json
 ea7dd78850dfc2f8a581a53dca55b403cc447150 data/minecraft/tags/items/breaks_decorated_pots.json
 ea7dd78850dfc2f8a581a53dca55b403cc447150 data/minecraft/tags/items/pickaxes.json
 da02f329c7211ba3eae6b43bffacf279d944681c data/minecraft/tags/items/tools.json
+b9211dc85a24800beca8968d06285fb72e5a8dbf data/scarcity/tags/items/force_purity.json
 068fc09755c1d295a9ea85b48d9f3f65d4fe7e7e data/scarcity/tags/items/water_filter_purifiable.json
 ea7dd78850dfc2f8a581a53dca55b403cc447150 data/tconstruct/tags/items/modifiable/aoe.json
 da02f329c7211ba3eae6b43bffacf279d944681c data/tconstruct/tags/items/modifiable/bonus_slots.json

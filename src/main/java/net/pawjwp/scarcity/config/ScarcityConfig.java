@@ -68,6 +68,7 @@ public class ScarcityConfig {
     public static PurityMergeMethod thirstPurityMergeMethod = PurityMergeMethod.LOWEST; // Load lowest by default so mixins can't read null values while the config loads
     public static double thirstPurityRoundingThreshold;
     public static int thirstUntaggedWaterPurity = -1; // Keep Thirst's own default until the config loads, since 0 would mean dirty
+    public static boolean forceThirstPurityTagging;
     public static boolean enableThirstPurityFixes;
 
     // obscure api patches
@@ -173,6 +174,7 @@ public class ScarcityConfig {
         thirstPurityMergeMethod = COMMON.thirstPurityMergeMethod.get();
         thirstPurityRoundingThreshold = COMMON.thirstPurityRoundingThreshold.get();
         thirstUntaggedWaterPurity = COMMON.thirstUntaggedWaterPurity.get();
+        forceThirstPurityTagging = COMMON.forceThirstPurityTagging.get();
         enableThirstPurityFixes = COMMON.enableThirstPurityFixes.get();
 
         // obscure api patches
@@ -263,6 +265,7 @@ public class ScarcityConfig {
         public final ForgeConfigSpec.EnumValue<PurityMergeMethod> thirstPurityMergeMethod;
         public final ForgeConfigSpec.DoubleValue thirstPurityRoundingThreshold;
         public final ForgeConfigSpec.IntValue thirstUntaggedWaterPurity;
+        public final ForgeConfigSpec.BooleanValue forceThirstPurityTagging;
         public final ForgeConfigSpec.BooleanValue enableThirstPurityFixes;
         public final ForgeConfigSpec.BooleanValue hideObscureAPIMenuButton;
 
@@ -461,6 +464,11 @@ public class ScarcityConfig {
             thirstUntaggedWaterPurity = builder
                     .comment("Purity of water with no purity tag, -1 to use Thirst's default")
                     .defineInRange("thirst_untagged_water_purity", -1, -1, 3);
+
+            forceThirstPurityTagging = builder
+                    .comment("Add a purity tag to water without one when it enters a player's inventory")
+                    .comment("Applies to all items in the scarcity:force_purity tag, and defaults to configured untagged water purity")
+                    .define("force_thirst_purity_tagging", false);
 
             enableThirstPurityFixes = builder
                     .comment("Fix various mods losing water purity")

@@ -53,6 +53,9 @@ public class ScarcityItemTags extends ItemTagsProvider {
         var crushingHammer = ResourceLocation.fromNamespaceAndPath(Scarcity.MOD_ID, "crushing_hammer");
 
         tag(ScarcityTags.WATER_FILTER_PURIFIABLE).add(Items.POTION, Items.WATER_BUCKET);
+        tag(ScarcityTags.FORCE_PURITY).add(Items.POTION, Items.WATER_BUCKET)
+                .addOptional(ResourceLocation.parse("thirst:terracotta_water_bowl"))
+                .addOptional(ResourceLocation.parse("exdeorum:porcelain_water_bucket"));
 
         // Curios slots that a camel pack can be worn in
         for (String slot : List.of("back", "belt")) {
