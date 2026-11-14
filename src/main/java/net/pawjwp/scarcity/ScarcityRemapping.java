@@ -25,7 +25,9 @@ public class ScarcityRemapping {
 
             Map.entry("kubejs:camel_pack", "scarcity:camel_pack"),
             Map.entry("kubejs:advanced_camel_pack", "scarcity:advanced_camel_pack"),
-            Map.entry("kubejs:unlimited_camel_pack", "scarcity:unlimited_camel_pack")
+            Map.entry("kubejs:unlimited_camel_pack", "scarcity:unlimited_camel_pack"),
+
+            Map.entry("kubejs:stillsuit", "scarcity:stillsuit")
     );
 
     @SubscribeEvent

@@ -62,6 +62,9 @@ public class ScarcityItemTags extends ItemTagsProvider {
                     .addOptional(ResourceLocation.fromNamespaceAndPath(Scarcity.MOD_ID, "unlimited_camel_pack"));
         }
 
+        tag(ItemTags.create(ResourceLocation.fromNamespaceAndPath("curios", "insulation")))
+                .addOptional(ResourceLocation.fromNamespaceAndPath(Scarcity.MOD_ID, "stillsuit"));
+
         for (String tag : TOOL_TAGS) {
             tag(ItemTags.create(ResourceLocation.parse(tag))).addOptional(crook).addOptional(crushingHammer);
         }
