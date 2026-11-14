@@ -98,6 +98,11 @@ public class ScarcityConfig {
     public static double unlimitedCamelPackThirstMultiplier;
     public static double unlimitedCamelPackQuenchMultiplier;
 
+    // stillsuit
+    public static double stillsuitThirstMultiplier = 0.5; // load the default to avoid size 0 issues
+    public static double stillsuitColdInsulation;
+    public static double stillsuitHeatInsulation;
+
     public static void onLoad(final ModConfigEvent.Loading event) {
         if (event.getConfig().getSpec() == COMMON_SPEC) {
             bakeConfig();
@@ -190,6 +195,11 @@ public class ScarcityConfig {
         advancedCamelPackPurityBonus = COMMON.advancedCamelPackPurityBonus.get();
         unlimitedCamelPackThirstMultiplier = COMMON.unlimitedCamelPackThirstMultiplier.get();
         unlimitedCamelPackQuenchMultiplier = COMMON.unlimitedCamelPackQuenchMultiplier.get();
+
+        // stillsuit
+        stillsuitThirstMultiplier = COMMON.stillsuitThirstMultiplier.get();
+        stillsuitColdInsulation = COMMON.stillsuitColdInsulation.get();
+        stillsuitHeatInsulation = COMMON.stillsuitHeatInsulation.get();
     }
 
     // How the purity is chosen when water of different purities merges in a tank
@@ -267,6 +277,11 @@ public class ScarcityConfig {
         public final ForgeConfigSpec.IntValue advancedCamelPackPurityBonus;
         public final ForgeConfigSpec.DoubleValue unlimitedCamelPackThirstMultiplier;
         public final ForgeConfigSpec.DoubleValue unlimitedCamelPackQuenchMultiplier;
+
+        // stillsuit
+        public final ForgeConfigSpec.DoubleValue stillsuitThirstMultiplier;
+        public final ForgeConfigSpec.DoubleValue stillsuitColdInsulation;
+        public final ForgeConfigSpec.DoubleValue stillsuitHeatInsulation;
 
         public CommonConfig(ForgeConfigSpec.Builder builder) {
             builder.push("food");
@@ -568,6 +583,23 @@ public class ScarcityConfig {
                     .defineInRange("unlimited_quench_multiplier", 1.5, 0.0, 100.0);
 
             builder.pop(); // camel_pack
+
+            builder.push("stillsuit");
+
+            stillsuitThirstMultiplier = builder
+                    .comment("Multiplier for how much thirst is gained when wearing a stillsuit.")
+                    .comment("The default of 0.5 means 50% slower thirst drain rate.")
+                    .defineInRange("thirst_multiplier", 0.5, 0.0, 10.0);
+
+            stillsuitColdInsulation = builder
+                    .comment("Cold insulation from wearing a stillsuit.")
+                    .defineInRange("cold_insulation", 50.0, 0.0, 1000.0);
+
+            stillsuitHeatInsulation = builder
+                    .comment("Heat insulation from wearing a stillsuit.")
+                    .defineInRange("heat_insulation", 50.0, 0.0, 1000.0);
+
+            builder.pop(); // stillsuit
 
             builder.pop(); // compat
         }
