@@ -1,0 +1,41 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "curios"
+        },
+        {
+          "type": "forge:mod_loaded",
+          "modid": "thirst"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "category": "misc",
+        "key": {
+          "F": {
+            "item": "scarcity:insulated_hydraulic_fabric"
+          },
+          "P": {
+            "item": "scarcity:filtration_pocket"
+          },
+          "W": {
+            "item": "scarcity:advanced_camel_pack"
+          }
+        },
+        "pattern": [
+          "FFF",
+          "PWP",
+          "FPF"
+        ],
+        "result": {
+          "item": "scarcity:stillsuit"
+        },
+        "show_notification": true
+      }
+    }
+  ]
+}

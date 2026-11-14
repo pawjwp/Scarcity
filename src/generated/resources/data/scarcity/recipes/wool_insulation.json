@@ -1,0 +1,38 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "curios"
+        },
+        {
+          "type": "forge:mod_loaded",
+          "modid": "cold_sweat"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "category": "misc",
+        "key": {
+          "S": {
+            "tag": "forge:string"
+          },
+          "W": {
+            "tag": "minecraft:wool"
+          }
+        },
+        "pattern": [
+          "WSW",
+          "WWW",
+          "WWW"
+        ],
+        "result": {
+          "item": "scarcity:wool_insulation"
+        },
+        "show_notification": true
+      }
+    }
+  ]
+}

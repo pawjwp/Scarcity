@@ -1,4 +1,4 @@
-// 1.20.1	2026-11-13T01:22:17.9462832	Recipes
+// 1.20.1	2026-11-14T10:05:08.8813026	Recipes
 bebb6789aa856418e38a500403e0934b2c8d33cc data/scarcity/advancements/recipes/misc/filtration_pocket.json
 c6248fdba76768225f499729419eae5d4b88f3a6 data/scarcity/advancements/recipes/misc/insulated_hydraulic_fabric.json
 72158bb9a402a62f2420cff6041b60d495275981 data/scarcity/advancements/recipes/misc/water_filter.json
@@ -8,9 +8,12 @@ f93989eb6c07a8671ed69ed6177b973a9788c1d5 data/scarcity/recipes/camel_pack.json
 32e65519c59e103ccb1a02e72093fa2a1340b741 data/scarcity/recipes/camel_pack_fill.json
 08ec4dc686125d5a3fec84d26cfe9d9dd5c61b7d data/scarcity/recipes/filtration_pocket.json
 b2d07bbf990d1f0744f8f11d23ef1006e39418ae data/scarcity/recipes/insulated_hydraulic_fabric.json
+caa555b5fa3ef0dab54e7ee955937311586a3207 data/scarcity/recipes/leather_insulation.json
+b6ac10ad64c6c933539423a6073d1e93cef2ea16 data/scarcity/recipes/stillsuit.json
 9807dcaa3658622b1d5732f2ba43b3aa1a34ef07 data/scarcity/recipes/tools/crook.json
 76b759767917edf983ca31935209376ccb955415 data/scarcity/recipes/tools/crushing_hammer.json
 3b7e3a6a2a062239127138edb486f2bdca16bf59 data/scarcity/recipes/tools/modifiers/heavy_hammering.json
 de37b689db9bdd563c07fba29d17b3e24339a69a data/scarcity/recipes/unlimited_camel_pack.json
 d415ff3ac90ea53d7b31c65950bb7858a4bc2896 data/scarcity/recipes/water_filter.json
 75840a3a8d5794c7434c10fae229d0a10da2a402 data/scarcity/recipes/water_filtering.json
+d453391531e5c251328bc54877be379f683f0f13 data/scarcity/recipes/wool_insulation.json

@@ -1,0 +1,38 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "curios"
+        },
+        {
+          "type": "forge:mod_loaded",
+          "modid": "cold_sweat"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "category": "misc",
+        "key": {
+          "L": {
+            "tag": "forge:leather"
+          },
+          "S": {
+            "tag": "forge:string"
+          }
+        },
+        "pattern": [
+          "LSL",
+          "LLL",
+          "LLL"
+        ],
+        "result": {
+          "item": "scarcity:leather_insulation"
+        },
+        "show_notification": true
+      }
+    }
+  ]
+}

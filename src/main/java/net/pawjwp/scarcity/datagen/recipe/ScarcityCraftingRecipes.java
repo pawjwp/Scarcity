@@ -15,6 +15,7 @@ import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.ConditionalRecipe;
 import net.minecraftforge.common.crafting.conditions.ModLoadedCondition;
 import net.pawjwp.scarcity.Scarcity;
+import net.pawjwp.scarcity.compat.curios.InsulationItems;
 import net.pawjwp.scarcity.compat.thirst.CamelPacks;
 import net.pawjwp.scarcity.compat.tinkers.TinkersCompat;
 import net.pawjwp.scarcity.config.ScarcityConfigCondition;
@@ -32,6 +33,37 @@ public class ScarcityCraftingRecipes {
         recipesTinkersTools(consumer);
         recipesTinkersModifiers(consumer);
         recipesWaterGear(consumer);
+        recipesInsulation(consumer);
+    }
+
+    private static void recipesInsulation(Consumer<FinishedRecipe> consumer) {
+        modRecipe(consumer, "stillsuit", ShapedRecipeBuilder.shaped(RecipeCategory.MISC, InsulationItems.STILLSUIT.get())
+                .pattern("FFF")
+                .pattern("PWP")
+                .pattern("FPF")
+                .define('F', ScarcityItems.INSULATED_HYDRAULIC_FABRIC.get())
+                .define('P', ScarcityItems.FILTRATION_POCKET.get())
+                .define('W', CamelPacks.ADVANCED_CAMEL_PACK.get())
+                .unlockedBy("has_advanced_camel_pack", InventoryChangeTrigger.TriggerInstance.hasItems(CamelPacks.ADVANCED_CAMEL_PACK.get())),
+                "curios", "thirst");
+
+        modRecipe(consumer, "leather_insulation", ShapedRecipeBuilder.shaped(RecipeCategory.MISC, InsulationItems.LEATHER_INSULATION.get())
+                .pattern("LSL")
+                .pattern("LLL")
+                .pattern("LLL")
+                .define('L', Tags.Items.LEATHER)
+                .define('S', Tags.Items.STRING)
+                .unlockedBy("has_leather", InventoryChangeTrigger.TriggerInstance.hasItems(Items.LEATHER)),
+                "curios", "cold_sweat");
+
+        modRecipe(consumer, "wool_insulation", ShapedRecipeBuilder.shaped(RecipeCategory.MISC, InsulationItems.WOOL_INSULATION.get())
+                .pattern("WSW")
+                .pattern("WWW")
+                .pattern("WWW")
+                .define('W', ItemTags.WOOL)
+                .define('S', Tags.Items.STRING)
+                .unlockedBy("has_wool", InventoryChangeTrigger.TriggerInstance.hasItems(Items.WHITE_WOOL)),
+                "curios", "cold_sweat");
     }
 
     private static void recipesWaterGear(Consumer<FinishedRecipe> consumer) {
