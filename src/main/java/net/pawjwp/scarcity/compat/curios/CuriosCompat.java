@@ -1,5 +1,7 @@
 package net.pawjwp.scarcity.compat.curios;
 
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.pawjwp.scarcity.compat.thirst.CamelPackItem;
 import net.pawjwp.scarcity.compat.thirst.CamelPacks;
@@ -21,5 +23,9 @@ public final class CuriosCompat {
         CuriosApi.registerCurio(CamelPacks.CAMEL_PACK.get(), camelPack);
         CuriosApi.registerCurio(CamelPacks.ADVANCED_CAMEL_PACK.get(), camelPack);
         CuriosApi.registerCurio(CamelPacks.UNLIMITED_CAMEL_PACK.get(), camelPack);
+    }
+
+    public static boolean isWearing(LivingEntity entity, Item item) {
+        return CuriosApi.getCuriosInventory(entity).map(inventory -> inventory.isEquipped(item)).orElse(false);
     }
 }
