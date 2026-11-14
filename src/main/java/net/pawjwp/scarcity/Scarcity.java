@@ -17,6 +17,7 @@ import net.pawjwp.scarcity.compat.Mods;
 import net.pawjwp.scarcity.compat.curios.CamelPackRenderer;
 import net.pawjwp.scarcity.compat.curios.CuriosCompat;
 import net.pawjwp.scarcity.compat.curios.InsulationItems;
+import net.pawjwp.scarcity.compat.curios.StillsuitRenderer;
 import net.pawjwp.scarcity.compat.thirst.CamelPackClient;
 import net.pawjwp.scarcity.compat.thirst.CamelPacks;
 import net.pawjwp.scarcity.compat.refurbished.RefurbishedCompat;
@@ -142,6 +143,9 @@ public class Scarcity
             }
             if (Mods.THIRST && Mods.CURIOS) {
                 event.enqueueWork(CamelPackRenderer::register);
+            }
+            if (Mods.CURIOS && (Mods.THIRST || Mods.COLD_SWEAT)) {
+                event.enqueueWork(StillsuitRenderer::register);
             }
         }
     }
