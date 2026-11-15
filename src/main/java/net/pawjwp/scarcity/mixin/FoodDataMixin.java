@@ -10,12 +10,10 @@ import com.llamalad7.mixinextras.sugar.ref.LocalFloatRef;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodData;
 import net.pawjwp.scarcity.RegenHealAmount;
-import net.pawjwp.scarcity.Scarcity;
 import net.pawjwp.scarcity.attribute.ScarcityAttributes;
 import net.pawjwp.scarcity.config.ScarcityConfig;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
@@ -31,65 +29,12 @@ public abstract class FoodDataMixin {
     @Shadow
     private float exhaustionLevel;
 
-    // Clamp values
-
-    @Unique
-    private static Boolean scarcity$thirstLoaded = null;
-
-    @Unique
-    private static boolean scarcity$isThirstLoaded() {
-        if (scarcity$thirstLoaded == null) {
-            try {
-                Class.forName("dev.ghen.thirst.foundation.common.capability.ModCapabilities");
-                scarcity$thirstLoaded = true;
-            } catch (ClassNotFoundException e) {
-                scarcity$thirstLoaded = false;
-            }
-        }
-        return scarcity$thirstLoaded;
-    }
-
+    // Sets extreme negative hunger exhaustion to the configured floor
     @Inject(method = "tick", at = @At("HEAD"))
     private void scarcity$clampExhaustionFloor(Player player, CallbackInfo ci) {
-        // Clamp vanilla exhaustion
         if (ScarcityConfig.negativeExhaustionThreshold > -40.0F
                 && this.exhaustionLevel < ScarcityConfig.negativeExhaustionThreshold) {
             this.exhaustionLevel = ScarcityConfig.negativeExhaustionThreshold;
-        }
-
-        // Clamp Thirst exhaustion if Thirst is loaded
-        if (scarcity$isThirstLoaded()) {
-            scarcity$clampThirstExhaustion(player);
-        }
-    }
-
-    @Unique
-    private void scarcity$clampThirstExhaustion(Player player) {
-        try {
-            // Get ModCapabilities class and PLAYER_THIRST field
-            Class<?> modCapabilitiesClass = Class.forName("dev.ghen.thirst.foundation.common.capability.ModCapabilities");
-            Object playerThirstCap = modCapabilitiesClass.getField("PLAYER_THIRST").get(null);
-
-            // Get thirst capability
-            net.minecraftforge.common.util.LazyOptional<?> lazyOptional = player.getCapability((net.minecraftforge.common.capabilities.Capability<?>) playerThirstCap);
-
-            lazyOptional.ifPresent(thirst -> {
-                try {
-                    // Get exhaustion
-                    java.lang.reflect.Method getExhaustion = thirst.getClass().getMethod("getExhaustion");
-                    float thirstExhaustion = (float) getExhaustion.invoke(thirst);
-
-                    if (ScarcityConfig.negativeExhaustionThreshold > -40.0F
-                            && thirstExhaustion < ScarcityConfig.negativeExhaustionThreshold) {
-                        java.lang.reflect.Method setExhaustion = thirst.getClass().getMethod("setExhaustion", float.class);
-                        setExhaustion.invoke(thirst, ScarcityConfig.negativeExhaustionThreshold);
-                    }
-                } catch (Exception e) {
-                    Scarcity.LOGGER.warn("Scarcity failed to clamp Thirst exhaustion", e);
-                }
-            });
-        } catch (Exception e) {
-            Scarcity.LOGGER.warn("Scarcity failed to access Thirst capability", e);
         }
     }
 
