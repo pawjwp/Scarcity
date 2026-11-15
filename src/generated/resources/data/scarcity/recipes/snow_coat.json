@@ -1,0 +1,34 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "cold_sweat"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "category": "equipment",
+        "key": {
+          "L": {
+            "tag": "forge:leather"
+          },
+          "W": {
+            "tag": "minecraft:wool"
+          }
+        },
+        "pattern": [
+          "L L",
+          "WLW",
+          "WLW"
+        ],
+        "result": {
+          "item": "scarcity:snow_coat"
+        },
+        "show_notification": true
+      }
+    }
+  ]
+}

@@ -15,6 +15,7 @@ import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.ConditionalRecipe;
 import net.minecraftforge.common.crafting.conditions.ModLoadedCondition;
 import net.pawjwp.scarcity.Scarcity;
+import net.pawjwp.scarcity.compat.coldsweat.InsulatingArmor;
 import net.pawjwp.scarcity.compat.curios.InsulationItems;
 import net.pawjwp.scarcity.compat.thirst.CamelPacks;
 import net.pawjwp.scarcity.compat.tinkers.TinkersCompat;
@@ -34,6 +35,7 @@ public class ScarcityCraftingRecipes {
         recipesTinkersModifiers(consumer);
         recipesWaterGear(consumer);
         recipesInsulation(consumer);
+        recipesInsulatingArmor(consumer);
     }
 
     private static void recipesInsulation(Consumer<FinishedRecipe> consumer) {
@@ -64,6 +66,79 @@ public class ScarcityCraftingRecipes {
                 .define('S', Tags.Items.STRING)
                 .unlockedBy("has_wool", InventoryChangeTrigger.TriggerInstance.hasItems(Items.WHITE_WOOL)),
                 "curios", "cold_sweat");
+    }
+
+    private static void recipesInsulatingArmor(Consumer<FinishedRecipe> consumer) {
+        modRecipe(consumer, "desert_cap", ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, InsulatingArmor.DESERT_CAP.get())
+                .pattern("LWL")
+                .pattern("S S")
+                .define('L', Tags.Items.LEATHER)
+                .define('S', Tags.Items.STRING)
+                .define('W', ItemTags.WOOL)
+                .unlockedBy("has_leather", InventoryChangeTrigger.TriggerInstance.hasItems(Items.LEATHER)),
+                "cold_sweat");
+
+        modRecipe(consumer, "desert_tunic", ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, InsulatingArmor.DESERT_TUNIC.get())
+                .pattern("S S")
+                .pattern("LWL")
+                .pattern("SSS")
+                .define('L', Tags.Items.LEATHER)
+                .define('S', Tags.Items.STRING)
+                .define('W', ItemTags.WOOL)
+                .unlockedBy("has_leather", InventoryChangeTrigger.TriggerInstance.hasItems(Items.LEATHER)),
+                "cold_sweat");
+
+        modRecipe(consumer, "desert_pants", ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, InsulatingArmor.DESERT_PANTS.get())
+                .pattern("SWS")
+                .pattern("L L")
+                .pattern("L L")
+                .define('L', Tags.Items.LEATHER)
+                .define('S', Tags.Items.STRING)
+                .define('W', ItemTags.WOOL)
+                .unlockedBy("has_leather", InventoryChangeTrigger.TriggerInstance.hasItems(Items.LEATHER)),
+                "cold_sweat");
+
+        modRecipe(consumer, "desert_shoes", ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, InsulatingArmor.DESERT_SHOES.get())
+                .pattern("L L")
+                .pattern("P P")
+                .define('L', Tags.Items.LEATHER)
+                .define('P', ItemTags.PLANKS)
+                .unlockedBy("has_leather", InventoryChangeTrigger.TriggerInstance.hasItems(Items.LEATHER)),
+                "cold_sweat");
+
+        modRecipe(consumer, "snow_hat", ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, InsulatingArmor.SNOW_HAT.get())
+                .pattern("WWW")
+                .pattern("L L")
+                .define('L', Tags.Items.LEATHER)
+                .define('W', ItemTags.WOOL)
+                .unlockedBy("has_wool", InventoryChangeTrigger.TriggerInstance.hasItems(Items.WHITE_WOOL)),
+                "cold_sweat");
+
+        modRecipe(consumer, "snow_coat", ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, InsulatingArmor.SNOW_COAT.get())
+                .pattern("L L")
+                .pattern("WLW")
+                .pattern("WLW")
+                .define('L', Tags.Items.LEATHER)
+                .define('W', ItemTags.WOOL)
+                .unlockedBy("has_wool", InventoryChangeTrigger.TriggerInstance.hasItems(Items.WHITE_WOOL)),
+                "cold_sweat");
+
+        modRecipe(consumer, "snow_pants", ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, InsulatingArmor.SNOW_PANTS.get())
+                .pattern("WWW")
+                .pattern("L L")
+                .pattern("L L")
+                .define('L', Tags.Items.LEATHER)
+                .define('W', ItemTags.WOOL)
+                .unlockedBy("has_wool", InventoryChangeTrigger.TriggerInstance.hasItems(Items.WHITE_WOOL)),
+                "cold_sweat");
+
+        modRecipe(consumer, "snow_boots", ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, InsulatingArmor.SNOW_BOOTS.get())
+                .pattern("W W")
+                .pattern("L L")
+                .define('L', Tags.Items.LEATHER)
+                .define('W', ItemTags.WOOL)
+                .unlockedBy("has_wool", InventoryChangeTrigger.TriggerInstance.hasItems(Items.WHITE_WOOL)),
+                "cold_sweat");
     }
 
     private static void recipesWaterGear(Consumer<FinishedRecipe> consumer) {

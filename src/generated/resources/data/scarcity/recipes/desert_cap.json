@@ -1,0 +1,36 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "cold_sweat"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "category": "equipment",
+        "key": {
+          "L": {
+            "tag": "forge:leather"
+          },
+          "S": {
+            "tag": "forge:string"
+          },
+          "W": {
+            "tag": "minecraft:wool"
+          }
+        },
+        "pattern": [
+          "LWL",
+          "S S"
+        ],
+        "result": {
+          "item": "scarcity:desert_cap"
+        },
+        "show_notification": true
+      }
+    }
+  ]
+}
