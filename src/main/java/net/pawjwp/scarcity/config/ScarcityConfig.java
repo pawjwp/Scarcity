@@ -617,7 +617,7 @@ public class ScarcityConfig {
             builder.push("camel_pack");
 
             camelPackSipAmount = builder
-                    .comment("Fluid drained from a camel pack each time it is drank from (mB).")
+                    .comment("Fluid drained from a camel pack each time it is drunk from (mB).")
                     .defineInRange("sip_amount", 100, 1, 1000);
 
             camelPackBottleThirst = builder
@@ -641,7 +641,7 @@ public class ScarcityConfig {
                     .defineInRange("quench_multiplier", 1.0, 0.0, 100.0);
 
             camelPackPurityBonus = builder
-                    .comment("Purity level added to the water drank from the Camel Pack.")
+                    .comment("Purity level added to the water drunk from the Camel Pack.")
                     .defineInRange("purity_bonus", 1, 0, 3);
 
             advancedCamelPackCapacity = builder
@@ -657,7 +657,7 @@ public class ScarcityConfig {
                     .defineInRange("advanced_quench_multiplier", 1.25, 0.0, 100.0);
 
             advancedCamelPackPurityBonus = builder
-                    .comment("Purity level added to the water drank from the Advanced Camel Pack")
+                    .comment("Purity level added to the water drunk from the Advanced Camel Pack.")
                     .defineInRange("advanced_purity_bonus", 2, 0, 3);
 
             unlimitedCamelPackThirstMultiplier = builder
