@@ -4,7 +4,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.OutlineBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.texture.OverlayTexture;
@@ -35,16 +34,7 @@ public class StillsuitRenderer implements ICurioRenderer {
             texture = THIN_TEXTURE;
         }
 
-        RenderType renderType = RenderType.entityCutoutNoCullZOffset(texture);
-        if (renderTypeBuffer instanceof MultiBufferSource.BufferSource || renderTypeBuffer instanceof OutlineBufferSource) {
-            renderType = RenderType.entityTranslucent(texture);
-        }
-
-        poseStack.pushPose();
-
-        renderLayerParent.getModel().renderToBuffer(poseStack, renderTypeBuffer.getBuffer(renderType), light,
+        renderLayerParent.getModel().renderToBuffer(poseStack, renderTypeBuffer.getBuffer(RenderType.entityTranslucent(texture)), light,
                 OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
-
-        poseStack.popPose();
     }
 }
