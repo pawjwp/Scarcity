@@ -183,7 +183,7 @@ public class CamelPackItem extends Item {
 
     @Override
     public int getBarColor(ItemStack stack) {
-        return CamelPackFluids.getFluidBarColor(getFluid(stack).getFluid());
+        return CamelPackClient.barColor(getFluid(stack));
     }
 
     @Override
