@@ -50,7 +50,6 @@
     "MobMixin",
     "PlayerMixin",
     "PlayerThirstMixin",
-    "RiceBlockMixin",
     "SeagrassBlockMixin",
     "WaterPurityMixin",
     "ZombieVillagerMixin"

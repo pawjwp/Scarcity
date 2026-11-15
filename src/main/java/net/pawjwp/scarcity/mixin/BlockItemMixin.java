@@ -22,15 +22,13 @@ public class BlockItemMixin {
                     target = "Lnet/minecraft/world/item/BlockItem;getPlacementState(Lnet/minecraft/world/item/context/BlockPlaceContext;)Lnet/minecraft/world/level/block/state/BlockState;"
             )
     )
-    private BlockState scarcity$preventWaterlogInFlowingWater(BlockState original, @Local BlockPlaceContext context) {
-        if (!ScarcityConfig.enableWaterPlantSourcePrevention) return original;
-        if (original == null) return original;
-        if (!original.hasProperty(BlockStateProperties.WATERLOGGED)) return original;
-        if (!original.getValue(BlockStateProperties.WATERLOGGED)) return original;
+    private BlockState scarcity$preventSourceInFlowingWater(BlockState original, @Local BlockPlaceContext context) {
+        if (!ScarcityConfig.enableWaterPlantSourcePrevention || original == null) return original;
         FluidState fluid = context.getLevel().getFluidState(context.getClickedPos());
-        if (fluid.is(FluidTags.WATER) && !fluid.isSource()) {
+        if (!fluid.is(FluidTags.WATER) || fluid.isSource()) return original;
+        if (original.hasProperty(BlockStateProperties.WATERLOGGED)) {
             return original.setValue(BlockStateProperties.WATERLOGGED, false);
         }
-        return original;
+        return original.getFluidState().isSource() ? null : original;
     }
 }
