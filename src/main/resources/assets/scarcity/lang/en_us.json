@@ -70,6 +70,6 @@
 
 
   "attribute.scarcity.regen_speed": "Regen Speed",
-  "attribute.scarcity.fast_regen_speed": "Slow Regen Speed",
-  "attribute.scarcity.slow_regen_speed": "Normal Regen Speed"
+  "attribute.scarcity.fast_regen_speed": "Fast Regen Speed",
+  "attribute.scarcity.slow_regen_speed": "Slow Regen Speed"
 }

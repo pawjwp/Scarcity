@@ -62,6 +62,6 @@
 
   
   "attribute.scarcity.regen_speed": "Velocidad de regeneración",
-  "attribute.scarcity.fast_regen_speed": "Velocidad de regeneración lenta",
-  "attribute.scarcity.slow_regen_speed": "Velocidad de regeneración normal"
+  "attribute.scarcity.fast_regen_speed": "Velocidad de regeneración rápida",
+  "attribute.scarcity.slow_regen_speed": "Velocidad de regeneración lenta"
 }

@@ -69,6 +69,6 @@
   "info.scarcity.machine_sieve": "Peneira materiais automaticamente através de uma malha, como uma peneira do Ex Deorum. Instale um Agitador Pesado para processar blocos comprimidos com maior custo de energia e menor velocidade.",
 
   "attribute.scarcity.regen_speed": "Velocidade de Regeneração",
-  "attribute.scarcity.fast_regen_speed": "Velocidade de Regeneração Lenta",
-  "attribute.scarcity.slow_regen_speed": "Velocidade de Regeneração Normal"
+  "attribute.scarcity.fast_regen_speed": "Velocidade de Regeneração Rápida",
+  "attribute.scarcity.slow_regen_speed": "Velocidade de Regeneração Lenta"
 }
