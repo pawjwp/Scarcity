@@ -49,6 +49,15 @@ public abstract class MobMixin extends LivingEntity implements ScarcitySunlightA
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
     private void scarcity$writeSunlight(CompoundTag tag, CallbackInfo ci) {
         if (this.scarcity$sunlightState != SunlightSensitivity.State.DEFAULT) {
+            tag.putBoolean(SunlightSensitivity.TAG, this.scarcity$sunlightState == SunlightSensitivity.State.SENSITIVE);
+        }
+    }
+
+    // Copy the state if the mob is converted to another one
+    @Inject(method = "convertTo", at = @At("RETURN"))
+    private void scarcity$copySunlightToConverted(CallbackInfoReturnable<Mob> cir) {
+        if (cir.getReturnValue() != null) {
+            SunlightSensitivity.setState(cir.getReturnValue(), this.scarcity$sunlightState);
         }
     }
 
