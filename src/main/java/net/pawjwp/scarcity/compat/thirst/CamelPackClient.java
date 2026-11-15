@@ -3,15 +3,20 @@ package net.pawjwp.scarcity.compat.thirst;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.FastColor;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.client.ForgeHooksClient;
+import net.minecraftforge.client.event.ContainerScreenEvent;
 import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -53,6 +58,46 @@ public final class CamelPackClient {
                 OverlayTexture.NO_OVERLAY, itemRenderer.getModel(stack, null, null, 0));
 
         poseStack.popPose();
+    }
+
+    // Marks each slot what would move fluid in/out of when right clicking with a plus or minus symbol
+    public static void renderSlotSigns(ContainerScreenEvent.Render.Foreground event) {
+        Minecraft minecraft = Minecraft.getInstance();
+        AbstractContainerScreen<?> screen = event.getContainerScreen();
+        ItemStack held = screen.getMenu().getCarried();
+        if (held.isEmpty() || screen instanceof CreativeModeInventoryScreen) {
+            return;
+        }
+
+        GuiGraphics graphics = event.getGuiGraphics();
+        graphics.pose().pushPose();
+        graphics.pose().translate(0, 0, 300); // in front of the slot's item
+        for (Slot slot : screen.getMenu().slots) {
+            int change = slot.allowModification(minecraft.player) ? slotFluidChange(held, slot.getItem()) : 0;
+            if (change > 0) {
+                graphics.drawString(minecraft.font, "+", slot.x + 1, slot.y, 0xFFFFFF);
+            } else if (change < 0) {
+                graphics.drawString(minecraft.font, "-", slot.x + 1, slot.y, 0xFFFFFF);
+            }
+        }
+        graphics.pose().popPose();
+    }
+
+    // What direction the slot fluid change will be (+1 for gaining fluid, -1 for losing fluid, 0 if nothing)
+    private static int slotFluidChange(ItemStack held, ItemStack inSlot) {
+        int heldChange = fluidChange(held, inSlot);
+        return heldChange != 0 ? -heldChange : fluidChange(inSlot, held);
+    }
+
+    // What direction the camel pack fluid change will be (+1 for gaining fluid, -1 for losing fluid, 0 if nothing)
+    private static int fluidChange(ItemStack camelPack, ItemStack fluidContainer) {
+        if (!(camelPack.getItem() instanceof CamelPackItem)) {
+            return 0;
+        }
+        if (CamelPackItem.fill(camelPack.copy(), fluidContainer) != null) {
+            return 1;
+        }
+        return CamelPackItem.drain(camelPack.copy(), fluidContainer) != null ? -1 : 0;
     }
 
     // Average color of a texture's first frame, weighted by each pixel's opacity

@@ -25,6 +25,7 @@ import net.pawjwp.scarcity.compat.curios.CamelPackRenderer;
 import net.pawjwp.scarcity.compat.curios.CuriosCompat;
 import net.pawjwp.scarcity.compat.curios.InsulationItems;
 import net.pawjwp.scarcity.compat.curios.StillsuitRenderer;
+import net.pawjwp.scarcity.compat.thirst.CamelPackClient;
 import net.pawjwp.scarcity.compat.thirst.CamelPackLayer;
 import net.pawjwp.scarcity.compat.thirst.CamelPackModel;
 import net.pawjwp.scarcity.compat.thirst.CamelPacks;
@@ -165,6 +166,9 @@ public class Scarcity
             }
             if (Mods.THERMAL && Mods.EX_DEORUM) {
                 event.enqueueWork(ThermalClient::registerScreens);
+            }
+            if (Mods.THIRST) {
+                MinecraftForge.EVENT_BUS.addListener(CamelPackClient::renderSlotSigns);
             }
             if (Mods.THIRST && Mods.CURIOS) {
                 event.enqueueWork(CamelPackRenderer::register);
