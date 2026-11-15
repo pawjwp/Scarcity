@@ -51,6 +51,7 @@
     "PlayerMixin",
     "PlayerThirstMixin",
     "SeagrassBlockMixin",
+    "ServerGamePacketListenerImplMixin",
     "WaterPurityMixin",
     "ZombieVillagerMixin"
   ],
