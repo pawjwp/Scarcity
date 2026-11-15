@@ -10,6 +10,8 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.client.event.ModelEvent;
+import net.minecraftforge.client.event.RegisterColorHandlersEvent;
+import net.minecraftforge.client.model.DynamicFluidContainerModel;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -166,6 +168,15 @@ public class Scarcity
         {
             if (Mods.THIRST) {
                 event.register("camel_pack", CamelPackModel.Loader.INSTANCE);
+            }
+        }
+
+        // Tints the fluid drawn in camel packs with the fluid's colour, the same way Forge tints buckets
+        @SubscribeEvent
+        public static void onRegisterItemColors(RegisterColorHandlersEvent.Item event)
+        {
+            if (Mods.THIRST) {
+                event.register(new DynamicFluidContainerModel.Colors(), CamelPacks.CAMEL_PACK.get(), CamelPacks.ADVANCED_CAMEL_PACK.get());
             }
         }
     }
