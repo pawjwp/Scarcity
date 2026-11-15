@@ -9,6 +9,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.client.event.ModelEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -20,6 +21,7 @@ import net.pawjwp.scarcity.compat.curios.CuriosCompat;
 import net.pawjwp.scarcity.compat.curios.InsulationItems;
 import net.pawjwp.scarcity.compat.curios.StillsuitRenderer;
 import net.pawjwp.scarcity.compat.thirst.CamelPackClient;
+import net.pawjwp.scarcity.compat.thirst.CamelPackModel;
 import net.pawjwp.scarcity.compat.thirst.CamelPacks;
 import net.pawjwp.scarcity.compat.thirst.PurityTagging;
 import net.pawjwp.scarcity.compat.refurbished.RefurbishedCompat;
@@ -156,6 +158,14 @@ public class Scarcity
             }
             if (Mods.CURIOS && (Mods.THIRST || Mods.COLD_SWEAT)) {
                 event.enqueueWork(StillsuitRenderer::register);
+            }
+        }
+
+        @SubscribeEvent
+        public static void onRegisterGeometryLoaders(ModelEvent.RegisterGeometryLoaders event)
+        {
+            if (Mods.THIRST) {
+                event.register("camel_pack", CamelPackModel.Loader.INSTANCE);
             }
         }
     }
