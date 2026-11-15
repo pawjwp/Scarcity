@@ -38,19 +38,16 @@ public abstract class MobMixin extends LivingEntity implements ScarcitySunlightA
     // Read the NBT tag as part of readAdditionalSaveData
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
     private void scarcity$readSunlight(CompoundTag tag, CallbackInfo ci) {
-        if (tag.contains(SunlightSensitivity.TAG)) {
-            SunlightSensitivity.State state = tag.getBoolean(SunlightSensitivity.TAG)
-                    ? SunlightSensitivity.State.SENSITIVE
-                    : SunlightSensitivity.State.INSENSITIVE;
-            this.scarcity$sunlightSensitivity = (byte) state.ordinal();
-        }
+        SunlightSensitivity.setState((Mob) (Object) this, !tag.contains(SunlightSensitivity.TAG)
+                ? SunlightSensitivity.State.DEFAULT
+                : tag.getBoolean(SunlightSensitivity.TAG)
+                        ? SunlightSensitivity.State.SENSITIVE
+                        : SunlightSensitivity.State.INSENSITIVE);
     }
 
     // Make the data persistent in addAdditionalSaveData
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
     private void scarcity$writeSunlight(CompoundTag tag, CallbackInfo ci) {
-        SunlightSensitivity.State state = scarcity$sunlightState();
-            tag.putBoolean(SunlightSensitivity.TAG, state == SunlightSensitivity.State.SENSITIVE);
         if (this.scarcity$sunlightState != SunlightSensitivity.State.DEFAULT) {
         }
     }
