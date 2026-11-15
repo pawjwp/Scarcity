@@ -35,6 +35,8 @@
   "item.scarcity.camel_pack.empty": "Empty",
   "item.scarcity.camel_pack.fluid": "Fluid: %s",
   "item.scarcity.camel_pack.amount": "Amount: %s / %s mB",
+  "item.scarcity.camel_pack.right_click_to_fill": "Right click to fill",
+  "item.scarcity.camel_pack.right_click_to_drain": "Right click to drain",
 
   "item.scarcity.stillsuit": "Stillsuit",
   "item.scarcity.stillsuit.insulation": "Significantly insulates you from extreme temperatures.",

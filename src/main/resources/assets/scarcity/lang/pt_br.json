@@ -35,6 +35,8 @@
   "item.scarcity.camel_pack.empty": "Vazio",
   "item.scarcity.camel_pack.fluid": "Fluido: %s",
   "item.scarcity.camel_pack.amount": "Quantidade: %s / %s mB",
+  "item.scarcity.camel_pack.right_click_to_fill": "Clique com o botão direito para encher",
+  "item.scarcity.camel_pack.right_click_to_drain": "Clique com o botão direito para esvaziar",
 
   "item.scarcity.stillsuit": "Traje de Recuperação",
   "item.scarcity.stillsuit.insulation": "Isola significativamente de temperaturas extremas.",

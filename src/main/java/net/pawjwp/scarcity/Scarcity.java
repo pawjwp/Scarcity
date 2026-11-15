@@ -169,6 +169,7 @@ public class Scarcity
             }
             if (Mods.THIRST) {
                 MinecraftForge.EVENT_BUS.addListener(CamelPackClient::renderSlotSigns);
+                MinecraftForge.EVENT_BUS.addListener(CamelPackClient::renderClickHint);
             }
             if (Mods.THIRST && Mods.CURIOS) {
                 event.enqueueWork(CamelPackRenderer::register);

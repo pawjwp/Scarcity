@@ -10,6 +10,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.network.chat.Component;
 import net.minecraft.util.FastColor;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.inventory.Slot;
@@ -17,6 +18,7 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.client.event.ContainerScreenEvent;
+import net.minecraftforge.client.event.ScreenEvent;
 import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -81,6 +83,28 @@ public final class CamelPackClient {
             }
         }
         graphics.pose().popPose();
+    }
+
+    // Shows a tooltip of what right clicking would do when preparing to click to fill a camel pack
+    public static void renderClickHint(ScreenEvent.Render.Post event) {
+        Minecraft minecraft = Minecraft.getInstance();
+        if (!(event.getScreen() instanceof AbstractContainerScreen<?> screen) || screen instanceof CreativeModeInventoryScreen) {
+            return;
+        }
+        ItemStack held = screen.getMenu().getCarried();
+        Slot slot = screen.getSlotUnderMouse();
+        if (held.isEmpty() || slot == null || !slot.allowModification(minecraft.player)) {
+            return;
+        }
+
+        // The held camel pack is filled/drained first
+        int heldChange = fluidChange(held, slot.getItem());
+        int change = heldChange != 0 ? heldChange : fluidChange(slot.getItem(), held);
+        if (change != 0) {
+            event.getGuiGraphics().renderTooltip(minecraft.font, Component.translatable(
+                    change > 0 ? "item.scarcity.camel_pack.right_click_to_fill" : "item.scarcity.camel_pack.right_click_to_drain"
+            ), event.getMouseX(), event.getMouseY());
+        }
     }
 
     // What direction the slot fluid change will be (+1 for gaining fluid, -1 for losing fluid, 0 if nothing)
