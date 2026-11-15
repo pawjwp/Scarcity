@@ -1,16 +1,11 @@
 {
 	"format_version": "1.9.0",
 	"credit": "Made with Blockbench",
-	"textures": {
-		"1": "scarcity:item/camel_pack_worn",
-		"particle": "scarcity:item/camel_pack_worn"
-	},
 	"elements": [
 		{
 			"name": "Front",
 			"from": [6, 4, 7],
 			"to": [10, 11, 7],
-			"rotation": {"angle": 0, "axis": "y", "origin": [1, 1, 0]},
 			"faces": {
 				"north": {"uv": [3, 3, 7, 10], "texture": "#1"}
 			}
@@ -19,7 +14,6 @@
 			"name": "West",
 			"from": [5, 4, 7],
 			"to": [6, 11, 9],
-			"rotation": {"angle": 0, "axis": "y", "origin": [0, 1, 0]},
 			"faces": {
 				"north": {"uv": [7, 3, 8, 10], "texture": "#1"},
 				"east": {"uv": [9, 12.5, 16, 14.5], "rotation": 90, "texture": "#1"},
@@ -31,7 +25,6 @@
 			"name": "East",
 			"from": [10, 4, 7],
 			"to": [11, 11, 9],
-			"rotation": {"angle": 0, "axis": "y", "origin": [0, 1, 0]},
 			"faces": {
 				"north": {"uv": [2, 3, 3, 10], "texture": "#1"},
 				"east": {"uv": [0, 3, 2, 10], "texture": "#1"},
@@ -78,7 +71,6 @@
 			"name": "Cap",
 			"from": [7, 12, 7],
 			"to": [9, 13, 9],
-			"rotation": {"angle": 0, "axis": "y", "origin": [8, 12, 8]},
 			"faces": {
 				"north": {"uv": [2, 13, 4, 14], "texture": "#1"},
 				"east": {"uv": [0, 13, 2, 14], "texture": "#1"},
