@@ -50,6 +50,10 @@
   "item.scarcity.snow_coat": "Abrigo de nieve",
   "item.scarcity.snow_pants": "Pantalones de nieve",
   "item.scarcity.snow_boots": "Botas de nieve",
+  "item.scarcity.desert_armor.description": "Ropa ligera y transpirable que proporciona protección contra el calor abrasador.",
+  "item.scarcity.desert_armor.effect": "Ralentiza la velocidad a la que te sobrecalientas.",
+  "item.scarcity.snow_armor.description": "Ropa cálida que proporciona protección contra el frío extremo.",
+  "item.scarcity.snow_armor.effect": "Ralentiza la velocidad a la que te congelas.",
 
   "item.scarcity.crook": "Gancho",
   "item.scarcity.crook.description": "El Gancho es una herramienta para romper hojas. Aumenta la caída de brotes y agrega una probabilidad de que caigan gusanos de seda.",

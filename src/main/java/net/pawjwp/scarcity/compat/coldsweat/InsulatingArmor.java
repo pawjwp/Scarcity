@@ -1,19 +1,26 @@
 package net.pawjwp.scarcity.compat.coldsweat;
 
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.pawjwp.scarcity.Scarcity;
+import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 
@@ -32,7 +39,15 @@ public final class InsulatingArmor {
     public static final RegistryObject<Item> SNOW_BOOTS = register("snow_boots", Material.SNOW, ArmorItem.Type.BOOTS);
 
     private static RegistryObject<Item> register(String name, Material material, ArmorItem.Type type) {
-        return ITEMS.register(name, () -> new ArmorItem(material, type, new Item.Properties()));
+        // Tooltips
+        String tooltip = "item.scarcity." + material.name + "_armor";
+        return ITEMS.register(name, () -> new ArmorItem(material, type, new Item.Properties()) {
+            @Override
+            public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> text, TooltipFlag flag) {
+                text.add(Component.translatable(tooltip + ".description").withStyle(ChatFormatting.GRAY));
+                text.add(Component.translatable(tooltip + ".effect").withStyle(ChatFormatting.GRAY));
+            }
+        });
     }
 
     public static void register(IEventBus modEventBus) {

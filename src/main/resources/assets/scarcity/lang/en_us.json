@@ -50,6 +50,10 @@
   "item.scarcity.snow_coat": "Snow Coat",
   "item.scarcity.snow_pants": "Snow Pants",
   "item.scarcity.snow_boots": "Snow Boots",
+  "item.scarcity.desert_armor.description": "Light and breathable clothing that provides protection from the blazing heat.",
+  "item.scarcity.desert_armor.effect": "Slows how fast you overheat.",
+  "item.scarcity.snow_armor.description": "Warm clothing that provides protection from the freezing cold.",
+  "item.scarcity.snow_armor.effect": "Slows how fast you freeze.",
 
   "item.scarcity.crook": "Crook",
   "item.scarcity.crook.description": "The Crook is a tool for harvesting leaves. It increases sapling drops and adds a chance to drop silkworms.",
