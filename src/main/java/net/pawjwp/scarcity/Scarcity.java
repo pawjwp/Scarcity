@@ -39,6 +39,7 @@ import net.pawjwp.scarcity.config.ScarcityConfig;
 import net.pawjwp.scarcity.config.ScarcityConfigCondition;
 import net.pawjwp.scarcity.item.ScarcityCreativeTabs;
 import net.pawjwp.scarcity.item.ScarcityItems;
+import net.pawjwp.scarcity.network.ScarcityNetwork;
 import net.pawjwp.scarcity.recipe.ScarcityRecipeSerializers;
 import org.slf4j.Logger;
 
@@ -86,6 +87,9 @@ public class Scarcity
 
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
+
+        ScarcityNetwork.register();
+        MinecraftForge.EVENT_BUS.addListener(SunlightSensitivity::onStartTracking);
 
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);

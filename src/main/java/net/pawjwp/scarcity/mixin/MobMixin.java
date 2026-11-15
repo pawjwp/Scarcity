@@ -14,20 +14,25 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-// Adds an optional ScarcitySunlightSensitivity NBT tag to any LivingEntity, overriding fire immunity and making the mob burn in the daytime.
+// Adds an optional ScarcitySunlightSensitivity NBT tag to any Mob, overriding fire immunity and making the mob burn in the daytime.
 @Mixin(Mob.class)
 public abstract class MobMixin extends LivingEntity implements ScarcitySunlightAccess {
 
     @Unique
-    private byte scarcity$sunlightSensitivity;
+    private SunlightSensitivity.State scarcity$sunlightState = SunlightSensitivity.State.DEFAULT;
 
     protected MobMixin(EntityType<? extends LivingEntity> entityType, Level level) {
         super(entityType, level);
     }
 
     @Override
-    public SunlightSensitivity.State scarcity$sunlightState() {
-        return SunlightSensitivity.State.byId(this.scarcity$sunlightSensitivity);
+    public SunlightSensitivity.State scarcity$getSunlightState() {
+        return this.scarcity$sunlightState;
+    }
+
+    @Override
+    public void scarcity$setSunlightState(SunlightSensitivity.State state) {
+        this.scarcity$sunlightState = state;
     }
 
     // Read the NBT tag as part of readAdditionalSaveData
@@ -45,15 +50,15 @@ public abstract class MobMixin extends LivingEntity implements ScarcitySunlightA
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
     private void scarcity$writeSunlight(CompoundTag tag, CallbackInfo ci) {
         SunlightSensitivity.State state = scarcity$sunlightState();
-        if (state != SunlightSensitivity.State.DEFAULT) {
             tag.putBoolean(SunlightSensitivity.TAG, state == SunlightSensitivity.State.SENSITIVE);
+        if (this.scarcity$sunlightState != SunlightSensitivity.State.DEFAULT) {
         }
     }
 
     // Remove fire immunity for applicable mobs
     @Override
     public boolean fireImmune() {
-        if (scarcity$sunlightState() == SunlightSensitivity.State.SENSITIVE) {
+        if (this.scarcity$sunlightState == SunlightSensitivity.State.SENSITIVE) {
             return false;
         }
         return super.fireImmune();
@@ -62,7 +67,7 @@ public abstract class MobMixin extends LivingEntity implements ScarcitySunlightA
     // Override vanilla sunlight sensitivity for applicable mobs
     @Inject(method = "isSunBurnTick", at = @At("HEAD"), cancellable = true)
     private void scarcity$suppressVanillaSunBurn(CallbackInfoReturnable<Boolean> cir) {
-        if (scarcity$sunlightState() != SunlightSensitivity.State.DEFAULT) {
+        if (this.scarcity$sunlightState != SunlightSensitivity.State.DEFAULT) {
             cir.setReturnValue(false);
         }
     }
@@ -70,7 +75,7 @@ public abstract class MobMixin extends LivingEntity implements ScarcitySunlightA
     // Apply sunlight sensitivity for applicable mobs
     @Inject(method = "aiStep", at = @At("TAIL"))
     private void scarcity$applySunBurn(CallbackInfo ci) {
-        if (scarcity$sunlightState() != SunlightSensitivity.State.SENSITIVE) {
+        if (this.scarcity$sunlightState != SunlightSensitivity.State.SENSITIVE || !this.isAlive()) {
             return;
         }
         Mob mob = (Mob) (Object) this;
