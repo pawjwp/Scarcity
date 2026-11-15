@@ -2,7 +2,7 @@
 	"loader": "forge:separate_transforms",
 	"gui_light": "front",
 	"base": {
-		"parent": "scarcity:item/camel_pack/templates/camel_pack_worn_0",
+		"parent": "scarcity:item/camel_pack/templates/camel_pack_worn_closed",
 		"textures": {
 			"1": "scarcity:item/unlimited_camel_pack_worn",
 			"particle": "scarcity:item/unlimited_camel_pack_worn"
