@@ -158,11 +158,15 @@ public class CamelPackItem extends Item {
         if (result == null) {
             return false;
         }
-        if (fluidContainer.getCount() == 1) {
-            replaceContainer.accept(result);
-        } else {
+        // Use as many fluid containers from the stack as are possible to insert
+        while (result != null) {
+            if (fluidContainer.getCount() == 1) {
+                replaceContainer.accept(result);
+                break;
+            }
             fluidContainer.shrink(1);
             player.getInventory().placeItemBackInInventory(result);
+            result = filling ? fill(camelPack, fluidContainer) : drain(camelPack, fluidContainer);
         }
         player.playSound(filling ? SoundEvents.BOTTLE_EMPTY : SoundEvents.BOTTLE_FILL, 0.8F, 1.0F);
         return true;
