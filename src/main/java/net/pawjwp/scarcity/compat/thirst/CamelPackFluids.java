@@ -138,9 +138,4 @@ public record CamelPackFluids(float modelValue, int barColor, List<String> fluid
         CamelPackFluids entry = FLUID_LOOKUP.get(ForgeRegistries.FLUIDS.getKey(fluidType).toString());
         return entry != null ? entry.barColor : ChatFormatting.GRAY.getColor();
     }
-
-    public static float getFluidModelValue(Fluid fluidType) {
-        CamelPackFluids entry = FLUID_LOOKUP.get(ForgeRegistries.FLUIDS.getKey(fluidType).toString());
-        return entry != null ? entry.modelValue : 0.00F;
-    }
 }
