@@ -5,6 +5,7 @@ import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -90,6 +91,8 @@ public class Scarcity
 
         ScarcityNetwork.register();
         MinecraftForge.EVENT_BUS.addListener(SunlightSensitivity::onStartTracking);
+        // Highest priority so other mods' use Scarcity's healing numbers
+        MinecraftForge.EVENT_BUS.addListener(EventPriority.HIGHEST, RegenHealAmount::onHeal);
 
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);

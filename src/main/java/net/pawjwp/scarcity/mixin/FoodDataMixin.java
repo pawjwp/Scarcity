@@ -1,9 +1,15 @@
 package net.pawjwp.scarcity.mixin;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
+import com.llamalad7.mixinextras.sugar.Share;
+import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
+import com.llamalad7.mixinextras.sugar.ref.LocalFloatRef;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodData;
+import net.pawjwp.scarcity.RegenHealAmount;
 import net.pawjwp.scarcity.Scarcity;
 import net.pawjwp.scarcity.attribute.ScarcityAttributes;
 import net.pawjwp.scarcity.config.ScarcityConfig;
@@ -116,6 +122,41 @@ public abstract class FoodDataMixin {
     )
     private float scarcity$exhaustionStep(float original) {
         return ScarcityConfig.exhaustionStep;
+    }
+
+
+    // Regeneration
+
+    // Applies fast or slow regeneration healing using the configured scaling
+    @WrapOperation(
+            method = "tick",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;heal(F)V")
+    )
+    private void scarcity$regenHeal(Player player, float amount, Operation<Void> original,
+                                    @Share("healed") LocalBooleanRef healed,
+                                    @Share("exhaustionBeforeHeal") LocalFloatRef exhaustionBeforeHeal) {
+        float health = player.getHealth();
+        exhaustionBeforeHeal.set(this.exhaustionLevel);
+        RegenHealAmount.player = player;
+        RegenHealAmount.amount = amount;
+        original.call(player, amount);
+        RegenHealAmount.player = null;
+        healed.set(player.getHealth() > health);
+    }
+
+    // Applies exhaustion when the player is healed
+    @WrapOperation(
+            method = "tick",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/food/FoodData;addExhaustion(F)V")
+    )
+    private void scarcity$regenExhaustion(FoodData instance, float exhaustion, Operation<Void> original,
+                                          @Share("healed") LocalBooleanRef healed,
+                                          @Share("exhaustionBeforeHeal") LocalFloatRef exhaustionBeforeHeal) {
+        if (healed.get()) {
+            original.call(instance, exhaustion);
+        } else {
+            this.exhaustionLevel = exhaustionBeforeHeal.get();
+        }
     }
 
 
