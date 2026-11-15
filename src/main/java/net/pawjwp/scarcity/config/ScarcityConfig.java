@@ -110,6 +110,26 @@ public class ScarcityConfig {
     public static double woolInsulationCold;
     public static double woolInsulationHeat;
 
+    // desert armor
+    public static double desertCapCold;
+    public static double desertCapHeat;
+    public static double desertTunicCold;
+    public static double desertTunicHeat;
+    public static double desertPantsCold;
+    public static double desertPantsHeat;
+    public static double desertShoesCold;
+    public static double desertShoesHeat;
+
+    // snow armor
+    public static double snowHatCold;
+    public static double snowHatHeat;
+    public static double snowCoatCold;
+    public static double snowCoatHeat;
+    public static double snowPantsCold;
+    public static double snowPantsHeat;
+    public static double snowBootsCold;
+    public static double snowBootsHeat;
+
     public static void onLoad(final ModConfigEvent.Loading event) {
         if (event.getConfig().getSpec() == COMMON_SPEC) {
             bakeConfig();
@@ -214,6 +234,26 @@ public class ScarcityConfig {
         leatherInsulationHeat = COMMON.leatherInsulationHeat.get();
         woolInsulationCold = COMMON.woolInsulationCold.get();
         woolInsulationHeat = COMMON.woolInsulationHeat.get();
+
+        // desert armor
+        desertCapCold = COMMON.desertCapCold.get();
+        desertCapHeat = COMMON.desertCapHeat.get();
+        desertTunicCold = COMMON.desertTunicCold.get();
+        desertTunicHeat = COMMON.desertTunicHeat.get();
+        desertPantsCold = COMMON.desertPantsCold.get();
+        desertPantsHeat = COMMON.desertPantsHeat.get();
+        desertShoesCold = COMMON.desertShoesCold.get();
+        desertShoesHeat = COMMON.desertShoesHeat.get();
+
+        // snow armor
+        snowHatCold = COMMON.snowHatCold.get();
+        snowHatHeat = COMMON.snowHatHeat.get();
+        snowCoatCold = COMMON.snowCoatCold.get();
+        snowCoatHeat = COMMON.snowCoatHeat.get();
+        snowPantsCold = COMMON.snowPantsCold.get();
+        snowPantsHeat = COMMON.snowPantsHeat.get();
+        snowBootsCold = COMMON.snowBootsCold.get();
+        snowBootsHeat = COMMON.snowBootsHeat.get();
     }
 
     // How the purity is chosen when water of different purities merges in a tank
@@ -303,6 +343,26 @@ public class ScarcityConfig {
         public final ForgeConfigSpec.DoubleValue leatherInsulationHeat;
         public final ForgeConfigSpec.DoubleValue woolInsulationCold;
         public final ForgeConfigSpec.DoubleValue woolInsulationHeat;
+
+        // desert armor
+        public final ForgeConfigSpec.DoubleValue desertCapCold;
+        public final ForgeConfigSpec.DoubleValue desertCapHeat;
+        public final ForgeConfigSpec.DoubleValue desertTunicCold;
+        public final ForgeConfigSpec.DoubleValue desertTunicHeat;
+        public final ForgeConfigSpec.DoubleValue desertPantsCold;
+        public final ForgeConfigSpec.DoubleValue desertPantsHeat;
+        public final ForgeConfigSpec.DoubleValue desertShoesCold;
+        public final ForgeConfigSpec.DoubleValue desertShoesHeat;
+
+        // snow armor
+        public final ForgeConfigSpec.DoubleValue snowHatCold;
+        public final ForgeConfigSpec.DoubleValue snowHatHeat;
+        public final ForgeConfigSpec.DoubleValue snowCoatCold;
+        public final ForgeConfigSpec.DoubleValue snowCoatHeat;
+        public final ForgeConfigSpec.DoubleValue snowPantsCold;
+        public final ForgeConfigSpec.DoubleValue snowPantsHeat;
+        public final ForgeConfigSpec.DoubleValue snowBootsCold;
+        public final ForgeConfigSpec.DoubleValue snowBootsHeat;
 
         public CommonConfig(ForgeConfigSpec.Builder builder) {
             builder.push("food");
@@ -646,6 +706,78 @@ public class ScarcityConfig {
                     .defineInRange("wool_heat_insulation", 0.0, 0.0, 1000.0);
 
             builder.pop(); // insulation
+
+            builder.push("desert_armor");
+
+            desertCapCold = builder
+                    .comment("Cold insulation from wearing the Desert Cap.")
+                    .defineInRange("cap_cold_insulation", 0.0, 0.0, 1000.0);
+
+            desertCapHeat = builder
+                    .comment("Heat insulation from wearing the Desert Cap.")
+                    .defineInRange("cap_heat_insulation", 6.0, 0.0, 1000.0);
+
+            desertTunicCold = builder
+                    .comment("Cold insulation from wearing the Desert Tunic.")
+                    .defineInRange("tunic_cold_insulation", 0.0, 0.0, 1000.0);
+
+            desertTunicHeat = builder
+                    .comment("Heat insulation from wearing the Desert Tunic.")
+                    .defineInRange("tunic_heat_insulation", 8.0, 0.0, 1000.0);
+
+            desertPantsCold = builder
+                    .comment("Cold insulation from wearing the Desert Pants.")
+                    .defineInRange("pants_cold_insulation", 0.0, 0.0, 1000.0);
+
+            desertPantsHeat = builder
+                    .comment("Heat insulation from wearing the Desert Pants.")
+                    .defineInRange("pants_heat_insulation", 7.0, 0.0, 1000.0);
+
+            desertShoesCold = builder
+                    .comment("Cold insulation from wearing the Desert Shoes.")
+                    .defineInRange("shoes_cold_insulation", 0.0, 0.0, 1000.0);
+
+            desertShoesHeat = builder
+                    .comment("Heat insulation from wearing the Desert Shoes.")
+                    .defineInRange("shoes_heat_insulation", 5.0, 0.0, 1000.0);
+
+            builder.pop(); // desert_armor
+
+            builder.push("snow_armor");
+
+            snowHatCold = builder
+                    .comment("Cold insulation from wearing the Snow Hat.")
+                    .defineInRange("hat_cold_insulation", 7.0, 0.0, 1000.0);
+
+            snowHatHeat = builder
+                    .comment("Heat insulation from wearing the Snow Hat.")
+                    .defineInRange("hat_heat_insulation", 0.0, 0.0, 1000.0);
+
+            snowCoatCold = builder
+                    .comment("Cold insulation from wearing the Snow Coat.")
+                    .defineInRange("coat_cold_insulation", 12.0, 0.0, 1000.0);
+
+            snowCoatHeat = builder
+                    .comment("Heat insulation from wearing the Snow Coat.")
+                    .defineInRange("coat_heat_insulation", 0.0, 0.0, 1000.0);
+
+            snowPantsCold = builder
+                    .comment("Cold insulation from wearing the Snow Pants.")
+                    .defineInRange("pants_cold_insulation", 10.0, 0.0, 1000.0);
+
+            snowPantsHeat = builder
+                    .comment("Heat insulation from wearing the Snow Pants.")
+                    .defineInRange("pants_heat_insulation", 0.0, 0.0, 1000.0);
+
+            snowBootsCold = builder
+                    .comment("Cold insulation from wearing the Snow Boots.")
+                    .defineInRange("boots_cold_insulation", 6.0, 0.0, 1000.0);
+
+            snowBootsHeat = builder
+                    .comment("Heat insulation from wearing the Snow Boots.")
+                    .defineInRange("boots_heat_insulation", 0.0, 0.0, 1000.0);
+
+            builder.pop(); // snow_armor
 
             builder.pop(); // compat
         }

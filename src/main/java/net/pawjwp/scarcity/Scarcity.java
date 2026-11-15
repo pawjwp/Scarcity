@@ -76,11 +76,9 @@ public class Scarcity
         if (Mods.CURIOS && (Mods.THIRST || Mods.COLD_SWEAT)) {
             InsulationItems.register(modEventBus);
         }
-        if (Mods.CURIOS && Mods.COLD_SWEAT) {
-            ColdSweatCompat.register();
-        }
         if (Mods.COLD_SWEAT) {
             InsulatingArmor.register(modEventBus);
+            ColdSweatCompat.register();
         }
 
         // Register the commonSetup method for modloading
