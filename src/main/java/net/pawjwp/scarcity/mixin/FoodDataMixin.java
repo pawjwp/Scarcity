@@ -18,6 +18,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
@@ -210,6 +211,14 @@ public abstract class FoodDataMixin {
         return ScarcityConfig.fastRegenSaturationCap;
     }
 
+    @ModifyArg(
+            method = "tick",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/food/FoodData;addExhaustion(F)V", ordinal = 0)
+    )
+    private float scarcity$fastRegenExhaustion(float exhaustion) {
+        return exhaustion * ScarcityConfig.fastRegenExhaustionMultiplier;
+    }
+
 
     // Slow regen
 
@@ -255,5 +264,13 @@ public abstract class FoodDataMixin {
     )
     private float scarcity$slowRegenHealAmount(float original) {
         return ScarcityConfig.slowRegenHealAmount;
+    }
+
+    @ModifyArg(
+            method = "tick",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/food/FoodData;addExhaustion(F)V", ordinal = 1)
+    )
+    private float scarcity$slowRegenExhaustion(float exhaustion) {
+        return exhaustion * ScarcityConfig.slowRegenExhaustionMultiplier;
     }
 }

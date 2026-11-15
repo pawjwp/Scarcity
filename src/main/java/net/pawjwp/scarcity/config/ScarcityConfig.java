@@ -21,11 +21,13 @@ public class ScarcityConfig {
     public static int fastRegenFoodThreshold;
     public static int fastRegenIntervalTicks;
     public static float fastRegenSaturationCap;
+    public static float fastRegenExhaustionMultiplier = 1.0F;
 
     // slow regen
     public static int slowRegenFoodThreshold;
     public static int slowRegenIntervalTicks;
     public static float slowRegenHealAmount;
+    public static float slowRegenExhaustionMultiplier = 1.0F;
 
     // exhaustion
     public static float exhaustionStep;
@@ -148,11 +150,13 @@ public class ScarcityConfig {
         fastRegenFoodThreshold = COMMON.fastRegenFoodThreshold.get();
         fastRegenIntervalTicks = COMMON.fastRegenIntervalTicks.get();
         fastRegenSaturationCap = COMMON.fastRegenSaturationCap.get().floatValue();
+        fastRegenExhaustionMultiplier = COMMON.fastRegenExhaustionMultiplier.get().floatValue();
 
         // slow regen
         slowRegenFoodThreshold = COMMON.slowRegenFoodThreshold.get();
         slowRegenIntervalTicks = COMMON.slowRegenIntervalTicks.get();
         slowRegenHealAmount = COMMON.slowRegenHealAmount.get().floatValue();
+        slowRegenExhaustionMultiplier = COMMON.slowRegenExhaustionMultiplier.get().floatValue();
 
         // exhaustion
         exhaustionStep = COMMON.exhaustionStep.get().floatValue();
@@ -266,11 +270,13 @@ public class ScarcityConfig {
         public final ForgeConfigSpec.IntValue fastRegenFoodThreshold;
         public final ForgeConfigSpec.IntValue fastRegenIntervalTicks;
         public final ForgeConfigSpec.DoubleValue fastRegenSaturationCap;
+        public final ForgeConfigSpec.DoubleValue fastRegenExhaustionMultiplier;
 
         // slow regen
         public final ForgeConfigSpec.IntValue slowRegenFoodThreshold;
         public final ForgeConfigSpec.IntValue slowRegenIntervalTicks;
         public final ForgeConfigSpec.DoubleValue slowRegenHealAmount;
+        public final ForgeConfigSpec.DoubleValue slowRegenExhaustionMultiplier;
 
         // exhaustion
         public final ForgeConfigSpec.DoubleValue exhaustionStep;
@@ -384,6 +390,11 @@ public class ScarcityConfig {
                     .comment("Maximum saturation value used when calculating fast regeneration healing.")
                     .defineInRange("saturation_cap", 6.0, 0.0, 20.0);
 
+            fastRegenExhaustionMultiplier = builder
+                    .comment("Multiplier for exhaustion added when applying fast regeneration.")
+                    .comment("Vanilla adds exhaustion equal to the player's saturation per heal, up to the saturation_cap, and heals that amount divided by saturation_cap.")
+                    .defineInRange("exhaustion_multiplier", 1.0, 0.0, 100.0);
+
             builder.pop(); // fast
 
             builder.push("slow");
@@ -399,6 +410,11 @@ public class ScarcityConfig {
             slowRegenHealAmount = builder
                     .comment("Amount of health restored per slow regeneration tick.")
                     .defineInRange("heal_amount", 1.0, 0.0, 20.0);
+
+            slowRegenExhaustionMultiplier = builder
+                    .comment("Multiplier for exhaustion added when applying slow regeneration.")
+                    .comment("Vanilla adds 6 exhaustion per heal.")
+                    .defineInRange("exhaustion_multiplier", 1.0, 0.0, 100.0);
 
             builder.pop(); // slow
             builder.pop(); // regen
