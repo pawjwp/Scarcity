@@ -1,6 +1,7 @@
 package net.pawjwp.scarcity.mixin;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import net.minecraft.world.entity.player.Player;
 import net.pawjwp.scarcity.config.ScarcityConfig;
 import org.spongepowered.asm.mixin.Mixin;
@@ -43,6 +44,17 @@ public class PlayerMixin {
     )
     private float scarcity$damageExhaustion(float vanilla) {
         return vanilla * ScarcityConfig.exhaustionDamageMultiplier;
+    }
+
+    // Movement Exhaustion (double count)
+
+    // Skips the server's double counting movement step
+    @WrapWithCondition(
+            method = "travel",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;checkMovementStatistics(DDD)V")
+    )
+    private boolean scarcity$skipSimulatedMovement(Player self, double distanceX, double distanceY, double distanceZ) {
+        return self.level().isClientSide;
     }
 
     // Movement Exhaustion (rate modification)
