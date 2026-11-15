@@ -114,35 +114,72 @@ public class CamelPackItem extends Item {
         return leftovers;
     }
 
+    // Moves fluid from a camel pack into a fluid container
+    public static ItemStack drain(ItemStack camelPack, ItemStack fluidContainer) {
+        IFluidHandlerItem packTank = FluidUtil.getFluidHandler(camelPack).orElse(null);
+        FluidStack fluid = getFluid(camelPack);
+        if (packTank == null || fluid.isEmpty()) {
+            return null;
+        }
+        fluidContainer = fluidContainer.copyWithCount(1);
 
-    // Fills the camel pack from a fluid container right-clicked in the inventory
-    private static boolean fillByClick(ItemStack camelPack, ItemStack fluidContainer, Player player, Consumer<ItemStack> replaceContainer) {
-        ItemStack leftovers = fill(camelPack, fluidContainer);
-        if (leftovers == null) {
+        // Add fluid to the fluid container
+        int moved;
+        ItemStack filled;
+        if (fluidContainer.is(Items.GLASS_BOTTLE)) {
+            if (!fluid.getFluid().isSame(Fluids.WATER) || fluid.getAmount() < BOTTLE_AMOUNT) {
+                return null;
+            }
+            moved = BOTTLE_AMOUNT;
+            filled = PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.WATER);
+        } else {
+            IFluidHandlerItem containerTank = FluidUtil.getFluidHandler(fluidContainer).orElse(null);
+            if (containerTank == null) {
+                return null;
+            }
+            moved = containerTank.fill(fluid, IFluidHandler.FluidAction.EXECUTE);
+            filled = containerTank.getContainer();
+        }
+        if (moved == 0) {
+            return null;
+        }
+
+        packTank.drain(moved, IFluidHandler.FluidAction.EXECUTE);
+        return ThirstCompat.withFluidPurity(filled, fluid);
+    }
+
+    // Fills or drains the camel pack from a fluid container right-clicked in the inventory
+    private static boolean transferByClick(ItemStack camelPack, ItemStack fluidContainer, Player player, Consumer<ItemStack> replaceContainer) {
+        ItemStack result = fill(camelPack, fluidContainer);
+        boolean filling = result != null;
+        if (!filling) {
+            result = drain(camelPack, fluidContainer);
+        }
+        if (result == null) {
             return false;
         }
         if (fluidContainer.getCount() == 1) {
-            replaceContainer.accept(leftovers);
+            replaceContainer.accept(result);
         } else {
             fluidContainer.shrink(1);
-            player.getInventory().placeItemBackInInventory(leftovers);
+            player.getInventory().placeItemBackInInventory(result);
         }
-        player.playSound(SoundEvents.BOTTLE_EMPTY, 0.8F, 1.0F);
+        player.playSound(filling ? SoundEvents.BOTTLE_EMPTY : SoundEvents.BOTTLE_FILL, 0.8F, 1.0F);
         return true;
     }
 
-    // Fills the camel pack when it is right-clicked onto a fluid container
+    // Fills or drains the camel pack when it is right-clicked onto a fluid container
     @Override
     public boolean overrideStackedOnOther(ItemStack stack, Slot slot, ClickAction action, Player player) {
         return action == ClickAction.SECONDARY && slot.allowModification(player)
-                && fillByClick(stack, slot.getItem(), player, slot::set);
+                && transferByClick(stack, slot.getItem(), player, slot::set);
     }
 
-    // Fills the camel pack when a fluid container is right-clicked onto it
+    // Fills or drains the camel pack when a fluid container is right-clicked onto it
     @Override
     public boolean overrideOtherStackedOnMe(ItemStack stack, ItemStack other, Slot slot, ClickAction action, Player player, SlotAccess access) {
         return action == ClickAction.SECONDARY && slot.allowModification(player)
-                && fillByClick(stack, other, player, access::set);
+                && transferByClick(stack, other, player, access::set);
     }
 
     @Override
