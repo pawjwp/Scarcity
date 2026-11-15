@@ -3,11 +3,15 @@ package net.pawjwp.scarcity.compat.thirst;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.SlotAccess;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodData;
+import net.minecraft.world.inventory.ClickAction;
+import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -29,6 +33,7 @@ import net.pawjwp.scarcity.config.ScarcityConfig;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 // Wearable pack that allows the wearer to drink liquids from its tank automatically and hands-free
 public class CamelPackItem extends Item {
@@ -107,6 +112,37 @@ public class CamelPackItem extends Item {
         fluid.setAmount(newAmount);
         camelPack.getOrCreateTag().put(FluidHandlerItemStack.FLUID_NBT_KEY, fluid.writeToNBT(new CompoundTag()));
         return leftovers;
+    }
+
+
+    // Fills the camel pack from a fluid container right-clicked in the inventory
+    private static boolean fillByClick(ItemStack camelPack, ItemStack fluidContainer, Player player, Consumer<ItemStack> replaceContainer) {
+        ItemStack leftovers = fill(camelPack, fluidContainer);
+        if (leftovers == null) {
+            return false;
+        }
+        if (fluidContainer.getCount() == 1) {
+            replaceContainer.accept(leftovers);
+        } else {
+            fluidContainer.shrink(1);
+            player.getInventory().placeItemBackInInventory(leftovers);
+        }
+        player.playSound(SoundEvents.BOTTLE_EMPTY, 0.8F, 1.0F);
+        return true;
+    }
+
+    // Fills the camel pack when it is right-clicked onto a fluid container
+    @Override
+    public boolean overrideStackedOnOther(ItemStack stack, Slot slot, ClickAction action, Player player) {
+        return action == ClickAction.SECONDARY && slot.allowModification(player)
+                && fillByClick(stack, slot.getItem(), player, slot::set);
+    }
+
+    // Fills the camel pack when a fluid container is right-clicked onto it
+    @Override
+    public boolean overrideOtherStackedOnMe(ItemStack stack, ItemStack other, Slot slot, ClickAction action, Player player, SlotAccess access) {
+        return action == ClickAction.SECONDARY && slot.allowModification(player)
+                && fillByClick(stack, other, player, access::set);
     }
 
     @Override
