@@ -149,7 +149,7 @@ public class CamelPackItem extends Item {
     }
 
     // Fills or drains the camel pack from a fluid container right-clicked in the inventory
-    private static boolean transferByClick(ItemStack camelPack, ItemStack fluidContainer, Player player, Consumer<ItemStack> replaceContainer) {
+    private static boolean transferByClick(ItemStack camelPack, ItemStack fluidContainer, Slot slot, Player player, Consumer<ItemStack> replaceContainer) {
         ItemStack result = fill(camelPack, fluidContainer);
         boolean filling = result != null;
         if (!filling) {
@@ -168,6 +168,7 @@ public class CamelPackItem extends Item {
             player.getInventory().placeItemBackInInventory(result);
             result = filling ? fill(camelPack, fluidContainer) : drain(camelPack, fluidContainer);
         }
+        slot.setChanged(); // saves the slot's changed item when the slot is in a block's inventory
         player.playSound(filling ? SoundEvents.BOTTLE_EMPTY : SoundEvents.BOTTLE_FILL, 0.8F, 1.0F);
         return true;
     }
@@ -176,14 +177,14 @@ public class CamelPackItem extends Item {
     @Override
     public boolean overrideStackedOnOther(ItemStack stack, Slot slot, ClickAction action, Player player) {
         return action == ClickAction.SECONDARY && slot.allowModification(player)
-                && transferByClick(stack, slot.getItem(), player, slot::set);
+                && transferByClick(stack, slot.getItem(), slot, player, slot::set);
     }
 
     // Fills or drains the camel pack when a fluid container is right-clicked onto it
     @Override
     public boolean overrideOtherStackedOnMe(ItemStack stack, ItemStack other, Slot slot, ClickAction action, Player player, SlotAccess access) {
         return action == ClickAction.SECONDARY && slot.allowModification(player)
-                && transferByClick(stack, other, player, access::set);
+                && transferByClick(stack, other, slot, player, access::set);
     }
 
     @Override
