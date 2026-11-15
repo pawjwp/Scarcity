@@ -2,7 +2,7 @@
 
 ## About
 
-Scarcity adds options to make resources a bit more scarce, including configurable hunger and regeneration values, water source limitations, nerfed falling block physics, sunlight sensitivity, seeds for plants that normally don't have them, and compatibility features for several other mods.
+Scarcity adds various compatibility and quality of life changes to mods like Ex Deorum, Thirst Was Reclaimed, and Cold Sweat, plus options to make resources a bit more scarce. These include configurable hunger and regeneration values, water source limitations, nerfed falling block physics, seeds for plants that normally don't have them, gear for managing thirst and temperature.
 
 This mod was created for my modpack, [Desolate Planet](https://modrinth.com/modpack/desolate-planet/), but the features it adds will hopefully be useful to other modpacks as well.
 
@@ -22,6 +22,24 @@ This mod was created for my modpack, [Desolate Planet](https://modrinth.com/modp
 - Tinkers' Crook
   - New modular crooks, only present with Tinkers' Construct installed
 
+### Thirst Management Gear (For Thirst Was Reclaimed)
+- Camel Packs
+  - Wearable tanks that automatically drink for you
+  - The Basic Camel Pack can carry 4 buckets of liquid and purifies its water by 1 level
+  - The Advanced Camel pack can carry 20 buckets of liquid and purifies its water by 2 levels
+  - The Condensentrating Camel Pack passively collects water from the air and never needs filling
+- Water Filter
+  - Craft with a water container to increase the purity of that container by one level
+
+### Temperature Management Gear (For Cold Sweat)
+- Desert and Snow Armor
+  - Leather armor equivalents that protect against heat or cold
+- Leather and Wool Insulation
+  - Simple insulation items that provide temperature protection from the insulation Curios slot
+- Stillsuit
+  - Insulates against both heat and cold, and slows down how quickly you get thirsty
+  - Also worn in the insulation slot
+
 ### Configurable Hunger/Saturation Rates
 - Configurable hunger depletion rate from:
   - Movement, including walking, sprinting, jumping, swimming, and more
@@ -40,6 +58,7 @@ This mod was created for my modpack, [Desolate Planet](https://modrinth.com/modp
 
 ### Thirst Water Purity
 - Configurable purity for water that has no purity tag, since Thirst Was Reclaimed has changed its default between versions
+- Option to add a purity tag to all untagged water as it enters a player's inventory (applies to each item in the `scarcity:force_purity` tag)
 - Fix various mods losing water purity
   - AE2 storage buses only extract water of the requested purity
   - Create pipes extracting from cauldrons and dispensers on contraption maintain purity
