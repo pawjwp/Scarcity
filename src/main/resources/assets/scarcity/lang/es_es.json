@@ -61,8 +61,15 @@
   "item.scarcity.crook.description": "El Gancho es una herramienta para romper hojas. Aumenta la caída de brotes y agrega una probabilidad de que caigan gusanos de seda.",
   "item.scarcity.crushing_hammer": "Martillo triturador",
   "item.scarcity.crushing_hammer.description": "El martillo triturador se usa para romper bloques en otros bloques y items. Por ejemplo, puede triturar cobblestone en grava, grava en arena, y arena en polvo. También puede triturar deepslate, netherrack, Piedra negra y end stone en versiones tamizables.",
+  "modifier.scarcity.heavy_hammering": "Martilleo pesado",
+  "modifier.scarcity.heavy_hammering.flavor": "Lo bastante fuerte para romper bloques comprimidos",
+  "modifier.scarcity.heavy_hammering.description": "El martillo puede romper bloques comprimidos como un martillo comprimido.",
 
-  
+  "block.scarcity.machine_sieve": "Tamiz de partículas",
+  "item.scarcity.sieve_heavy_augment": "Agitador pesado",
+  "item.scarcity.sieve_heavy_augment.desc": "Permite que el Tamiz de partículas también procese bloques comprimidos, con un coste de energía mucho mayor y menor velocidad.",
+  "info.scarcity.machine_sieve": "Tamiza materiales automáticamente a través de una malla, como un tamiz de Ex Deorum. Instala un Agitador pesado para procesar bloques comprimidos con mayor coste de energía y menor velocidad.",
+
   "attribute.scarcity.regen_speed": "Velocidad de regeneración",
   "attribute.scarcity.fast_regen_speed": "Velocidad de regeneración rápida",
   "attribute.scarcity.slow_regen_speed": "Velocidad de regeneración lenta"
