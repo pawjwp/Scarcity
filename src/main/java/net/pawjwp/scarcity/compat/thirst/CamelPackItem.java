@@ -10,7 +10,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodData;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
@@ -29,6 +32,7 @@ import java.util.List;
 
 // Wearable pack that allows the wearer to drink liquids from its tank automatically and hands-free
 public class CamelPackItem extends Item {
+    public static final int BOTTLE_AMOUNT = 250; // liquid held by one water bottle
     private static final String cdKey = "ScarcityCamelPackCD"; // name of cooldown in NBT
 
     private final CamelPackTier config;
@@ -45,6 +49,64 @@ public class CamelPackItem extends Item {
 
     public CamelPackTier getConfig() {
         return config;
+    }
+
+    // Moves fluid from one fluid container into a camel pack
+    // Returns the item left after emptying the fluid container, or null if the fluid can't be moved
+    public static ItemStack fill(ItemStack camelPack, ItemStack fluidContainer) {
+        // camel pack must have a tank
+        if (!(camelPack.getItem() instanceof CamelPackItem item) || !item.config.hasTank()) {
+            return null;
+        }
+        fluidContainer = fluidContainer.copyWithCount(1);
+
+        // Read current camel pack fluid state
+        FluidStack currentFluid = getFluid(camelPack);
+        int capacity = item.config.capacity().getAsInt();
+
+        // Purity of the fluid container, read before the container is emptied
+        int containerPurity = ThirstCompat.getPurity(fluidContainer);
+
+        // Remove fluid from the fluid container
+        FluidStack fluid;
+        ItemStack leftovers;
+        if (fluidContainer.is(Items.POTION) && PotionUtils.getPotion(fluidContainer) == Potions.WATER) {
+            fluid = new FluidStack(Fluids.WATER, BOTTLE_AMOUNT);
+            leftovers = new ItemStack(Items.GLASS_BOTTLE);
+        } else {
+            IFluidHandlerItem containerTank = FluidUtil.getFluidHandler(fluidContainer).orElse(null);
+            if (containerTank == null) {
+                return null;
+            }
+            fluid = containerTank.drain(capacity - currentFluid.getAmount(), IFluidHandler.FluidAction.EXECUTE);
+            leftovers = containerTank.getContainer();
+        }
+        if (fluid.isEmpty()) {
+            return null;
+        }
+
+        // Null if the camel pack has a different fluid
+        if (!currentFluid.isEmpty() && !currentFluid.getFluid().isSame(fluid.getFluid())) {
+            return null;
+        }
+
+        int newAmount = currentFluid.getAmount() + fluid.getAmount();
+        if (newAmount > capacity) {
+            return null;
+        }
+
+        // Merge water purity using Scarcity's merging system, storing it in the same place a Forge fluid tank does
+        if (fluid.getFluid().isSame(Fluids.WATER)) {
+            int purity = fluid.hasTag() && fluid.getTag().contains("Purity") ? ThirstCompat.getPurity(fluid) : containerPurity;
+            if (!currentFluid.isEmpty()) {
+                purity = ThirstCompat.mergedPurity(ThirstCompat.getPurity(currentFluid), purity, fluid.getAmount(), newAmount);
+            }
+            ThirstCompat.addPurity(fluid, purity);
+        }
+
+        fluid.setAmount(newAmount);
+        camelPack.getOrCreateTag().put(FluidHandlerItemStack.FLUID_NBT_KEY, fluid.writeToNBT(new CompoundTag()));
+        return leftovers;
     }
 
     @Override

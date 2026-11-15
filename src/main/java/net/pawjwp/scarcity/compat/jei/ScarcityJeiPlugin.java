@@ -32,7 +32,6 @@ import net.pawjwp.scarcity.compat.thirst.CamelPackItem;
 import net.pawjwp.scarcity.compat.thirst.CamelPacks;
 import net.pawjwp.scarcity.compat.thirst.ThirstCompat;
 import net.pawjwp.scarcity.item.ScarcityItems;
-import net.pawjwp.scarcity.recipe.CamelPackFillRecipe;
 import net.pawjwp.scarcity.recipe.WaterFilteringRecipe;
 import net.pawjwp.scarcity.tag.ScarcityTags;
 import thedarkcolour.exdeorum.compat.XeiSieveRecipe;
@@ -76,7 +75,7 @@ public class ScarcityJeiPlugin implements IModPlugin {
             for (Item item : List.of(Items.WATER_BUCKET, Items.POTION)) {
                 ItemStack output = new ItemStack(camelPack.get());
                 FluidUtil.getFluidHandler(output).ifPresent(tank -> tank.fill(
-                        new FluidStack(Fluids.WATER, item == Items.POTION ? CamelPackFillRecipe.BOTTLE_AMOUNT : FluidType.BUCKET_VOLUME),
+                        new FluidStack(Fluids.WATER, item == Items.POTION ? CamelPackItem.BOTTLE_AMOUNT : FluidType.BUCKET_VOLUME),
                         IFluidHandler.FluidAction.EXECUTE));
                 recipes.add(new ShapelessRecipe(
                         ResourceLocation.fromNamespaceAndPath(Scarcity.MOD_ID, "camel_pack_fill/" + camelPack.getId().getPath() + "_" + ForgeRegistries.ITEMS.getKey(item).getPath()),
