@@ -50,6 +50,7 @@ public class ScarcityConfig {
     public static float exhaustionCrouchOneBlock;
     public static float exhaustionAviateOneBlock;
     public static float exhaustionFlyOneBlock;
+    public static boolean ignorePushedMovement;
 
     // misc tweaks
     public static boolean enableBottlePickupAdjustments;
@@ -176,6 +177,7 @@ public class ScarcityConfig {
         exhaustionCrouchOneBlock = COMMON.crouchOneBlock.get().floatValue();
         exhaustionAviateOneBlock = COMMON.aviateOneBlock.get().floatValue();
         exhaustionFlyOneBlock = COMMON.flyOneBlock.get().floatValue();
+        ignorePushedMovement = COMMON.ignorePushedMovement.get();
 
         // misc tweaks
         enableBottlePickupAdjustments = COMMON.enableBottlePickupAdjustments.get();
@@ -293,6 +295,7 @@ public class ScarcityConfig {
         public final ForgeConfigSpec.DoubleValue crouchOneBlock;
         public final ForgeConfigSpec.DoubleValue aviateOneBlock;
         public final ForgeConfigSpec.DoubleValue flyOneBlock;
+        public final ForgeConfigSpec.BooleanValue ignorePushedMovement;
 
         // misc tweaks;
         public final ForgeConfigSpec.BooleanValue enableBottlePickupAdjustments;
@@ -462,6 +465,11 @@ public class ScarcityConfig {
             flyOneBlock = builder
                     .comment("Exhaustion added per block length moved in the air.")
                     .defineInRange("fly_one_block", 0.0, 0.0, 40.0);
+
+            ignorePushedMovement = builder
+                    .comment("For hunger exhaustion gain, only count the distance a player moves themselves.")
+                    .comment("This ignores the distance pushed by flowing water and prevents double-counting forced movement.")
+                    .define("ignore_pushed_movement", true);
 
             builder.pop(); // movement
 

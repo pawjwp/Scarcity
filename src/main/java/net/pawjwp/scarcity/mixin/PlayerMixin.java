@@ -54,7 +54,7 @@ public class PlayerMixin {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;checkMovementStatistics(DDD)V")
     )
     private boolean scarcity$skipSimulatedMovement(Player self, double distanceX, double distanceY, double distanceZ) {
-        return self.level().isClientSide;
+        return !ScarcityConfig.ignorePushedMovement || self.level().isClientSide;
     }
 
     // Movement Exhaustion (rate modification)

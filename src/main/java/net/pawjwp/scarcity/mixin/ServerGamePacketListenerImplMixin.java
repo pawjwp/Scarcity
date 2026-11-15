@@ -5,6 +5,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import net.minecraft.world.phys.Vec3;
+import net.pawjwp.scarcity.config.ScarcityConfig;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -46,7 +47,7 @@ public abstract class ServerGamePacketListenerImplMixin {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerPlayer;checkMovementStatistics(DDD)V")
     )
     private void scarcity$subtractPushedDistance(ServerPlayer player, double distanceX, double distanceY, double distanceZ, Operation<Void> original) {
-        Vec3 pushed = player.isInWater() ? this.scarcity$pushedDistance : Vec3.ZERO;
+        Vec3 pushed = ScarcityConfig.ignorePushedMovement && player.isInWater() ? this.scarcity$pushedDistance : Vec3.ZERO;
         // Clear amount so it doesn't get counted again
         this.scarcity$pushedDistance = Vec3.ZERO;
         original.call(player, distanceX - pushed.x, distanceY - pushed.y, distanceZ - pushed.z);
