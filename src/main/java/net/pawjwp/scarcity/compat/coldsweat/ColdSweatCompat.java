@@ -8,6 +8,7 @@ import com.momosoftworks.coldsweat.data.codec.configuration.InsulatorData;
 import com.momosoftworks.coldsweat.data.codec.requirement.ItemRequirement;
 import com.momosoftworks.coldsweat.data.codec.util.AttributeModifierMap;
 import com.momosoftworks.coldsweat.data.codec.util.NegatableList;
+import com.momosoftworks.coldsweat.data.codec.util.ValueGetter;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.common.MinecraftForge;
 import net.pawjwp.scarcity.compat.Mods;
@@ -51,6 +52,6 @@ public final class ColdSweatCompat {
         event.addRegistryEntry(ModRegistries.INSULATOR_DATA, new InsulatorData(
                 new NegatableList<>(new ItemRequirement(List.of(item), null)), slot,
                 List.of(new StaticInsulation(cold, heat)), new NegatableList<>(), new AttributeModifierMap(),
-                new HashMap<>(), true, false, Optional.empty()));
+                new HashMap<>(), ValueGetter.constant(true), ValueGetter.constant(false), Optional.empty()));
     }
 }
