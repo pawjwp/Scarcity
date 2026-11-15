@@ -17,6 +17,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
@@ -54,20 +55,10 @@ public abstract class FoodDataMixin {
         }
     }
 
-    // Exhaustion step
-    @ModifyExpressionValue(
-            method = "tick",
-            at = @At(
-                    value = "CONSTANT",
-                    args = "floatValue=4.0"
-            ),
-            slice = @Slice(
-                    from = @At("HEAD"),
-                    to = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/GameRules;getBoolean(Lnet/minecraft/world/level/GameRules$Key;)Z")
-            )
-    )
-    private float scarcity$exhaustionStep(float original) {
-        return ScarcityConfig.exhaustionStep;
+    // Exhaustion multiplier
+    @ModifyVariable(method = "addExhaustion", at = @At("HEAD"), argsOnly = true)
+    private float scarcity$exhaustionMultiplier(float exhaustion) {
+        return exhaustion * ScarcityConfig.exhaustionMultiplier;
     }
 
 

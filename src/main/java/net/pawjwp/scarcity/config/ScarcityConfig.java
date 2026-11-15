@@ -30,7 +30,7 @@ public class ScarcityConfig {
     public static float slowRegenExhaustionMultiplier = 1.0F;
 
     // exhaustion
-    public static float exhaustionStep;
+    public static float exhaustionMultiplier = 1.0F;
     public static float passiveExhaustionPerTick;
     public static float negativeExhaustionThreshold;
 
@@ -159,7 +159,7 @@ public class ScarcityConfig {
         slowRegenExhaustionMultiplier = COMMON.slowRegenExhaustionMultiplier.get().floatValue();
 
         // exhaustion
-        exhaustionStep = COMMON.exhaustionStep.get().floatValue();
+        exhaustionMultiplier = COMMON.exhaustionMultiplier.get().floatValue();
         passiveExhaustionPerTick = COMMON.passiveExhaustionPerTick.get().floatValue();
         negativeExhaustionThreshold = COMMON.negativeExhaustionThreshold.get().floatValue();
 
@@ -279,7 +279,7 @@ public class ScarcityConfig {
         public final ForgeConfigSpec.DoubleValue slowRegenExhaustionMultiplier;
 
         // exhaustion
-        public final ForgeConfigSpec.DoubleValue exhaustionStep;
+        public final ForgeConfigSpec.DoubleValue exhaustionMultiplier;
         public final ForgeConfigSpec.DoubleValue passiveExhaustionPerTick;
         public final ForgeConfigSpec.DoubleValue negativeExhaustionThreshold;
 
@@ -489,10 +489,10 @@ public class ScarcityConfig {
 
             builder.pop(); // movement
 
-            exhaustionStep = builder
-                    .comment("How much exhaustion must accumulate before hunger or saturation is reduced.")
-                    .comment("Functions as a global scale for hunger drain. Higher values mean slower hunger drain.")
-                    .defineInRange("step", 4.0, 0.1, 40.0);
+            exhaustionMultiplier = builder
+                    .comment("Multiplier for all exhaustion added to the player.")
+                    .comment("Functions as a global scale for hunger drain. Higher values mean faster hunger drain.")
+                    .defineInRange("multiplier", 1.0, 0.0, 100.0);
 
             passiveExhaustionPerTick = builder
                     .comment("Exhaustion added every tick regardless of player actions.")
