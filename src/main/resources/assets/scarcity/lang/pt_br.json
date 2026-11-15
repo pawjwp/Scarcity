@@ -20,6 +20,15 @@
   "item.scarcity.leather_insulation": "Isolamento de Couro",
   "item.scarcity.wool_insulation": "Isolamento de Lã",
 
+  "item.scarcity.desert_cap": "Boné do Deserto",
+  "item.scarcity.desert_tunic": "Túnica de Deserto",
+  "item.scarcity.desert_pants": "Calças do Deserto",
+  "item.scarcity.desert_shoes": "Sapatos do Deserto",
+  "item.scarcity.snow_hat": "Chapéu de Neve",
+  "item.scarcity.snow_coat": "Casaco de Neve",
+  "item.scarcity.snow_pants": "Calças de Neve",
+  "item.scarcity.snow_boots": "Botas de Neve",
+
   "item.scarcity.crook": "Bordão",
   "item.scarcity.crook.description": "O Bordão é uma ferramenta para colher folhas. Aumenta a queda de mudas e adiciona chance de soltar bichos-da-seda.",
   "item.scarcity.crushing_hammer": "Martelo Triturador",

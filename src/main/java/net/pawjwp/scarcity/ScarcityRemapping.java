@@ -29,7 +29,16 @@ public class ScarcityRemapping {
 
             Map.entry("kubejs:stillsuit", "scarcity:stillsuit"),
             Map.entry("kubejs:leather_insulation", "scarcity:leather_insulation"),
-            Map.entry("kubejs:wool_insulation", "scarcity:wool_insulation")
+            Map.entry("kubejs:wool_insulation", "scarcity:wool_insulation"),
+
+            Map.entry("kubejs:desert_cap", "scarcity:desert_cap"),
+            Map.entry("kubejs:desert_tunic", "scarcity:desert_tunic"),
+            Map.entry("kubejs:desert_pants", "scarcity:desert_pants"),
+            Map.entry("kubejs:desert_shoes", "scarcity:desert_shoes"),
+            Map.entry("kubejs:snow_hat", "scarcity:snow_hat"),
+            Map.entry("kubejs:snow_coat", "scarcity:snow_coat"),
+            Map.entry("kubejs:snow_pants", "scarcity:snow_pants"),
+            Map.entry("kubejs:snow_boots", "scarcity:snow_boots")
     );
 
     @SubscribeEvent

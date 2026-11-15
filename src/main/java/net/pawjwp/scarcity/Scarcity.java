@@ -18,6 +18,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.pawjwp.scarcity.attribute.ScarcityAttributes;
 import net.pawjwp.scarcity.compat.Mods;
 import net.pawjwp.scarcity.compat.coldsweat.ColdSweatCompat;
+import net.pawjwp.scarcity.compat.coldsweat.InsulatingArmor;
 import net.pawjwp.scarcity.compat.curios.CamelPackRenderer;
 import net.pawjwp.scarcity.compat.curios.CuriosCompat;
 import net.pawjwp.scarcity.compat.curios.InsulationItems;
@@ -78,6 +79,9 @@ public class Scarcity
         if (Mods.CURIOS && Mods.COLD_SWEAT) {
             ColdSweatCompat.register();
         }
+        if (Mods.COLD_SWEAT) {
+            InsulatingArmor.register(modEventBus);
+        }
 
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
@@ -128,6 +132,16 @@ public class Scarcity
             if (Mods.CURIOS && Mods.COLD_SWEAT) {
                 event.accept(InsulationItems.LEATHER_INSULATION.get());
                 event.accept(InsulationItems.WOOL_INSULATION.get());
+            }
+            if (Mods.COLD_SWEAT) {
+                event.accept(InsulatingArmor.DESERT_CAP.get());
+                event.accept(InsulatingArmor.DESERT_TUNIC.get());
+                event.accept(InsulatingArmor.DESERT_PANTS.get());
+                event.accept(InsulatingArmor.DESERT_SHOES.get());
+                event.accept(InsulatingArmor.SNOW_HAT.get());
+                event.accept(InsulatingArmor.SNOW_COAT.get());
+                event.accept(InsulatingArmor.SNOW_PANTS.get());
+                event.accept(InsulatingArmor.SNOW_BOOTS.get());
             }
         }
     }

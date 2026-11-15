@@ -42,6 +42,15 @@
   "item.scarcity.leather_insulation": "Leather Insulation",
   "item.scarcity.wool_insulation": "Wool Insulation",
 
+  "item.scarcity.desert_cap": "Desert Cap",
+  "item.scarcity.desert_tunic": "Desert Tunic",
+  "item.scarcity.desert_pants": "Desert Pants",
+  "item.scarcity.desert_shoes": "Desert Shoes",
+  "item.scarcity.snow_hat": "Snow Hat",
+  "item.scarcity.snow_coat": "Snow Coat",
+  "item.scarcity.snow_pants": "Snow Pants",
+  "item.scarcity.snow_boots": "Snow Boots",
+
   "item.scarcity.crook": "Crook",
   "item.scarcity.crook.description": "The Crook is a tool for harvesting leaves. It increases sapling drops and adds a chance to drop silkworms.",
   "item.scarcity.crushing_hammer": "Crushing Hammer",

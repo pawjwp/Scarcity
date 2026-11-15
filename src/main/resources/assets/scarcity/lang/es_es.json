@@ -42,6 +42,15 @@
   "item.scarcity.leather_insulation": "Aislante de cuero",
   "item.scarcity.wool_insulation": "Aislante de lana",
 
+  "item.scarcity.desert_cap": "Gorra del desierto",
+  "item.scarcity.desert_tunic": "Túnica del desierto",
+  "item.scarcity.desert_pants": "Pantalones del desierto",
+  "item.scarcity.desert_shoes": "Zapatos del desierto",
+  "item.scarcity.snow_hat": "Gorro de nieve",
+  "item.scarcity.snow_coat": "Abrigo de nieve",
+  "item.scarcity.snow_pants": "Pantalones de nieve",
+  "item.scarcity.snow_boots": "Botas de nieve",
+
   "item.scarcity.crook": "Gancho",
   "item.scarcity.crook.description": "El Gancho es una herramienta para romper hojas. Aumenta la caída de brotes y agrega una probabilidad de que caigan gusanos de seda.",
   "item.scarcity.crushing_hammer": "Martillo triturador",
