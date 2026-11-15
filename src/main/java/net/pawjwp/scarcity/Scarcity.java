@@ -1,6 +1,7 @@
 package net.pawjwp.scarcity;
 
 import com.mojang.logging.LogUtils;
+import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
@@ -9,6 +10,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.ModelEvent;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.client.model.DynamicFluidContainerModel;
@@ -23,6 +25,7 @@ import net.pawjwp.scarcity.compat.curios.CamelPackRenderer;
 import net.pawjwp.scarcity.compat.curios.CuriosCompat;
 import net.pawjwp.scarcity.compat.curios.InsulationItems;
 import net.pawjwp.scarcity.compat.curios.StillsuitRenderer;
+import net.pawjwp.scarcity.compat.thirst.CamelPackLayer;
 import net.pawjwp.scarcity.compat.thirst.CamelPackModel;
 import net.pawjwp.scarcity.compat.thirst.CamelPacks;
 import net.pawjwp.scarcity.compat.thirst.PurityTagging;
@@ -185,6 +188,18 @@ public class Scarcity
         {
             if (Mods.THIRST) {
                 event.register(new DynamicFluidContainerModel.Colors(), CamelPacks.CAMEL_PACK.get(), CamelPacks.ADVANCED_CAMEL_PACK.get());
+            }
+        }
+
+        // Draws a camel pack worn in the chestplate slot
+        @SubscribeEvent
+        public static void onAddLayers(EntityRenderersEvent.AddLayers event)
+        {
+            if (Mods.THIRST && !Mods.CURIOS) {
+                for (String skin : event.getSkins()) {
+                    PlayerRenderer renderer = event.getSkin(skin);
+                    renderer.addLayer(new CamelPackLayer(renderer));
+                }
             }
         }
     }
