@@ -16,6 +16,9 @@ import net.pawjwp.scarcity.ScarcityThirstAccess;
 import net.pawjwp.scarcity.compat.Mods;
 import net.pawjwp.scarcity.config.ScarcityConfig;
 
+import java.lang.invoke.MethodHandle;
+import java.lang.invoke.MethodHandles;
+import java.lang.invoke.MethodType;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
@@ -24,6 +27,15 @@ import java.util.stream.Collectors;
 // Uses Thirst Was Taken's WaterPurity class, which Thirst Was Reclaimed allows as a bridge to its own
 public final class ThirstCompat {
     public static final int MAX_PURITY = WaterPurity.MAX_PURITY;
+
+    // If Thirst Was Reclaimed's enablePurity config is enabled (always true for Thirst Was Taken)
+    public static boolean isPurityEnabled() {
+        try {
+            return PurityEnabledCheck.IS_ENABLED == null || (boolean) PurityEnabledCheck.IS_ENABLED.invokeExact();
+        } catch (Throwable e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     // Gets the purity of a water container item
     public static int getPurity(ItemStack item) {
@@ -190,6 +202,19 @@ public final class ThirstCompat {
                 }
             }
             throw new IllegalStateException("Thirst's player thirst capability was not found");
+        }
+    }
+
+    // Check if purity is enabled
+    private static class PurityEnabledCheck {
+        static final MethodHandle IS_ENABLED = find();
+
+        private static MethodHandle find() {
+            try {
+                return MethodHandles.publicLookup().findStatic(Class.forName("cn.mlus.thirst.content.purity.WaterPurity"), "isEnabled", MethodType.methodType(boolean.class));
+            } catch (ReflectiveOperationException e) {
+                return null;
+            }
         }
     }
 }

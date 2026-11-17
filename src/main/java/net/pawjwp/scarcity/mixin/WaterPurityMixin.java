@@ -6,6 +6,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fluids.FluidStack;
+import net.pawjwp.scarcity.compat.thirst.ThirstCompat;
 import net.pawjwp.scarcity.config.ScarcityConfig;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Pseudo;
@@ -36,7 +37,7 @@ public class WaterPurityMixin {
     // Uses thirst_untagged_water_purity for items without a purity tag instead of Thirst's default
     @ModifyReturnValue(method = "getPurity(Lnet/minecraft/world/item/ItemStack;)I", at = @At("RETURN"), require = 0)
     private static int scarcity$untaggedItemPurity(int purity, @Local(argsOnly = true) ItemStack item) {
-        if (ScarcityConfig.thirstUntaggedWaterPurity < 0 || item.hasTag() && item.getTag().contains("Purity")
+        if (ScarcityConfig.thirstUntaggedWaterPurity < 0 || !ThirstCompat.isPurityEnabled() || item.hasTag() && item.getTag().contains("Purity")
                 || "toughasnails".equals(item.getItem().getCreatorModId(item))) {
             return purity;
         }
@@ -46,7 +47,7 @@ public class WaterPurityMixin {
     // Uses thirst_untagged_water_purity for fluids without a purity tag instead of Thirst's own default
     @ModifyReturnValue(method = "getPurity(Lnet/minecraftforge/fluids/FluidStack;)I", at = @At("RETURN"), require = 0)
     private static int scarcity$untaggedFluidPurity(int purity, @Local(argsOnly = true) FluidStack fluid) {
-        if (ScarcityConfig.thirstUntaggedWaterPurity < 0 || fluid.hasTag() && fluid.getTag().contains("Purity")) {
+        if (ScarcityConfig.thirstUntaggedWaterPurity < 0 || !ThirstCompat.isPurityEnabled() || fluid.hasTag() && fluid.getTag().contains("Purity")) {
             return purity;
         }
         return ScarcityConfig.thirstUntaggedWaterPurity;

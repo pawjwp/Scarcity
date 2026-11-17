@@ -334,8 +334,8 @@ public class CamelPackItem extends Item {
                 text.add(Component.translatable("item.scarcity.camel_pack.empty"));
             } else {
                 text.add(Component.translatable("item.scarcity.camel_pack.fluid", fluid.getDisplayName()));
-                // show water purity tooltip matching Thirst's purity text and style
-                if (fluid.getFluid().isSame(Fluids.WATER)) {
+                // show water purity tooltip matching Thirst's purity text and style, unless Thirst has purity disabled
+                if (fluid.getFluid().isSame(Fluids.WATER) && ThirstCompat.isPurityEnabled()) {
                     text.add(ThirstCompat.getPurityText(ThirstCompat.getPurity(fluid)));
                 }
                 text.add(Component.translatable("item.scarcity.camel_pack.amount", fluid.getAmount(), config.capacity().getAsInt()));
