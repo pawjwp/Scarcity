@@ -49,7 +49,7 @@ public class CamelPackItem extends Item {
 
     // The fluid stored in a camel pack, which is empty for a pack with no tank
     public static FluidStack getFluid(ItemStack stack) {
-        return FluidUtil.getFluidContained(stack).orElse(FluidStack.EMPTY);
+        return FluidStack.loadFluidStackFromNBT(stack.getTagElement(FluidHandlerItemStack.FLUID_NBT_KEY));
     }
 
     public CamelPackTier getConfig() {

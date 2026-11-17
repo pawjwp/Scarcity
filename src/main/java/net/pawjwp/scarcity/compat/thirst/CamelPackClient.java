@@ -16,11 +16,13 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.client.event.ContainerScreenEvent;
 import net.minecraftforge.client.event.ScreenEvent;
 import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidUtil;
 
 import java.util.Map;
 import java.util.WeakHashMap;
@@ -116,6 +118,10 @@ public final class CamelPackClient {
     // What direction the camel pack fluid change will be (+1 for gaining fluid, -1 for losing fluid, 0 if nothing)
     private static int fluidChange(ItemStack camelPack, ItemStack fluidContainer) {
         if (!(camelPack.getItem() instanceof CamelPackItem)) {
+            return 0;
+        }
+        // Skips items that can't hold fluid
+        if (!fluidContainer.is(Items.GLASS_BOTTLE) && !fluidContainer.is(Items.POTION) && !FluidUtil.getFluidHandler(fluidContainer).isPresent()) {
             return 0;
         }
         if (CamelPackItem.fill(camelPack.copy(), fluidContainer) != null) {
