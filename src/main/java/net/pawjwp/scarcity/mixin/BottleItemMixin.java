@@ -59,7 +59,8 @@ public abstract class BottleItemMixin extends Item {
             BlockHitResult hitResult,
             BlockPos blockPos
     ) {
-        if (!ScarcityConfig.enableBottlePickupAdjustments) {
+        // If config is disabled or the player is in creative mode, work like vanilla
+        if (!ScarcityConfig.enableBottlePickupAdjustments || player.getAbilities().instabuild) {
             return;
         }
 
@@ -99,9 +100,7 @@ public abstract class BottleItemMixin extends Item {
         // Fills all four bottles at once
         player.awardStat(Stats.ITEM_USED.get(this), bottlesPerBucket);
         ItemStack currentStack = itemstack;
-        if (!player.getAbilities().instabuild) {
-            currentStack.shrink(bottlesPerBucket);
-        }
+        currentStack.shrink(bottlesPerBucket);
         if (currentStack.isEmpty()) {
             currentStack = waterBottles.split(waterBottles.getMaxStackSize());
         }
