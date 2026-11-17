@@ -11,6 +11,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodData;
 import net.pawjwp.scarcity.RegenHealAmount;
 import net.pawjwp.scarcity.attribute.ScarcityAttributes;
+import net.pawjwp.scarcity.compat.Mods;
 import net.pawjwp.scarcity.config.ScarcityConfig;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -74,10 +75,16 @@ public abstract class FoodDataMixin {
                                     @Share("exhaustionBeforeHeal") LocalFloatRef exhaustionBeforeHeal) {
         float health = player.getHealth();
         exhaustionBeforeHeal.set(this.exhaustionLevel);
-        RegenHealAmount.player = player;
-        RegenHealAmount.amount = amount;
-        original.call(player, amount);
-        RegenHealAmount.player = null;
+        // Ensure healing value applies when Thirst is installed because replaces it with its own amount
+        if (Mods.THIRST) {
+            RegenHealAmount.player = player;
+            RegenHealAmount.amount = amount;
+        }
+        try {
+            original.call(player, amount);
+        } finally {
+            RegenHealAmount.player = null;
+        }
         healed.set(player.getHealth() > health);
     }
 

@@ -91,7 +91,7 @@ public class Scarcity
 
         ScarcityNetwork.register();
         MinecraftForge.EVENT_BUS.addListener(SunlightSensitivity::onStartTracking);
-        // Highest priority so other mods' use Scarcity's healing numbers
+        // Highest priority so other mods' heal listeners use Scarcity's regen numbers
         MinecraftForge.EVENT_BUS.addListener(EventPriority.HIGHEST, RegenHealAmount::onHeal);
 
         // Register the item to a creative tab

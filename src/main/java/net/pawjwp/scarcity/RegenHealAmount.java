@@ -12,6 +12,8 @@ public class RegenHealAmount {
 
     public static void onHeal(LivingHealEvent event) {
         if (event.getEntity() == player) {
+            // Reset after the first heal to avoid interfering with other mods
+            player = null;
             event.setAmount(amount);
         }
     }
