@@ -29,7 +29,7 @@ public final class SunlightSensitivity {
         return ((ScarcitySunlightAccess) mob).scarcity$getSunlightState();
     }
 
-    // Sets the mob's sunlight sensitivity state, and sends to state to the client
+    // Sets the mob's sunlight sensitivity state, and sends that state to the client
     public static void setState(Mob mob, State state) {
         ((ScarcitySunlightAccess) mob).scarcity$setSunlightState(state);
         if (!mob.level().isClientSide && mob.isAddedToWorld()) {

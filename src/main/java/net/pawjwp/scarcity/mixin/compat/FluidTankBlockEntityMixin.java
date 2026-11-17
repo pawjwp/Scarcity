@@ -46,7 +46,7 @@ public class FluidTankBlockEntityMixin {
                 .orElse(false);
     }
 
-    // Accepts a fluid container in the drain input slot only when the container is able to accept hold the tank's fluid, including NBT
+    // Accepts a fluid container in the drain input slot only when the container is able to hold the tank's fluid, including NBT
     @ModifyExpressionValue(method = "acceptItemDrain", at = @At(value = "INVOKE", target = "Ljava/util/Optional;isPresent()Z"), require = 0)
     private boolean scarcity$acceptFillableContainers(boolean hasFluidHandler, @Local(argsOnly = true) ItemStack item) {
         if (!ScarcityConfig.enableEnderIOPatches) {

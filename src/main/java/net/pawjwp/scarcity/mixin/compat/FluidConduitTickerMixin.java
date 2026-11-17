@@ -43,7 +43,7 @@ public abstract class FluidConduitTickerMixin extends CapabilityAwareConduitTick
         throw new AssertionError();
     }
 
-    // Replaces EnderIO's extract loop so each transfer uses a copy of the extracting tank's fluid stack and preseves NBT.
+    // Replaces EnderIO's extract loop so each transfer uses a copy of the extracting tank's fluid stack and preserves NBT.
     @Inject(method = "tickCapabilityGraph", at = @At("HEAD"), cancellable = true, require = 0)
     private void scarcity$transferFluidWithNBT(ServerLevel level, ConduitType<FluidConduitData> type, List<CapabilityConnection> inserts,
                                                List<CapabilityConnection> extracts, ConduitGraph<FluidConduitData> graph,

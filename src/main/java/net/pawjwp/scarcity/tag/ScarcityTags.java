@@ -10,7 +10,7 @@ public class ScarcityTags {
     // Item tags
     public static final TagKey<Item> SEEDS =
             ItemTags.create(ResourceLocation.fromNamespaceAndPath("forge", "seeds"));
-    // Water containers shown as purifiable by a water water filter in the crafting grid
+    // Water containers shown as purifiable by a water filter in the crafting grid
     public static final TagKey<Item> WATER_FILTER_PURIFIABLE =
             ItemTags.create(ResourceLocation.fromNamespaceAndPath("scarcity", "water_filter_purifiable"));
     // Water containers given a purity tag when they enter a player's inventory
